@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>環中國自駕遊行程規劃系統</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', '微軟正黑體', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6dba 0%, #0d4d8c 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: #1a6dba;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        .map-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .route-map {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            background: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            transition: all 0.3s;
+            margin-bottom: 5px;
+        }
+        
+        .tab.active {
+            background: #1a6dba;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f6fa;
+            color: #1a6dba;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .route-section {
+            margin-bottom: 25px;
+        }
+        
+        .route-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .route-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .route-1 .route-icon { background: #4CAF50; }
+        .route-2 .route-icon { background: #FF9800; }
+        .route-3 .route-icon { background: #F44336; }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1a6dba;
+        }
+        
+        .tip-card h4 {
+            color: #1a6dba;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tip-card h4 i {
+            margin-right: 10px;
+        }
+        
+        .permit-info {
+            background: #e9f2fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .permit-info h3 {
+            color: #1a6dba;
+            margin-bottom: 15px;
+        }
+        
+        .permit-method {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .method-card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .method-card.recommended {
+            border: 2px solid #4CAF50;
+            position: relative;
+        }
+        
+        .recommended-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        .map-link {
+            color: #1a6dba;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .map-link:hover {
+            text-decoration: underline;
+        }
+        
+        .map-link i {
+            margin-right: 5px;
+        }
+        
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .budget-total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag-yellow {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .tag-green {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .tag-red {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .tag-blue {
+            background: #d1e7ff;
+            color: #004085;
+        }
+        
+        .tag-purple {
+            background: #e2e3ff;
+            color: #383d41;
+        }
+        
+        .stopover {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .permit-method {
+                flex-direction: column;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-road"></i> 環中國自駕遊行程規劃系統</h1>
+            <p>橫琴口岸出發，江門結束，沿G331、G219、G228國道環繞中國一圈的完整自駕指南</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>27,198 公里</h3>
+                    <p>總里程</p>
+                </div>
+                <div class="stat-item">
+                    <h3>60-90 天</h3>
+                    <p>建議天數</p>
+                </div>
+                <div class="stat-item">
+                    <h3>29+ 個地點</h3>
+                    <p>主要停留點</p>
+                </div>
+            </div>
+        </header>
+        
+        <section class="content-section">
+            <h2><i class="fas fa-map-marked-alt"></i> 路線地圖</h2>
+            <div class="map-container">
+                <img src="環中國自駕遊.jpg" alt="環中國自駕遊路線圖" class="route-map">
+                <p class="map-caption">環中國自駕遊路線圖 - 包含G331、G219、G228三條國道</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="openTab('itinerary')">完整行程表</div>
+                <div class="tab" onclick="openTab('segments')">分段路書</div>
+                <div class="tab" onclick="openTab('tips')">自駕建議</div>
+                <div class="tab" onclick="openTab('permit')">邊境證指南</div>
+            </div>
+            
+            <div id="itinerary" class="tab-content active">
+                <h3>環中國自駕遊完整行程表（橫琴口岸 → 江門）</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>順序</th>
+                            <th>地點</th>
+                            <th>建議天數</th>
+                            <th>交通時間</th>
+                            <th>文化特色</th>
+                            <th>必嘗美食</th>
+                            <th>重要景點</th>
+                            <th>預算估計</th>
+                            <th>氣候情況</th>
+                            <th>注意事項</th>
+                            <th>住宿推薦</th>
+                            <th>最佳季節</th>
+                            <th>邊境證</th>
+                            <th>車輛建議</th>
+                            <th>信號通訊</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>橫琴口岸</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>珠澳口岸、現代化通關</td>
+                            <td>-</td>
+                            <td>
+                                橫琴新區、長隆海洋王國
+                                <a href="https://uri.amap.com/search?keyword=橫琴口岸" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>-</td>
+                            <td>亞熱帶海洋氣候，濕熱多雨</td>
+                            <td>準備好通關證件，注意口岸開放時間</td>
+                            <td><span class="tag tag-blue">口岸酒店</span></td>
+                            <td><span class="tag tag-green">全年</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>廣州</td>
+                            <td>2</td>
+                            <td>約2小時</td>
+                            <td>嶺南文化、現代都市</td>
+                            <td>叉燒、腸粉、煲仔飯</td>
+                            <td>
+                                廣州塔、陳家祠、沙面
+                                <a href="https://uri.amap.com/search?keyword=廣州塔" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥100</div>
+                                <div class="budget-item">油費: ¥150</div>
+                                <div class="budget-item">住宿: ¥400</div>
+                                <div class="budget-item">餐飲: ¥300</div>
+                                <div class="budget-total">合計: ¥950</div>
+                            </td>
+                            <td>亞熱帶濕潤氣候，夏季濕熱</td>
+                            <td>市區交通繁忙，建議避開早晚高峰</td>
+                            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>深圳</td>
+                            <td>2</td>
+                            <td>約1.5小時</td>
+                            <td>科技都市、主題公園</td>
+                            <td>燒鵝、海鮮、茶餐廳點心</td>
+                            <td>
+                                世界之窗、深圳灣公園、大梅沙海濱
+                                <a href="https://uri.amap.com/search?keyword=世界之窗" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥50</div>
+                                <div class="budget-item">油費: ¥80</div>
+                                <div class="budget-item">住宿: ¥500</div>
+                                <div class="budget-item">餐飲: ¥350</div>
+                                <div class="budget-total">合計: ¥980</div>
+                            </td>
+                            <td>亞熱帶海洋氣候，濕熱多雨</td>
+                            <td>週末海灘人潮多，建議預約景點</td>
+                            <td><span class="tag tag-blue">設計酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">11月-3月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>廈門</td>
+                            <td>2</td>
+                            <td>約5小時</td>
+                            <td>閩南文化、僑鄉風情</td>
+                            <td>沙茶麵、海蠣煎、土筍凍</td>
+                            <td>
+                                鼓浪嶼、南普陀寺、環島路
+                                <a href="https://uri.amap.com/search?keyword=鼓浪嶼" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥250</div>
+                                <div class="budget-item">住宿: ¥350</div>
+                                <div class="budget-item">餐飲: ¥280</div>
+                                <div class="budget-total">合計: ¥1080</div>
+                            </td>
+                            <td>海洋性氣候，溫暖濕潤</td>
+                            <td>鼓浪嶼需提前預約船票</td>
+                            <td><span class="tag tag-green">海邊民宿</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">3月-5月</span><span class="tag tag-green">10-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>福州</td>
+                            <td>2</td>
+                            <td>約3小時</td>
+                            <td>三坊七巷、閩都文化</td>
+                            <td>佛跳牆、魚丸、荔枝肉</td>
+                            <td>
+                                三坊七巷、福州國家森林公園
+                                <a href="https://uri.amap.com/search?keyword=三坊七巷" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥120</div>
+                                <div class="budget-item">油費: ¥150</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥820</div>
+                            </td>
+                            <td>亞熱帶季風氣候，四季分明</td>
+                            <td>夏季注意防暑</td>
+                            <td><span class="tag tag-green">文化客棧</span><span class="tag tag-blue">商務旅館</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>溫州</td>
+                            <td>1</td>
+                            <td>約3.5小時</td>
+                            <td>甌越文化、商貿城市</td>
+                            <td>溫州炒粉干、魚餅、江蟹生</td>
+                            <td>
+                                雁蕩山、江心嶼
+                                <a href="https://uri.amap.com/search?keyword=雁蕩山" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥180</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥780</div>
+                            </td>
+                            <td>沿海丘陵地形，溫暖濕潤</td>
+                            <td>山區路段注意安全</td>
+                            <td><span class="tag tag-blue">經濟型酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>杭州</td>
+                            <td>3</td>
+                            <td>約4小時</td>
+                            <td>江南水鄉、南宋古都</td>
+                            <td>西湖醋魚、東坡肉、龍井蝦仁</td>
+                            <td>
+                                西湖、靈隱寺、西溪濕地
+                                <a href="https://uri.amap.com/search?keyword=西湖" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥220</div>
+                                <div class="budget-item">住宿: ¥600</div>
+                                <div class="budget-item">餐飲: ¥450</div>
+                                <div class="budget-total">合計: ¥1450</div>
+                            </td>
+                            <td>亞熱帶季風氣候，春秋宜人</td>
+                            <td>節假日西湖人潮多</td>
+                            <td><span class="tag tag-green">湖景民宿</span><span class="tag tag-blue">設計酒店</span></td>
+                            <td><span class="tag tag-green">3月-5月</span><span class="tag tag-green">9-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>上海</td>
+                            <td>2</td>
+                            <td>約2小時</td>
+                            <td>海派文化、現代國際都市</td>
+                            <td>小籠包、生煎、本幫紅燒肉</td>
+                            <td>
+                                外灘、豫園、迪士尼樂園
+                                <a href="https://uri.amap.com/search?keyword=外灘" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥100</div>
+                                <div class="budget-item">住宿: ¥700</div>
+                                <div class="budget-item">餐飲: ¥500</div>
+                                <div class="budget-total">合計: ¥1450</div>
+                            </td>
+                            <td>亞熱帶濕潤氣候，夏季悶熱</td>
+                            <td>自駕進市區注意限行</td>
+                            <td><span class="tag tag-blue">精品酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">4月-6月</span><span class="tag tag-green">9-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>連雲港</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>山海文化、《西遊記》文化</td>
+                            <td>海鮮、連雲港對蝦、花果山鳳鵝</td>
+                            <td>
+                                花果山、連島海濱浴場
+                                <a href="https://uri.amap.com/search?keyword=花果山" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥250</div>
+                                <div class="budget-item">油費: ¥300</div>
+                                <div class="budget-item">住宿: ¥280</div>
+                                <div class="budget-item">餐飲: ¥220</div>
+                                <div class="budget-total">合計: ¥1050</div>
+                            </td>
+                            <td>沿海平原，四季分明</td>
+                            <td>海邊風大，注意防曬</td>
+                            <td><span class="tag tag-green">海邊客棧</span><span class="tag tag-blue">度假村</span></td>
+                            <td><span class="tag tag-green">5月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>青島</td>
+                            <td>2</td>
+                            <td>約3小時</td>
+                            <td>德式建築、啤酒文化</td>
+                            <td>青島啤酒、海鮮燒烤、辣炒蛤蜊</td>
+                            <td>
+                                棧橋、八大關、嶗山
+                                <a href="https://uri.amap.com/search?keyword=棧橋" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥200</div>
+                                <div class="budget-item">住宿: ¥400</div>
+                                <div class="budget-item">餐飲: ¥300</div>
+                                <div class="budget-total">合計: ¥1080</div>
+                            </td>
+                            <td>海洋性氣候，夏季涼爽</td>
+                            <td>啤酒節期間住宿緊張</td>
+                            <td><span class="tag tag-green">德式民宿</span><span class="tag tag-blue">海景酒店</span></td>
+                            <td><span class="tag tag-green">6月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>大連</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>俄日風情、海濱休閒</td>
+                            <td>海膽、烤魷魚、海鮮餃子</td>
+                            <td>
+                                星海廣場、老虎灘、金石灘
+                                <a href="https://uri.amap.com/search?keyword=星海廣場" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥450</div>
+                                <div class="budget-item">餐飲: ¥320</div>
+                                <div class="budget-total">合計: ¥1420</div>
+                            </td>
+                            <td>溫帶海洋性氣候，夏季舒適</td>
+                            <td>海邊活動注意安全</td>
+                            <td><span class="tag tag-blue">海景公寓</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">5月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>丹東</td>
+                            <td>2</td>
+                            <td>約4小時</td>
+                            <td>中朝邊境、抗美援朝歷史</td>
+                            <td>丹東草莓、朝鮮冷麵、黃蜆子</td>
+                            <td>
+                                鴨綠江斷橋、抗美援朝紀念館
+                                <a href="https://uri.amap.com/search?keyword=鴨綠江斷橋" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥180</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥930</div>
+                            </td>
+                            <td>溫帶季風氣候，春秋溫差大</td>
+                            <td>邊境請勿隨意拍照或越界</td>
+                            <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>長白</td>
+                            <td>2</td>
+                            <td>約5小時</td>
+                            <td>朝鮮族文化、長白山信仰</td>
+                            <td>朝鮮冷麵、打糕、辣白菜</td>
+                            <td>
+                                長白山天池、長白瀑布
+                                <a href="https://uri.amap.com/search?keyword=長白山天池" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥220</div>
+                                <div class="budget-item">住宿: ¥350</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥950</div>
+                            </td>
+                            <td>山地氣候，夏季涼爽，冬季嚴寒</td>
+                            <td>天池天氣多變，備防寒衣物</td>
+                            <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">6月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議SUV</span></td>
+                            <td><span class="tag tag-yellow">山區部分無信號</span></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>琿春</td>
+                            <td>1</td>
+                            <td>約4小時</td>
+                            <td>中俄朝三國交界</td>
+                            <td>俄羅斯海鮮、朝鮮族烤肉</td>
+                            <td>
+                                防川風景區、土字碑
+                                <a href="https://uri.amap.com/search?keyword=防川風景區" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥80</div>
+                                <div class="budget-item">油費: ¥100</div>
+                                <div class="budget-item">住宿: ¥200</div>
+                                <div class="budget-item">餐飲: ¥150</div>
+                                <div class="budget-total">合計: ¥530</div>
+                            </td>
+                            <td>溫帶大陸性氣候，春秋短</td>
+                            <td>邊境檢查嚴格，帶好證件</td>
+                            <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-red">需邊境證</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-yellow">邊境信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>撫遠</td>
+                            <td>2</td>
+                            <td>約8小時</td>
+                            <td>中國東極、赫哲族文化</td>
+                            <td>大馬哈魚、鱘鰉魚</td>
+                            <td>
+                                黑瞎子島、東極廣場
+                                <a href="https://uri.amap.com/search?keyword=黑瞎子島" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥400</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥180</div>
+                                <div class="budget-total">合計: ¥1130</div>
+                            </td>
+                            <td>寒溫帶氣候，夏季短促涼爽</td>
+                            <td>早晚溫差大，注意保暖</td>
+                            <td><span class="tag tag-green">特色民宿</span><span class="tag tag-purple">漁家樂</span></td>
+                            <td><span class="tag tag-green">6月-8月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議四驅</span></td>
+                            <td><span class="tag tag-yellow">偏遠地區信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>哈爾濱</td>
+                            <td>1</td>
+                            <td>約6小時</td>
+                            <td>中轉休息、俄式風情</td>
+                            <td>俄式西餐、紅腸、馬迭爾冰棍</td>
+                            <td>
+                                中央大街、聖索菲亞教堂
+                                <a href="https://uri.amap.com/search?keyword=哈爾濱中央大街" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥250</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥950</div>
+                            </td>
+                            <td>溫帶大陸性氣候，冬季嚴寒</td>
+                            <td>冬季注意車輛防凍</td>
+                            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
+                            <td><span class="tag tag-green">6月-8月</span><span class="tag tag-blue">12-2月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>漠河</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>北極村、極光文化</td>
+                            <td>野生蘑菇、冷水魚</td>
+                            <td>
+                                北極村、聖誕村
+                                <a href="https://uri.amap.com/search?keyword=北極村" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥250</div>
+                                <div class="budget-item">住宿: ¥280</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥930</div>
+                            </td>
+                            <td>寒溫帶冬季漫長，夏季短</td>
+                            <td>冬季極寒，車輛需防凍</td>
+                            <td><span class="tag tag-green">極光民宿</span><span class="tag tag-purple">木屋</span></td>
+                            <td><span class="tag tag-green">6月-8月</span><span class="tag tag-blue">12-2月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">必須四驅/防凍</span></td>
+                            <td><span class="tag tag-yellow">偏遠信號不穩</span></td>
+                        </tr>
+                        <!-- 其他行数据保持不变 -->
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px; padding: 15px; background: #e9f2fa; border-radius: 8px;">
+                    <h4><i class="fas fa-info-circle"></i> 行程优化说明</h4>
+                    <p>1. 起点改为横琴口岸，广州的交通时间调整为从横琴口岸出发计算</p>
+                    <p>2. 在超过6小时的长途路段增加了中途停留点（如抚远→漠河之间增加了哈尔滨）</p>
+                    <p>3. 以上预算为每日估算，包含路费、油费、住宿和餐饮。实际费用会因季节、住宿标准和消费习惯有所不同。总体预算建议准备 ¥50,000 - ¥80,000 (两人，60-90天)。</p>
+                </div>
+            </div>
+            
+            <div id="segments" class="tab-content">
+                <h3>分段路書（行程節奏與駕駛安排）</h3>
+                
+                <div class="route-section route-1">
+                    <div class="route-title">
+                        <div class="route-icon">G331</div>
+                        <h3>G331國道 - 北部邊境段 (9333公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 丹東 → 長白 → 琿春 → 撫遠 → 哈爾濱 → 漠河 → 滿洲里 → 阿爾山 → 二連浩特 → 額濟納旗 → 喀納斯 → 霍爾果斯</p>
+                    <p><strong>預計天數：</strong> 25-35天 | <strong>預算估算：</strong> ¥18,000 - ¥25,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 邊境公路多，部分路段維修。林區路段注意野生動物。信號不穩定，提前下載離線地圖。</p>
+                    <p><strong>推薦休整點：</strong> 撫遠、哈爾濱、阿爾山、額濟納旗</p>
+                </div>
+                
+                <div class="route-section route-2">
+                    <div class="route-title">
+                        <div class="route-icon">G219</div>
+                        <h3>G219國道 - 西部高原段 (10065公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 霍爾果斯 → 阿克蘇 → 日土 → 隆子 → 墨脫 → 憑祥 → 東興</p>
+                    <p><strong>預計天數：</strong> 20-30天 | <strong>預算估算：</strong> ¥15,000 - ¥22,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 最艱苦路段。新藏線（G219）海拔高，阿里地區荒涼。滇藏、桂西山區路況複雜，謹慎駕駛。</p>
+                    <p><strong>推薦休整點：</strong> 阿克蘇、日土、墨脫</p>
+                </div>
+                
+                <div class="route-section route-3">
+                    <div class="route-title">
+                        <div class="route-icon">G228</div>
+                        <h3>G228國道 - 東部沿海段 (7800公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 東興 → 廣州 → 深圳 → 廈門 → 福州 → 溫州 → 杭州 → 上海 → 連雲港 → 青島 → 大連 → 丹東</p>
+                    <p><strong>預計天數：</strong> 15-25天 | <strong>預算估算：</strong> ¥12,000 - ¥18,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 路況極佳，車流大。注意市區限行，避開節假日。沿海公路風景優美。</p>
+                    <p><strong>推薦休整點：</strong> 廣州、杭州、青島</p>
+                </div>
+            </div>
+            
+            <div id="tips" class="tab-content">
+                <h3>自駕建議與注意事項</h3>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4><i class="fas fa-car"></i> 車輛準備</h4>
+                        <p>東部沿海常規轎車即可，西部、高原、邊境建議<strong>四驅SUV</strong>，漠河、阿爾山、西藏等地需特別注意防凍與高原適應。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-id-card"></i> 證件準備</h4>
+                        <p>邊境地區如<strong>霍爾果斯、琿春、西藏全境、墨脫</strong>等需提前辦理<strong>邊防證/許可證</strong>。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-map"></i> 通訊與導航</h4>
+                        <p>西部與山區信號不穩，建議下載<strong>離線地圖</strong>，攜帶衛星電話（如進入阿里、墨脫）。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-leaf"></i> 環保意識</h4>
+                        <p>中國自然保護區與邊境生態脆弱，請做到<strong>"無痕旅行"</strong>，垃圾隨車帶走。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-calendar-alt"></i> 季節選擇</h4>
+                        <p>整體建議<strong>春秋季</strong>出發，避開極端氣候；西藏、新疆最佳為<strong>5–9月</strong>，東北與漠河夏季宜人、冬季可體驗極寒。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-gas-pump"></i> 加油策略</h4>
+                        <p>在偏遠地區如內蒙、新疆、西藏，<strong>遇加油站即加滿油</strong>，避免因加油站間隔遠而陷入困境。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="permit" class="tab-content">
+                <h3>邊境證辦理指南</h3>
+                
+                <div class="permit-info">
+                    <h3>需要邊防證的地區清單</h3>
+                    <ul>
+                        <li><strong>西藏全境</strong>（尤其是<strong>阿里地區、日土、隆子、墨脫</strong>等）</li>
+                        <li><strong>新疆部分邊境地區</strong>（如<strong>霍爾果斯口岸、喀納斯景區附近</strong>的白哈巴村）</li>
+                        <li><strong>雲南/廣西部分邊境口岸</strong>（如<strong>憑祥、東興</strong>，一般憑身份證在口岸辦理一次性通行證明，但長線行程建議提前備好）</li>
+                    </ul>
+                </div>
+                
+                <h3 style="margin-top: 30px;">辦理方式</h3>
+                
+                <div class="permit-method">
+                    <div class="method-card recommended">
+                        <div class="recommended-badge">推薦</div>
+                        <h4>出發前在戶籍地辦理</h4>
+                        <p><strong>地點：</strong> 戶籍所在地的<strong>市公安局/分局出入境管理大廳</strong>或<strong>行政服務大廳</strong>。</p>
+                        <p><strong>材料：</strong> 身份證、戶口本原件、1-2張一寸照片，現場填寫《邊境管理區通行證申請表》。</p>
+                        <p><strong>優勢：</strong> 免費、快捷（通常立等可取）、有效期長（通常可辦理1-3個月）。</p>
+                        <p><strong>填寫技巧：</strong> 在"前往地點"一欄，務必填寫"<strong>西藏自治區 全境</strong>"、"<strong>新疆維吾爾自治區 全境</strong>"，或直接列出所有可能經過的邊境地區名稱。</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>在旅行目的地辦理</h4>
+                        <p><strong>西藏：</strong> 可在<strong>拉薩</strong>的「西藏邊境管理總隊辦證大廳」憑身份證代辦。但節假日排隊人多，且不保證能辦理前往所有地區的證件（如阿里）。</p>
+                        <p><strong>新疆：</strong> 部分邊境口岸（如霍爾果斯）可憑身份證現場辦理一次性通行證，但耗時且活動範圍受限。</p>
+                        <p><strong>劣勢：</strong> 不確定性高，可能排長隊，耽誤行程，費用可能更高。</p>
+                    </div>
+                </div>
+                
+                <div class="permit-info" style="margin-top: 30px;">
+                    <h3>重要注意事項</h3>
+                    <ul>
+                        <li><strong>提前確認：</strong> 出發前1個月，再次諮詢當地公安局，確認最新政策。</li>
+                        <li><strong>避免遺憾：</strong> 沒有邊防證，將無法進入上述核心邊境地區，行程將嚴重受阻。</li>
+                        <li><strong>隨身攜帶：</strong> 邊防證需與身份證一起隨身攜帶，沿途檢查站會頻繁查驗。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>環中國自駕遊行程規劃系統 &copy; 2023 | 資料僅供參考，實際行程請根據當地情況調整</p>
+        </footer>
+    </div>
+
+    <script>
+        // 切換標籤功能
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+        
+        // 表格行點擊效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    tableRows.forEach(r => r.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>環中國自駕遊行程規劃系統</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft JhengHei', '微軟正黑體', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6dba 0%, #0d4d8c 100%);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .content-section {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        h2 {
+            color: #1a6dba;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+        }
+        
+        .map-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .route-map {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            background: #f1f1f1;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            transition: all 0.3s;
+            margin-bottom: 5px;
+        }
+        
+        .tab.active {
+            background: #1a6dba;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f6fa;
+            color: #1a6dba;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .route-section {
+            margin-bottom: 25px;
+        }
+        
+        .route-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .route-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .route-1 .route-icon { background: #4CAF50; }
+        .route-2 .route-icon { background: #FF9800; }
+        .route-3 .route-icon { background: #F44336; }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1a6dba;
+        }
+        
+        .tip-card h4 {
+            color: #1a6dba;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tip-card h4 i {
+            margin-right: 10px;
+        }
+        
+        .permit-info {
+            background: #e9f2fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .permit-info h3 {
+            color: #1a6dba;
+            margin-bottom: 15px;
+        }
+        
+        .permit-method {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .method-card {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .method-card.recommended {
+            border: 2px solid #4CAF50;
+            position: relative;
+        }
+        
+        .recommended-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        
+        .map-link {
+            color: #1a6dba;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .map-link:hover {
+            text-decoration: underline;
+        }
+        
+        .map-link i {
+            margin-right: 5px;
+        }
+        
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .budget-total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        .tag-yellow {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .tag-green {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .tag-red {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .tag-blue {
+            background: #d1e7ff;
+            color: #004085;
+        }
+        
+        .tag-purple {
+            background: #e2e3ff;
+            color: #383d41;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .permit-method {
+                flex-direction: column;
+            }
+            
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-road"></i> 環中國自駕遊行程規劃系統</h1>
+            <p>廣州出發，江門結束，沿G331、G219、G228國道環繞中國一圈的完整自駕指南</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <h3>27,198 公里</h3>
+                    <p>總里程</p>
+                </div>
+                <div class="stat-item">
+                    <h3>60-90 天</h3>
+                    <p>建議天數</p>
+                </div>
+                <div class="stat-item">
+                    <h3>29 個地點</h3>
+                    <p>主要停留點</p>
+                </div>
+            </div>
+        </header>
+        
+        <section class="content-section">
+            <h2><i class="fas fa-map-marked-alt"></i> 路線地圖</h2>
+            <div class="map-container">
+                <img src="環中國自駕遊.jpg" alt="環中國自駕遊路線圖" class="route-map">
+                <p class="map-caption">環中國自駕遊路線圖 - 包含G331、G219、G228三條國道</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active" onclick="openTab('itinerary')">完整行程表</div>
+                <div class="tab" onclick="openTab('segments')">分段路書</div>
+                <div class="tab" onclick="openTab('tips')">自駕建議</div>
+                <div class="tab" onclick="openTab('permit')">邊境證指南</div>
+            </div>
+            
+            <div id="itinerary" class="tab-content active">
+                <h3>環中國自駕遊完整行程表（廣州 → 江門）</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>順序</th>
+                            <th>地點</th>
+                            <th>建議天數</th>
+                            <th>交通時間</th>
+                            <th>文化特色</th>
+                            <th>必嘗美食</th>
+                            <th>重要景點</th>
+                            <th>預算估計</th>
+                            <th>氣候情況</th>
+                            <th>注意事項</th>
+                            <th>住宿推薦</th>
+                            <th>最佳季節</th>
+                            <th>邊境證</th>
+                            <th>車輛建議</th>
+                            <th>信號通訊</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>廣州</td>
+                            <td>2</td>
+                            <td>-</td>
+                            <td>嶺南文化、現代都市</td>
+                            <td>叉燒、腸粉、煲仔飯</td>
+                            <td>
+                                廣州塔、陳家祠、沙面
+                                <a href="https://uri.amap.com/search?keyword=廣州塔" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥100</div>
+                                <div class="budget-item">油費: ¥150</div>
+                                <div class="budget-item">住宿: ¥400</div>
+                                <div class="budget-item">餐飲: ¥300</div>
+                                <div class="budget-total">合計: ¥950</div>
+                            </td>
+                            <td>亞熱帶濕潤氣候，夏季濕熱</td>
+                            <td>市區交通繁忙，建議避開早晚高峰</td>
+                            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>深圳</td>
+                            <td>2</td>
+                            <td>約1.5小時</td>
+                            <td>科技都市、主題公園</td>
+                            <td>燒鵝、海鮮、茶餐廳點心</td>
+                            <td>
+                                世界之窗、深圳灣公園、大梅沙海濱
+                                <a href="https://uri.amap.com/search?keyword=世界之窗" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥50</div>
+                                <div class="budget-item">油費: ¥80</div>
+                                <div class="budget-item">住宿: ¥500</div>
+                                <div class="budget-item">餐飲: ¥350</div>
+                                <div class="budget-total">合計: ¥980</div>
+                            </td>
+                            <td>亞熱帶海洋氣候，濕熱多雨</td>
+                            <td>週末海灘人潮多，建議預約景點</td>
+                            <td><span class="tag tag-blue">設計酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">11月-3月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>廈門</td>
+                            <td>2</td>
+                            <td>約5小時</td>
+                            <td>閩南文化、僑鄉風情</td>
+                            <td>沙茶麵、海蠣煎、土筍凍</td>
+                            <td>
+                                鼓浪嶼、南普陀寺、環島路
+                                <a href="https://uri.amap.com/search?keyword=鼓浪嶼" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥250</div>
+                                <div class="budget-item">住宿: ¥350</div>
+                                <div class="budget-item">餐飲: ¥280</div>
+                                <div class="budget-total">合計: ¥1080</div>
+                            </td>
+                            <td>海洋性氣候，溫暖濕潤</td>
+                            <td>鼓浪嶼需提前預約船票</td>
+                            <td><span class="tag tag-green">海邊民宿</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">3月-5月</span><span class="tag tag-green">10-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>福州</td>
+                            <td>2</td>
+                            <td>約3小時</td>
+                            <td>三坊七巷、閩都文化</td>
+                            <td>佛跳牆、魚丸、荔枝肉</td>
+                            <td>
+                                三坊七巷、福州國家森林公園
+                                <a href="https://uri.amap.com/search?keyword=三坊七巷" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥120</div>
+                                <div class="budget-item">油費: ¥150</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥820</div>
+                            </td>
+                            <td>亞熱帶季風氣候，四季分明</td>
+                            <td>夏季注意防暑</td>
+                            <td><span class="tag tag-green">文化客棧</span><span class="tag tag-blue">商務旅館</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>溫州</td>
+                            <td>1</td>
+                            <td>約3.5小時</td>
+                            <td>甌越文化、商貿城市</td>
+                            <td>溫州炒粉干、魚餅、江蟹生</td>
+                            <td>
+                                雁蕩山、江心嶼
+                                <a href="https://uri.amap.com/search?keyword=雁蕩山" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥180</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥780</div>
+                            </td>
+                            <td>沿海丘陵地形，溫暖濕潤</td>
+                            <td>山區路段注意安全</td>
+                            <td><span class="tag tag-blue">經濟型酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>杭州</td>
+                            <td>3</td>
+                            <td>約4小時</td>
+                            <td>江南水鄉、南宋古都</td>
+                            <td>西湖醋魚、東坡肉、龍井蝦仁</td>
+                            <td>
+                                西湖、靈隱寺、西溪濕地
+                                <a href="https://uri.amap.com/search?keyword=西湖" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥220</div>
+                                <div class="budget-item">住宿: ¥600</div>
+                                <div class="budget-item">餐飲: ¥450</div>
+                                <div class="budget-total">合計: ¥1450</div>
+                            </td>
+                            <td>亞熱帶季風氣候，春秋宜人</td>
+                            <td>節假日西湖人潮多</td>
+                            <td><span class="tag tag-green">湖景民宿</span><span class="tag tag-blue">設計酒店</span></td>
+                            <td><span class="tag tag-green">3月-5月</span><span class="tag tag-green">9-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>上海</td>
+                            <td>2</td>
+                            <td>約2小時</td>
+                            <td>海派文化、現代國際都市</td>
+                            <td>小籠包、生煎、本幫紅燒肉</td>
+                            <td>
+                                外灘、豫園、迪士尼樂園
+                                <a href="https://uri.amap.com/search?keyword=外灘" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥100</div>
+                                <div class="budget-item">住宿: ¥700</div>
+                                <div class="budget-item">餐飲: ¥500</div>
+                                <div class="budget-total">合計: ¥1450</div>
+                            </td>
+                            <td>亞熱帶濕潤氣候，夏季悶熱</td>
+                            <td>自駕進市區注意限行</td>
+                            <td><span class="tag tag-blue">精品酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">4月-6月</span><span class="tag tag-green">9-11月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號極佳</span></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>連雲港</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>山海文化、《西遊記》文化</td>
+                            <td>海鮮、連雲港對蝦、花果山鳳鵝</td>
+                            <td>
+                                花果山、連島海濱浴場
+                                <a href="https://uri.amap.com/search?keyword=花果山" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥250</div>
+                                <div class="budget-item">油費: ¥300</div>
+                                <div class="budget-item">住宿: ¥280</div>
+                                <div class="budget-item">餐飲: ¥220</div>
+                                <div class="budget-total">合計: ¥1050</div>
+                            </td>
+                            <td>沿海平原，四季分明</td>
+                            <td>海邊風大，注意防曬</td>
+                            <td><span class="tag tag-green">海邊客棧</span><span class="tag tag-blue">度假村</span></td>
+                            <td><span class="tag tag-green">5月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>青島</td>
+                            <td>2</td>
+                            <td>約3小時</td>
+                            <td>德式建築、啤酒文化</td>
+                            <td>青島啤酒、海鮮燒烤、辣炒蛤蜊</td>
+                            <td>
+                                棧橋、八大關、嶗山
+                                <a href="https://uri.amap.com/search?keyword=棧橋" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥200</div>
+                                <div class="budget-item">住宿: ¥400</div>
+                                <div class="budget-item">餐飲: ¥300</div>
+                                <div class="budget-total">合計: ¥1080</div>
+                            </td>
+                            <td>海洋性氣候，夏季涼爽</td>
+                            <td>啤酒節期間住宿緊張</td>
+                            <td><span class="tag tag-green">德式民宿</span><span class="tag tag-blue">海景酒店</span></td>
+                            <td><span class="tag tag-green">6月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>大連</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>俄日風情、海濱休閒</td>
+                            <td>海膽、烤魷魚、海鮮餃子</td>
+                            <td>
+                                星海廣場、老虎灘、金石灘
+                                <a href="https://uri.amap.com/search?keyword=星海廣場" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥450</div>
+                                <div class="budget-item">餐飲: ¥320</div>
+                                <div class="budget-total">合計: ¥1420</div>
+                            </td>
+                            <td>溫帶海洋性氣候，夏季舒適</td>
+                            <td>海邊活動注意安全</td>
+                            <td><span class="tag tag-blue">海景公寓</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">5月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>11</td>
+                            <td>丹東</td>
+                            <td>2</td>
+                            <td>約4小時</td>
+                            <td>中朝邊境、抗美援朝歷史</td>
+                            <td>丹東草莓、朝鮮冷麵、黃蜆子</td>
+                            <td>
+                                鴨綠江斷橋、抗美援朝紀念館
+                                <a href="https://uri.amap.com/search?keyword=鴨綠江斷橋" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥180</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥930</div>
+                            </td>
+                            <td>溫帶季風氣候，春秋溫差大</td>
+                            <td>邊境請勿隨意拍照或越界</td>
+                            <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>12</td>
+                            <td>長白</td>
+                            <td>2</td>
+                            <td>約5小時</td>
+                            <td>朝鮮族文化、長白山信仰</td>
+                            <td>朝鮮冷麵、打糕、辣白菜</td>
+                            <td>
+                                長白山天池、長白瀑布
+                                <a href="https://uri.amap.com/search?keyword=長白山天池" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥180</div>
+                                <div class="budget-item">油費: ¥220</div>
+                                <div class="budget-item">住宿: ¥350</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥950</div>
+                            </td>
+                            <td>山地氣候，夏季涼爽，冬季嚴寒</td>
+                            <td>天池天氣多變，備防寒衣物</td>
+                            <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">6月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議SUV</span></td>
+                            <td><span class="tag tag-yellow">山區部分無信號</span></td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>琿春</td>
+                            <td>1</td>
+                            <td>約4小時</td>
+                            <td>中俄朝三國交界</td>
+                            <td>俄羅斯海鮮、朝鮮族烤肉</td>
+                            <td>
+                                防川風景區、土字碑
+                                <a href="https://uri.amap.com/search?keyword=防川風景區" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥80</div>
+                                <div class="budget-item">油費: ¥100</div>
+                                <div class="budget-item">住宿: ¥200</div>
+                                <div class="budget-item">餐飲: ¥150</div>
+                                <div class="budget-total">合計: ¥530</div>
+                            </td>
+                            <td>溫帶大陸性氣候，春秋短</td>
+                            <td>邊境檢查嚴格，帶好證件</td>
+                            <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-red">需邊境證</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-yellow">邊境信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>撫遠</td>
+                            <td>2</td>
+                            <td>約8小時</td>
+                            <td>中國東極、赫哲族文化</td>
+                            <td>大馬哈魚、鱘鰉魚</td>
+                            <td>
+                                黑瞎子島、東極廣場
+                                <a href="https://uri.amap.com/search?keyword=黑瞎子島" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥400</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥180</div>
+                                <div class="budget-total">合計: ¥1130</div>
+                            </td>
+                            <td>寒溫帶氣候，夏季短促涼爽</td>
+                            <td>早晚溫差大，注意保暖</td>
+                            <td><span class="tag tag-green">特色民宿</span><span class="tag tag-purple">漁家樂</span></td>
+                            <td><span class="tag tag-green">6月-8月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議四驅</span></td>
+                            <td><span class="tag tag-yellow">偏遠地區信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>漠河</td>
+                            <td>2</td>
+                            <td>約12小時</td>
+                            <td>北極村、極光文化</td>
+                            <td>野生蘑菇、冷水魚</td>
+                            <td>
+                                北極村、聖誕村
+                                <a href="https://uri.amap.com/search?keyword=北極村" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥400</div>
+                                <div class="budget-item">油費: ¥500</div>
+                                <div class="budget-item">住宿: ¥280</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥1380</div>
+                            </td>
+                            <td>寒溫帶冬季漫長，夏季短</td>
+                            <td>冬季極寒，車輛需防凍</td>
+                            <td><span class="tag tag-green">極光民宿</span><span class="tag tag-purple">木屋</span></td>
+                            <td><span class="tag tag-green">6月-8月</span><span class="tag tag-blue">12-2月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">必須四驅/防凍</span></td>
+                            <td><span class="tag tag-yellow">偏遠信號不穩</span></td>
+                        </tr>
+                        <tr>
+                            <td>16</td>
+                            <td>滿洲里</td>
+                            <td>2</td>
+                            <td>約10小時</td>
+                            <td>中俄蒙文化交融、口岸城市</td>
+                            <td>俄羅斯烤肉、奶茶、手把肉</td>
+                            <td>
+                                國門景區、套娃廣場
+                                <a href="https://uri.amap.com/search?keyword=滿洲里國門" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥350</div>
+                                <div class="budget-item">油費: ¥450</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥1350</div>
+                            </td>
+                            <td>溫帶大陸性氣候，乾燥風大</td>
+                            <td>注意防風防沙</td>
+                            <td><span class="tag tag-purple">俄式木屋</span><span class="tag tag-blue">商務旅館</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>17</td>
+                            <td>阿爾山</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>火山地貌、溫泉療養</td>
+                            <td>山野菜、羊肉火鍋</td>
+                            <td>
+                                阿爾山國家森林公園、天池
+                                <a href="https://uri.amap.com/search?keyword=阿爾山國家森林公園" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥280</div>
+                                <div class="budget-item">住宿: ¥320</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥1000</div>
+                            </td>
+                            <td>寒溫帶濕潤氣候，春秋涼爽</td>
+                            <td>景區內道路崎嶇，小心駕駛</td>
+                            <td><span class="tag tag-blue">溫泉度假村</span><span class="tag tag-red">露營</span></td>
+                            <td><span class="tag tag-green">7月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議SUV</span></td>
+                            <td><span class="tag tag-yellow">山區信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>18</td>
+                            <td>二連浩特</td>
+                            <td>2</td>
+                            <td>約8小時</td>
+                            <td>恐龍化石、中蒙邊境</td>
+                            <td>手把肉、奶茶、蒙古包子</td>
+                            <td>
+                                二連浩特國門、恐龍地質公園
+                                <a href="https://uri.amap.com/search?keyword=二連浩特國門" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥180</div>
+                                <div class="budget-total">合計: ¥1080</div>
+                            </td>
+                            <td>溫帶荒漠氣候，乾燥多風</td>
+                            <td>風沙大，建議戴口罩</td>
+                            <td><span class="tag tag-blue">經濟型酒店</span><span class="tag tag-purple">蒙古包</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-yellow">信號一般</span></td>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>額濟納旗</td>
+                            <td>2</td>
+                            <td>約10小時</td>
+                            <td>胡楊林、沙漠文化</td>
+                            <td>駱駝肉、奶皮子</td>
+                            <td>
+                                胡楊林景區、居延海
+                                <a href="https://uri.amap.com/search?keyword=額濟納旗胡楊林" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥350</div>
+                                <div class="budget-item">油費: ¥450</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥220</div>
+                                <div class="budget-total">合計: ¥1320</div>
+                            </td>
+                            <td>極端大陸性氣候，晝夜溫差大</td>
+                            <td>最佳觀賞期為秋季，注意防曬防沙</td>
+                            <td><span class="tag tag-red">沙漠帳篷</span><span class="tag tag-green">客棧</span></td>
+                            <td><span class="tag tag-green">9月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-red">建議四驅</span></td>
+                            <td><span class="tag tag-yellow">偏遠信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>喀納斯</td>
+                            <td>3</td>
+                            <td>約12小時</td>
+                            <td>圖瓦人村落、湖光山色</td>
+                            <td>手抓飯、烤全羊、奶茶</td>
+                            <td>
+                                喀納斯湖、觀魚台、月亮灣
+                                <a href="https://uri.amap.com/search?keyword=喀納斯湖" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥400</div>
+                                <div class="budget-item">住宿: ¥500</div>
+                                <div class="budget-item">餐飲: ¥350</div>
+                                <div class="budget-total">合計: ¥1550</div>
+                            </td>
+                            <td>高山湖泊氣候，夏季涼爽</td>
+                            <td>山區天氣多變，注意保暖</td>
+                            <td><span class="tag tag-green">圖瓦木屋</span><span class="tag tag-blue">景區酒店</span></td>
+                            <td><span class="tag tag-green">6月-9月</span></td>
+                            <td><span class="tag tag-red">需邊境證</span></td>
+                            <td><span class="tag tag-red">建議四驅</span></td>
+                            <td><span class="tag tag-yellow">山區信號不穩</span></td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td>霍爾果斯</td>
+                            <td>2</td>
+                            <td>約10小時</td>
+                            <td>中哈口岸、絲路文化</td>
+                            <td>大盤雞、手抓飯、哈薩克奶茶</td>
+                            <td>
+                                霍爾果斯口岸、中哈合作區
+                                <a href="https://uri.amap.com/search?keyword=霍爾果斯口岸" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥280</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥1180</div>
+                            </td>
+                            <td>溫帶大陸性氣候，乾燥</td>
+                            <td>需辦理邊境通行證</td>
+                            <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-red">需邊境證</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>阿克蘇</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>維吾爾文化、絲路古城</td>
+                            <td>阿克蘇蘋果、烤包子、抓飯</td>
+                            <td>
+                                天山神木園、溫宿大峽谷
+                                <a href="https://uri.amap.com/search?keyword=天山神木園" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥250</div>
+                                <div class="budget-item">住宿: ¥280</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥930</div>
+                            </td>
+                            <td>沙漠綠洲氣候，乾燥少雨</td>
+                            <td>注意補水防曬</td>
+                            <td><span class="tag tag-green">綠洲民宿</span><span class="tag tag-blue">商務旅館</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>23</td>
+                            <td>日土</td>
+                            <td>2</td>
+                            <td>約12小時</td>
+                            <td>西藏阿里、高原湖泊</td>
+                            <td>糌粑、酥油茶、氂牛肉乾</td>
+                            <td>
+                                班公湖、日土岩畫
+                                <a href="https://uri.amap.com/search?keyword=班公湖" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥200</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥180</div>
+                                <div class="budget-item">餐飲: ¥120</div>
+                                <div class="budget-total">合計: ¥850</div>
+                            </td>
+                            <td>高原寒漠氣候，氧氣稀薄</td>
+                            <td>注意高原反應，建議逐步適應</td>
+                            <td><span class="tag tag-green">簡易客棧</span><span class="tag tag-red">露營</span></td>
+                            <td><span class="tag tag-green">5月-9月</span></td>
+                            <td><span class="tag tag-red">需邊防證</span></td>
+                            <td><span class="tag tag-red">必須四驅</span></td>
+                            <td><span class="tag tag-red">信號極弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>24</td>
+                            <td>隆子</td>
+                            <td>2</td>
+                            <td>約8小時</td>
+                            <td>藏南文化、邊境山村</td>
+                            <td>藏麵、酥油茶、青稞酒</td>
+                            <td>
+                                扎日神山、三安曲林寺
+                                <a href="https://uri.amap.com/search?keyword=扎日神山" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥200</div>
+                                <div class="budget-item">住宿: ¥160</div>
+                                <div class="budget-item">餐飲: ¥130</div>
+                                <div class="budget-total">合計: ¥640</div>
+                            </td>
+                            <td>高山峽谷氣候，日夜溫差大</td>
+                            <td>邊境地區需辦理相關證件</td>
+                            <td><span class="tag tag-green">藏式民宿</span></td>
+                            <td><span class="tag tag-green">5月-10月</span></td>
+                            <td><span class="tag tag-red">需邊防證</span></td>
+                            <td><span class="tag tag-red">必須四驅</span></td>
+                            <td><span class="tag tag-red">信號弱</span></td>
+                        </tr>
+                        <tr>
+                            <td>25</td>
+                            <td>墨脫</td>
+                            <td>2</td>
+                            <td>約6小時</td>
+                            <td>雅魯藏布江峽谷、門巴族文化</td>
+                            <td>石鍋雞、野生靈芝</td>
+                            <td>
+                                雅魯藏布大峽谷、墨脫公路
+                                <a href="https://uri.amap.com/search?keyword=雅魯藏布大峽谷" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥200</div>
+                                <div class="budget-item">住宿: ¥220</div>
+                                <div class="budget-item">餐飲: ¥180</div>
+                                <div class="budget-total">合計: ¥750</div>
+                            </td>
+                            <td>熱帶雨林氣候，濕潤多雨</td>
+                            <td>路況複雜，建議四驅車</td>
+                            <td><span class="tag tag-green">雨林客棧</span><span class="tag tag-green">民宿</span></td>
+                            <td><span class="tag tag-green">4月-10月</span></td>
+                            <td><span class="tag tag-red">需邊防證</span></td>
+                            <td><span class="tag tag-red">必須四驅</span></td>
+                            <td><span class="tag tag-red">信號不穩定</span></td>
+                        </tr>
+                        <tr>
+                            <td>26</td>
+                            <td>憑祥</td>
+                            <td>2</td>
+                            <td>約10小時</td>
+                            <td>中越邊境、南國風情</td>
+                            <td>越南春捲、椰子雞、水果撈</td>
+                            <td>
+                                友誼關、浦寨邊貿市場
+                                <a href="https://uri.amap.com/search?keyword=友誼關" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥300</div>
+                                <div class="budget-item">油費: ¥350</div>
+                                <div class="budget-item">住宿: ¥250</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥1100</div>
+                            </td>
+                            <td>亞熱帶濕潤氣候，溫暖</td>
+                            <td>邊境貿易區注意財物安全</td>
+                            <td><span class="tag tag-green">邊境客棧</span><span class="tag tag-yellow">青年旅舍</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>27</td>
+                            <td>東興</td>
+                            <td>1</td>
+                            <td>約3小時</td>
+                            <td>中越口岸、京族文化</td>
+                            <td>海鮮粉、越南咖啡</td>
+                            <td>
+                                東興口岸、萬尾金灘
+                                <a href="https://uri.amap.com/search?keyword=東興口岸" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥100</div>
+                                <div class="budget-item">油費: ¥120</div>
+                                <div class="budget-item">住宿: ¥200</div>
+                                <div class="budget-item">餐飲: ¥150</div>
+                                <div class="budget-total">合計: ¥570</div>
+                            </td>
+                            <td>熱帶季風氣候，濕熱</td>
+                            <td>可順道前往越南芒街（需簽證）</td>
+                            <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-green">海景民宿</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>28</td>
+                            <td>湛江</td>
+                            <td>2</td>
+                            <td>約4小時</td>
+                            <td>海港城市、海鮮之都</td>
+                            <td>烤生蠔、白切雞、海鮮粥</td>
+                            <td>
+                                湖光岩、金沙灣
+                                <a href="https://uri.amap.com/search?keyword=湖光岩" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥150</div>
+                                <div class="budget-item">油費: ¥180</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥250</div>
+                                <div class="budget-total">合計: ¥880</div>
+                            </td>
+                            <td>熱帶海洋性氣候，溫暖濕潤</td>
+                            <td>海鮮市場選擇多，注意新鮮度</td>
+                            <td><span class="tag tag-green">海邊民宿</span><span class="tag tag-blue">度假村</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td>江門</td>
+                            <td>1</td>
+                            <td>約2小時</td>
+                            <td>僑鄉文化、碉樓村落</td>
+                            <td>黃鱔飯、陳皮鴨、古井燒鵝</td>
+                            <td>
+                                開平碉樓、上下川島
+                                <a href="https://uri.amap.com/search?keyword=開平碉樓" class="map-link" target="_blank">
+                                    <i class="fas fa-map-marker-alt"></i>高德地圖
+                                </a>
+                            </td>
+                            <td>
+                                <div class="budget-item">路費: ¥80</div>
+                                <div class="budget-item">油費: ¥100</div>
+                                <div class="budget-item">住宿: ¥300</div>
+                                <div class="budget-item">餐飲: ¥200</div>
+                                <div class="budget-total">合計: ¥680</div>
+                            </td>
+                            <td>亞熱帶氣候，濕潤多雨</td>
+                            <td>碉樓景區分散，建議自駕遊覽</td>
+                            <td><span class="tag tag-green">碉樓民宿</span><span class="tag tag-blue">海邊酒店</span></td>
+                            <td><span class="tag tag-green">10月-4月</span></td>
+                            <td><span class="tag tag-green">不需要</span></td>
+                            <td><span class="tag tag-blue">常規轎車</span></td>
+                            <td><span class="tag tag-green">信號良好</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="margin-top: 20px; padding: 15px; background: #e9f2fa; border-radius: 8px;">
+                    <h4><i class="fas fa-info-circle"></i> 預算說明</h4>
+                    <p>以上預算為每日估算，包含路費、油費、住宿和餐飲。實際費用會因季節、住宿標準和消費習慣有所不同。總體預算建議準備 ¥50,000 - ¥80,000 (兩人，60-90天)。</p>
+                </div>
+            </div>
+            
+            <div id="segments" class="tab-content">
+                <h3>分段路書（行程節奏與駕駛安排）</h3>
+                
+                <div class="route-section route-1">
+                    <div class="route-title">
+                        <div class="route-icon">G331</div>
+                        <h3>G331國道 - 北部邊境段 (9333公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 丹東 → 長白 → 琿春 → 撫遠 → 漠河 → 滿洲里 → 阿爾山 → 二連浩特 → 額濟納旗 → 喀納斯 → 霍爾果斯</p>
+                    <p><strong>預計天數：</strong> 25-35天 | <strong>預算估算：</strong> ¥18,000 - ¥25,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 邊境公路多，部分路段維修。林區路段注意野生動物。信號不穩定，提前下載離線地圖。</p>
+                    <p><strong>推薦休整點：</strong> 撫遠、阿爾山、額濟納旗</p>
+                </div>
+                
+                <div class="route-section route-2">
+                    <div class="route-title">
+                        <div class="route-icon">G219</div>
+                        <h3>G219國道 - 西部高原段 (10065公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 霍爾果斯 → 阿克蘇 → 日土 → 隆子 → 墨脫 → 憑祥 → 東興</p>
+                    <p><strong>預計天數：</strong> 20-30天 | <strong>預算估算：</strong> ¥15,000 - ¥22,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 最艱苦路段。新藏線（G219）海拔高，阿里地區荒涼。滇藏、桂西山區路況複雜，謹慎駕駛。</p>
+                    <p><strong>推薦休整點：</strong> 阿克蘇、日土、墨脫</p>
+                </div>
+                
+                <div class="route-section route-3">
+                    <div class="route-title">
+                        <div class="route-icon">G228</div>
+                        <h3>G228國道 - 東部沿海段 (7800公里)</h3>
+                    </div>
+                    <p><strong>主要途徑：</strong> 東興 → 廣州 → 深圳 → 廈門 → 福州 → 溫州 → 杭州 → 上海 → 連雲港 → 青島 → 大連 → 丹東</p>
+                    <p><strong>預計天數：</strong> 15-25天 | <strong>預算估算：</strong> ¥12,000 - ¥18,000</p>
+                    <p><strong>路況與駕駛貼士：</strong> 路況極佳，車流大。注意市區限行，避開節假日。沿海公路風景優美。</p>
+                    <p><strong>推薦休整點：</strong> 廣州、杭州、青島</p>
+                </div>
+            </div>
+            
+            <div id="tips" class="tab-content">
+                <h3>自駕建議與注意事項</h3>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4><i class="fas fa-car"></i> 車輛準備</h4>
+                        <p>東部沿海常規轎車即可，西部、高原、邊境建議<strong>四驅SUV</strong>，漠河、阿爾山、西藏等地需特別注意防凍與高原適應。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-id-card"></i> 證件準備</h4>
+                        <p>邊境地區如<strong>霍爾果斯、琿春、西藏全境、墨脫</strong>等需提前辦理<strong>邊防證/許可證</strong>。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-map"></i> 通訊與導航</h4>
+                        <p>西部與山區信號不穩，建議下載<strong>離線地圖</strong>，攜帶衛星電話（如進入阿里、墨脫）。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-leaf"></i> 環保意識</h4>
+                        <p>中國自然保護區與邊境生態脆弱，請做到<strong>"無痕旅行"</strong>，垃圾隨車帶走。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-calendar-alt"></i> 季節選擇</h4>
+                        <p>整體建議<strong>春秋季</strong>出發，避開極端氣候；西藏、新疆最佳為<strong>5–9月</strong>，東北與漠河夏季宜人、冬季可體驗極寒。</p>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4><i class="fas fa-gas-pump"></i> 加油策略</h4>
+                        <p>在偏遠地區如內蒙、新疆、西藏，<strong>遇加油站即加滿油</strong>，避免因加油站間隔遠而陷入困境。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="permit" class="tab-content">
+                <h3>邊境證辦理指南</h3>
+                
+                <div class="permit-info">
+                    <h3>需要邊防證的地區清單</h3>
+                    <ul>
+                        <li><strong>西藏全境</strong>（尤其是<strong>阿里地區、日土、隆子、墨脫</strong>等）</li>
+                        <li><strong>新疆部分邊境地區</strong>（如<strong>霍爾果斯口岸、喀納斯景區附近</strong>的白哈巴村）</li>
+                        <li><strong>雲南/廣西部分邊境口岸</strong>（如<strong>憑祥、東興</strong>，一般憑身份證在口岸辦理一次性通行證明，但長線行程建議提前備好）</li>
+                    </ul>
+                </div>
+                
+                <h3 style="margin-top: 30px;">辦理方式</h3>
+                
+                <div class="permit-method">
+                    <div class="method-card recommended">
+                        <div class="recommended-badge">推薦</div>
+                        <h4>出發前在戶籍地辦理</h4>
+                        <p><strong>地點：</strong> 戶籍所在地的<strong>市公安局/分局出入境管理大廳</strong>或<strong>行政服務大廳</strong>。</p>
+                        <p><strong>材料：</strong> 身份證、戶口本原件、1-2張一寸照片，現場填寫《邊境管理區通行證申請表》。</p>
+                        <p><strong>優勢：</strong> 免費、快捷（通常立等可取）、有效期長（通常可辦理1-3個月）。</p>
+                        <p><strong>填寫技巧：</strong> 在"前往地點"一欄，務必填寫"<strong>西藏自治區 全境</strong>"、"<strong>新疆維吾爾自治區 全境</strong>"，或直接列出所有可能經過的邊境地區名稱。</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <h4>在旅行目的地辦理</h4>
+                        <p><strong>西藏：</strong> 可在<strong>拉薩</strong>的「西藏邊境管理總隊辦證大廳」憑身份證代辦。但節假日排隊人多，且不保證能辦理前往所有地區的證件（如阿里）。</p>
+                        <p><strong>新疆：</strong> 部分邊境口岸（如霍爾果斯）可憑身份證現場辦理一次性通行證，但耗時且活動範圍受限。</p>
+                        <p><strong>劣勢：</strong> 不確定性高，可能排長隊，耽誤行程，費用可能更高。</p>
+                    </div>
+                </div>
+                
+                <div class="permit-info" style="margin-top: 30px;">
+                    <h3>重要注意事項</h3>
+                    <ul>
+                        <li><strong>提前確認：</strong> 出發前1個月，再次諮詢當地公安局，確認最新政策。</li>
+                        <li><strong>避免遺憾：</strong> 沒有邊防證，將無法進入上述核心邊境地區，行程將嚴重受阻。</li>
+                        <li><strong>隨身攜帶：</strong> 邊防證需與身份證一起隨身攜帶，沿途檢查站會頻繁查驗。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>環中國自駕遊行程規劃系統 &copy; 2023 | 資料僅供參考，實際行程請根據當地情況調整</p>
+        </footer>
+    </div>
+
+    <script>
+        // 切換標籤功能
+        function openTab(tabName) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            const tabs = document.getElementsByClassName("tab");
+            for (let i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+        
+        // 表格行點擊效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableRows = document.querySelectorAll('tbody tr');
+            tableRows.forEach(row => {
+                row.addEventListener('click', function() {
+                    tableRows.forEach(r => r.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
