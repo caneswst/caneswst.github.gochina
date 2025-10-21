@@ -509,7 +509,6 @@
     display: none;
 }
 
-label[for], 
 tr td label {
     padding: 5px 10px;
     border: 2px solid #1e90ff; /* 天藍色邊框 */
@@ -522,10 +521,10 @@ tr td label {
     margin-left: 5px;
 }
 
-.visited-checkbox:checked ~ label {
-    background-color: #98fb98; /* 草綠色背景 */
-    border-color: #32cd32; /* 草綠色邊框 */
-    color: #000;
+.visited-checkbox:checked + * {
+    background-color: #98fb98 !important; /* 草綠色背景 */
+    border-color: #32cd32 !important; /* 草綠色邊框 */
+    color: #000 !important;
 }
     </style>
 <script>
@@ -1987,6 +1986,7 @@ tr td label {
     </script>
 </body>
 </html>
+
 
 
 
