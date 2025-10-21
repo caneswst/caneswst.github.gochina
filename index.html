@@ -505,7 +505,11 @@
                 .visited-checkbox {
             display: none;
         }
-.visited-checkbox + span {
+.visited-checkbox {
+    display: none;
+}
+
+.location-type-main label {
     padding: 5px 10px;
     border: 2px solid #1e90ff; /* 天藍色邊框 */
     border-radius: 3px;
@@ -513,13 +517,14 @@
     background-color: #f0f8ff; /* 淺天藍色背景 */
     color: #000;
     font-weight: bold;
+    display: inline-block;
+    margin-left: 5px;
 }
 
-.visited-checkbox:checked + span {
+.visited-checkbox:checked ~ label {
     background-color: #98fb98; /* 草綠色背景 */
     border-color: #32cd32; /* 草綠色邊框 */
     color: #000;
-    content: "去過";
 }
     </style>
 <script>
@@ -1981,6 +1986,7 @@
     </script>
 </body>
 </html>
+
 
 
 
