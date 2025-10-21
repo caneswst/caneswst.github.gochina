@@ -1,903 +1,223 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>環中國自駕遊行程規劃系統</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>中國旅行計劃</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Microsoft JhengHei', '微軟正黑體', Arial, sans-serif;
-        }
-        
+        /* 基本樣式 */
         body {
-            background-color: #f5f7fa;
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
             color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #1a6dba 0%, #0d4d8c 100%);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        header p {
-            font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px 25px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-        }
-        
-        .content-section {
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        
-        h2 {
-            color: #1a6dba;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eaeaea;
-            display: flex;
-            align-items: center;
-        }
-        
-        h2 i {
-            margin-right: 10px;
-        }
-        
-        .map-container {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .route-map {
-            max-width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-            flex-wrap: wrap;
-        }
-        
-        .tab {
-            padding: 12px 25px;
-            cursor: pointer;
-            background: #f1f1f1;
-            border-radius: 5px 5px 0 0;
-            margin-right: 5px;
-            transition: all 0.3s;
-            margin-bottom: 5px;
-        }
-        
-        .tab.active {
-            background: #1a6dba;
-            color: white;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-            font-size: 0.85rem;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         th, td {
-            padding: 8px 10px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
-            vertical-align: top;
+            border-bottom: 1px solid #e0e0e0;
         }
         
         th {
-            background-color: #f2f6fa;
-            color: #1a6dba;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
+            background-color: #2c3e50;
+            color: white;
+            font-weight: bold;
         }
         
         tr:hover {
-            background-color: #f9f9f9;
+            background-color: #f8f9fa;
         }
         
-        .route-section {
-            margin-bottom: 25px;
+        .location-type-main {
+            background-color: #fff;
         }
         
-        .route-title {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .route-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            color: white;
-            font-weight: bold;
-        }
-        
-        .route-1 .route-icon { background: #4CAF50; }
-        .route-2 .route-icon { background: #FF9800; }
-        .route-3 .route-icon { background: #F44336; }
-        
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .tip-card {
-            background: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #1a6dba;
-        }
-        
-        .tip-card h4 {
-            color: #1a6dba;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .tip-card h4 i {
-            margin-right: 10px;
-        }
-        
-        .permit-info {
-            background: #e9f2fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-        
-        .permit-info h3 {
-            color: #1a6dba;
-            margin-bottom: 15px;
-        }
-        
-        .permit-method {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .method-card {
-            flex: 1;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-        
-        .method-card.recommended {
-            border: 2px solid #4CAF50;
-            position: relative;
-        }
-        
-        .recommended-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: #4CAF50;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            color: #666;
-            border-top: 1px solid #ddd;
-        }
-        
-        .map-link {
-            color: #1a6dba;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            margin-top: 3px;
-            font-size: 0.75rem;
-        }
-        
-        .map-link:hover {
-            text-decoration: underline;
-        }
-        
-        .map-link i {
-            margin-right: 3px;
-        }
-        
-        .budget-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2px;
-            font-size: 0.75rem;
-        }
-        
-        .budget-total {
-            font-weight: bold;
-            border-top: 1px solid #ddd;
-            padding-top: 3px;
-            margin-top: 3px;
-            font-size: 0.8rem;
+        .compact-text {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         
         .tag {
             display: inline-block;
-            padding: 1px 4px;
-            border-radius: 3px;
-            font-size: 0.65rem;
-            margin-right: 2px;
-            margin-bottom: 2px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
         }
         
-        .tag-yellow {
-            background: #fff3cd;
-            color: #856404;
+        .tag-blue { background-color: #e3f2fd; color: #1565c0; }
+        .tag-green { background-color: #e8f5e8; color: #2e7d32; }
+        .tag-red { background-color: #ffebee; color: #c62828; }
+        .tag-yellow { background-color: #fffde7; color: #f9a825; }
+        
+        .budget-item {
+            font-size: 12px;
+            margin: 2px 0;
         }
         
-        .tag-green {
-            background: #d1ecf1;
-            color: #0c5460;
+        .budget-total {
+            font-weight: bold;
+            margin-top: 5px;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
         }
         
-        .tag-red {
-            background: #f8d7da;
-            color: #721c24;
+        /* Checkbox 樣式 */
+        .visited-checkbox {
+            display: none !important;
         }
         
-        .tag-blue {
-            background: #d1e7ff;
-            color: #004085;
+        .visited-checkbox + label {
+            padding: 6px 12px !important;
+            border: 2px solid #1e90ff !important;
+            border-radius: 4px !important;
+            cursor: pointer !important;
+            background-color: #f0f8ff !important;
+            color: #000 !important;
+            font-weight: bold !important;
+            display: inline-block !important;
+            margin-left: 8px !important;
+            transition: all 0.3s ease !important;
+            font-size: 14px !important;
+            min-width: 70px !important;
+            text-align: center !important;
         }
         
-        .tag-purple {
-            background: #e2e3ff;
-            color: #383d41;
+        .visited-checkbox:checked + label {
+            background-color: #98fb98 !important;
+            border-color: #32cd32 !important;
+            color: #000 !important;
         }
         
-        .tag-orange {
-            background: #ffe7d1;
-            color: #8a5300;
+        /* 控制面板樣式 */
+        #travelControls {
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 800px;
         }
         
-        .location-type-main {
-            border-left: 3px solid #1a6dba;
-        }
-        
-        .location-type-stopover {
-            border-left: 3px solid #ffc107;
-            background-color: #fffdf6;
-        }
-        
-        .location-type-start {
-            border-left: 3px solid #28a745;
-            background-color: #f0fff4;
-        }
-        
-        .location-type-end {
-            border-left: 3px solid #dc3545;
-            background-color: #fff5f5;
-        }
-
-        .mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #1a6dba;
-            color: white;
+        .control-btn {
+            margin: 8px;
             padding: 10px 20px;
+            border: none;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 1000;
-            font-size: 1rem;
-            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
         }
         
-        .mode-toggle:hover {
-            background: #0d4d8c;
+        .export-btn { background: #4CAF50; color: white; }
+        .import-btn { background: #2196F3; color: white; }
+        .clear-btn { background: #ff4444; color: white; }
+        .refresh-btn { background: #ff9800; color: white; }
+        
+        .control-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
         }
-
-        /* Mobile-specific styles */
-        body.mobile-mode {
-            font-size: 1.1rem;
-        }
-
-        body.mobile-mode .container {
-            padding: 10px;
-        }
-
-        body.mobile-mode header {
-            padding: 20px 10px;
-        }
-
-        body.mobile-mode header h1 {
-            font-size: 1.8rem;
-        }
-
-        body.mobile-mode header p {
-            font-size: 1rem;
-            padding: 0 10px;
-        }
-
-        body.mobile-mode .stats {
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        body.mobile-mode .stat-item {
-            padding: 10px;
-            text-align: center;
-        }
-
-        body.mobile-mode .tabs {
-            flex-direction: column;
-        }
-
-        body.mobile-mode .tab {
-            padding: 15px;
-            font-size: 1.1rem;
-            text-align: center;
-            margin-right: 0;
-            border-radius: 5px;
-        }
-
-        body.mobile-mode .table-container {
-            max-height: none;
-        }
-
-        body.mobile-mode table {
-            font-size: 0.9rem;
-        }
-
-        body.mobile-mode th, body.mobile-mode td {
-            padding: 10px;
-        }
-
-        /* Hide less critical columns in mobile mode */
-        body.mobile-mode th:nth-child(n+6),
-        body.mobile-mode td:nth-child(n+6) {
-            display: none;
-        }
-
-        body.mobile-mode th:nth-child(1),
-        body.mobile-mode td:nth-child(1),
-        body.mobile-mode th:nth-child(2),
-        body.mobile-mode td:nth-child(2),
-        body.mobile-mode th:nth-child(3),
-        body.mobile-mode td:nth-child(3),
-        body.mobile-mode th:nth-child(5),
-        body.mobile-mode td:nth-child(5) {
-            display: table-cell;
-        }
-
-        body.mobile-mode .tips-grid {
-            grid-template-columns: 1fr;
-        }
-
-        body.mobile-mode .tip-card {
-            padding: 15px;
-        }
-
-        body.mobile-mode .permit-method {
-            flex-direction: column;
-        }
-
-        body.mobile-mode .method-card {
-            padding: 15px;
-        }
-
-        body.mobile-mode .mode-toggle {
-            padding: 12px;
-            font-size: 1.1rem;
-        }
-
-        /* Existing media query for smaller screens */
+        
+        /* 手機版適配 */
         @media (max-width: 768px) {
-            .stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            .permit-method {
-                flex-direction: column;
-            }
-            
-            .tips-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-wrap: wrap;
-            }
-            
-            .tab {
-                flex: 1;
-                min-width: 120px;
-                text-align: center;
+            body {
+                padding: 10px;
             }
             
             table {
-                display: block;
-                overflow-x: auto;
-                font-size: 0.75rem;
+                font-size: 14px;
             }
             
             th, td {
-                padding: 6px 8px;
+                padding: 8px 10px;
             }
-        }
-
-        .table-container {
-            overflow-x: auto;
-            max-height: 70vh;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        
-        .compact-text {
-            font-size: 0.8rem;
-            line-height: 1.3;
-        }
-                .visited-checkbox {
-            display: none;
-        }
-.visited-checkbox {
-    display: none;
-}
-
-.visited-checkbox + label {
-    padding: 5px 10px;
-    border: 2px solid #1e90ff;
-    border-radius: 3px;
-    cursor: pointer;
-    background-color: #f0f8ff;
-    color: #000;
-    font-weight: bold;
-    display: inline-block;
-    margin-left: 5px;
-    transition: all 0.3s ease;
-    font-size: 14px;
-}
-
-.visited-checkbox:checked + label {
-    background-color: #98fb98;
-    border-color: #32cd32;
-    color: #000;
-}
-
-/* 手機版適配 */
-@media (max-width: 768px) {
-    .visited-checkbox + label {
-        padding: 4px 8px;
-        font-size: 12px;
-        margin-left: 3px;
-    }
-}    </style>
-<script>
-    function openMap(locationId) {
-        const mapLocations = {
-            'hengqin_xinqu': '横琴新区,珠海市,广东省,China',
-            'hengqin_changlong': '长隆海洋王国,珠海市,广东省,China',
-            'guangzhou_ta': '广州塔,广州市,广东省,China',
-            'guangzhou_chenjia': '陈家祠,广州市,广东省,China',
-            'guangzhou_shamian': '沙面,广州市,广东省,China',
-            'shenzhen_lianhua': '莲花山公园,深圳市,广东省,China',
-            'shenzhen_shijie': '世界之窗,深圳市,广东省,China',
-            'shenzhen_dongmen': '东门老街,深圳市,广东省,China',
-            'xiamen_gulangyu': '鼓浪屿,厦门市,福建省,China',
-            'xiamen_nanputuo': '南普陀寺,厦门市,福建省,China',
-            'xiamen_huandao': '环岛路,厦门市,福建省,China',
-            'fuzhou_sanfangqixiang': '三坊七巷,福州市,福建省,China',
-            'fuzhou_gushan': '鼓山,福州市,福建省,China',
-            'fuzhou_pingtang': '平潭岛,福州市,福建省,China',
-            'hangzhou_xihu': '西湖,杭州市,浙江省,China',
-            'hangzhou_lingyin': '灵隐寺,杭州市,浙江省,China',
-            'hangzhou_duanqiao': '断桥残雪,杭州市,浙江省,China',
-            'shanghai_waitan': '外滩,上海市,China',
-            'shanghai_ta': '上海塔,上海市,China',
-            'shanghai_yuyuan': '豫园,上海市,China',
-            'qingdao_bada': '八大关,青岛市,山东省,China',
-            'qingdao_zhanqiao': '栈桥,青岛市,山东省,China',
-            'qingdao_wusi': '五四广场,青岛市,山东省,China',
-            'dalian_xinghai': '星海广场,大连市,辽宁省,China',
-            'dalian_laohutan': '老虎滩,大连市,辽宁省,China',
-            'dalian_lvshun': '旅顺军港,大连市,辽宁省,China',
-            'dandong_duanqiao': '鸭绿江断桥,丹东市,辽宁省,China',
-            'dandong_hushan': '虎山长城,丹东市,辽宁省,China',
-            'dandong_huangjin': '黄金海岸,丹东市,辽宁省,China',
-            'fuyuan_heixiazi': '黑瞎子岛,抚远市,黑龙江省,China',
-            'fuyuan_wusu': '乌苏镇,抚远市,黑龙江省,China',
-            'fuyuan_dongji': '东极哨所,抚远市,黑龙江省,China',
-            'mohe_beiji': '北极村,漠河市,黑龙江省,China',
-            'mohe_yanzhi': '胭脂沟,漠河市,黑龙江省,China',
-            'mohe_guanyin': '观音山,漠河市,黑龙江省,China',
-            'manzhouli_taowa': '套娃广场,满洲里市,内蒙古自治区,China',
-            'manzhouli_guomen': '国门,满洲里市,内蒙古自治区,China',
-            'manzhouli_hulun': '呼伦湖,满洲里市,内蒙古自治区,China',
-            'hulunbeier_caoyuan': '呼伦贝尔草原,呼伦贝尔市,内蒙古自治区,China',
-            'hulunbeier_erguna': '额尔古纳,呼伦贝尔市,内蒙古自治区,China',
-            'hulunbeier_mordao': '莫尔道嘎,呼伦贝尔市,内蒙古自治区,China',
-            'hailaer_caoyuan': '呼伦贝尔草原,海拉尔区,内蒙古自治区,China',
-            'hailaer_bingxue': '冰雪乐园,海拉尔区,内蒙古自治区,China',
-            'hailaer_chengji': '成吉思汗公园,海拉尔区,内蒙古自治区,China',
-            'wulanchabu_zhaojun': '昭君墓,乌兰察布市,内蒙古自治区,China',
-            'wulanchabu_chahar': '察哈尔草原,乌兰察布市,内蒙古自治区,China',
-            'wulanchabu_damo': '大漠风光,乌兰察布市,内蒙古自治区,China',
-            'baotou_wudang': '五当召,包头市,内蒙古自治区,China',
-            'baotou_xilamuren': '希拉穆仁草原,包头市,内蒙古自治区,China',
-            'baotou_meihua': '梅花鹿园,包头市,内蒙古自治区,China',
-            'huhehaote_dazhao': '大召寺,呼和浩特市,内蒙古自治区,China',
-            'huhehaote_zhaojun': '昭君墓,呼和浩特市,内蒙古自治区,China',
-            'huhehaote_chengji': '成吉思汗陵,呼和浩特市,内蒙古自治区,China',
-            'eerduosi_chengji': '成吉思汗陵,鄂尔多斯市,内蒙古自治区,China',
-            'eerduosi_xiangsha': '响沙湾,鄂尔多斯市,内蒙古自治区,China',
-            'eerduosi_caoyuan': '鄂尔多斯草原,鄂尔多斯市,内蒙古自治区,China',
-            'yinchuan_xixia': '西夏王陵,银川市,宁夏回族自治区,China',
-            'yinchuan_helan': '贺兰山,银川市,宁夏回族自治区,China',
-            'yinchuan_shahu': '沙湖,银川市,宁夏回族自治区,China',
-            'lanzhou_huanghe': '黄河铁桥,兰州市,甘肃省,China',
-            'lanzhou_baita': '白塔山,兰州市,甘肃省,China',
-            'lanzhou_bingling': '炳灵寺,兰州市,甘肃省,China',
-            'xining_taer': '塔尔寺,西宁市,青海省,China',
-            'xining_qinghaihu': '青海湖,西宁市,青海省,China',
-            'xining_mojie': '莫家街,西宁市,青海省,China',
-            'zhangye_danxia': '张掖丹霞,张掖市,甘肃省,China',
-            'zhangye_matisi': '马蹄寺,张掖市,甘肃省,China',
-            'zhangye_dafosi': '大佛寺,张掖市,甘肃省,China',
-            'jiuquan_mogao': '敦煌莫高窟,酒泉市,甘肃省,China',
-            'jiuquan_yumenguan': '玉门关,酒泉市,甘肃省,China',
-            'jiuquan_jiayuguan': '嘉峪关,酒泉市,甘肃省,China',
-            'hami_huiwangfu': '哈密回王府,哈密市,新疆维吾尔自治区,China',
-            'hami_tianshan': '天山大峡谷,哈密市,新疆维吾尔自治区,China',
-            'hami_sandaogou': '三道沟,哈密市,新疆维吾尔自治区,China',
-            'tulufan_huoyan': '火焰山,吐鲁番市,新疆维吾尔自治区,China',
-            'tulufan_putao': '葡萄沟,吐鲁番市,新疆维吾尔自治区,China',
-            'tulufan_kan\'erjing': '坎儿井,吐鲁番市,新疆维吾尔自治区,China',
-            'huoerguosi_kouan': '霍尔果斯口岸,伊犁州,新疆维吾尔自治区,China',
-            'huoerguosi_hezuogu': '中哈合作区,伊犁州,新疆维吾尔自治区,China',
-            'yining_kazhanqi': '喀赞其民俗村,伊宁市,新疆维吾尔自治区,China',
-            'akesu_shenmuyuan': '天山神木园,阿克苏市,新疆维吾尔自治区,China',
-            'akesu_wensu': '温宿大峡谷,阿克苏市,新疆维吾尔自治区,China',
-            'kashi_laocheng': '喀什老城,喀什市,新疆维吾尔自治区,China',
-            'kashi_aitigaer': '艾提尕尔清真寺,喀什市,新疆维吾尔自治区,China',
-            'rituo_bangonghu': '班公湖,日土县,西藏自治区,China',
-            'rituo_yanhua': '日土岩画,日土县,西藏自治区,China',
-            'shiquanhe_zhen': '狮泉河镇,噶尔县,西藏自治区,China',
-            'longzi_zhari': '扎日神山,隆子县,西藏自治区,China',
-            'longzi_sananqu': '三安曲林寺,隆子县,西藏自治区,China',
-            'linzhi_yaluzangbu': '雅鲁藏布大峡谷,林芝市,西藏自治区,China',
-            'motuo_yaluzangbu': '雅鲁藏布大峡谷,墨脱县,西藏自治区,China',
-            'dali_erhai': '洱海,大理市,云南省,China',
-            'dali_chongsheng': '崇圣寺三塔,大理市,云南省,China',
-            'lijiang_gucheng': '丽江古城,丽江市,云南省,China',
-            'lijiang_yulong': '玉龙雪山,丽江市,云南省,China',
-            'mangshi_mengbana': '勐巴娜西珍奇园,芒市,云南省,China',
-            'ruili_yizhaoliangguo': '一寨两国,瑞丽市,云南省,China',
-            'ruili_jiegao': '姐告口岸,瑞丽市,云南省,China',
-            'tengchong_heshun': '和顺古镇,腾冲市,云南省,China',
-            'tengchong_rehai': '热海温泉,腾冲市,云南省,China',
-            'baoshan_taibao': '太保山,保山市,云南省,China',
-            'baoshan_yunyi': '云南驿,保山市,云南省,China',
-            'kunming_shilin': '石林,昆明市,云南省,China',
-            'kunming_dianchi': '滇池,昆明市,云南省,China',
-            'yuxi_fuxianhu': '抚仙湖,玉溪市,云南省,China',
-            'yuxi_yingyue': '映月潭,玉溪市,云南省,China',
-            'nanning_qingxiu': '青秀山,南宁市,广西壮族自治区,China',
-            'nanning_nanhu': '南湖公园,南宁市,广西壮族自治区,China',
-            'beihai_yintan': '银滩,北海市,广西壮族自治区,China',
-            'beihai_weizhou': '涠洲岛,北海市,广西壮族自治区,China',
-            'zhanjiang_qizhou': '硇洲岛,湛江市,广东省,China',
-            'zhanjiang_huguang': '湖光岩,湛江市,广东省,China',
-            'jiangmen_dialou': '开平碉楼,江门市,广东省,China',
-            'jiangmen_chikan': '赤坎古镇,江门市,广东省,China'
-        };
-
-        const location = mapLocations[locationId];
-        if (location) {
-            const url = 'https://ditu.amap.com/search?query=' + encodeURIComponent(location);
-            window.open(url, '_blank');
-        } else {
-            alert('未找到該景點的地址信息。');
-        }
-    }
-
-    // 動態創建地圖容器
-    const mapContainer = document.createElement('div');
-    mapContainer.id = 'mapContainer';
-    mapContainer.style.display = 'none';
-    mapContainer.style.width = '100%';
-    mapContainer.style.height = '400px';
-    document.body.appendChild(mapContainer);
-// 記憶功能
-function saveVisitStatus() {
-    const visitStatus = {};
-    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-        const cityElement = checkbox.closest('tr').querySelector('strong');
-        if (cityElement) {
-            const cityName = cityElement.textContent.trim();
-            visitStatus[cityName] = checkbox.checked;
-        }
-    });
-    localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
-    console.log('記錄已保存:', visitStatus);
-}
-
-function loadVisitStatus() {
-    const saved = localStorage.getItem('travelVisitStatus');
-    if (saved) {
-        try {
-            const visitStatus = JSON.parse(saved);
-            document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-                const cityElement = checkbox.closest('tr').querySelector('strong');
-                if (cityElement) {
-                    const cityName = cityElement.textContent.trim();
-                    if (visitStatus.hasOwnProperty(cityName)) {
-                        checkbox.checked = visitStatus[cityName];
-                        updateVisitStatus(checkbox);
-                    }
-                }
-            });
-            console.log('記錄已載入');
-        } catch (error) {
-            console.error('載入記錄失敗:', error);
-        }
-    }
-}
-
-function updateVisitStatus(checkbox) {
-    const label = checkbox.nextElementSibling;
-    if (label && label.tagName === 'LABEL') {
-        if (checkbox.checked) {
-            label.textContent = '去過';
-        } else {
-            label.textContent = '未去過?';
-        }
-        saveVisitStatus();
-    }
-}
-
-// 匯出功能
-function exportData() {
-    const visitStatus = JSON.parse(localStorage.getItem('travelVisitStatus') || '{}');
-    const dataStr = JSON.stringify(visitStatus, null, 2);
-    const dataBlob = new Blob([dataStr], {type: 'application/json'});
-    
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(dataBlob);
-    link.download = 'travel_visit_status.json';
-    link.click();
-}
-
-// 匯入功能
-function importData(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const visitStatus = JSON.parse(e.target.result);
-            localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
-            loadVisitStatus();
-            alert('資料匯入成功！');
-        } catch (error) {
-            alert('檔案格式錯誤！');
-        }
-    };
-    reader.readAsText(file);
-}
-
-// 初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 修復HTML結構
-    setTimeout(() => {
-        document.querySelectorAll('tr').forEach(row => {
-            const label = row.querySelector('label');
-            const checkbox = row.querySelector('.visited-checkbox');
-            const strong = row.querySelector('strong');
             
-            if (label && checkbox && strong) {
-                // 確保正確結構：checkbox在前，label在後
-                if (!checkbox.nextElementSibling || checkbox.nextElementSibling !== label) {
-                    checkbox.remove();
-                    label.parentNode.insertBefore(checkbox, label);
-                }
-                
-                // 確保有onchange事件
-                if (!checkbox.getAttribute('onchange')) {
-                    checkbox.setAttribute('onchange', 'updateVisitStatus(this)');
-                }
+            .visited-checkbox + label {
+                padding: 4px 8px !important;
+                font-size: 12px !important;
+                margin-left: 4px !important;
+                min-width: 60px !important;
             }
-        });
-        
-        // 載入記錄
-        loadVisitStatus();
-    }, 100);
-    
-    // 添加控制按鈕
-    if (!document.getElementById('exportBtn')) {
-        const controls = document.createElement('div');
-        controls.style.cssText = 'margin: 20px; text-align: center; padding: 10px; background: #f5f5f5; border-radius: 8px;';
-        controls.innerHTML = `
-            <h3>旅行記錄管理</h3>
-            <button id="exportBtn" onclick="exportData()" style="margin: 5px; padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">📥 匯出記錄</button>
-            <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
-            <label for="importFile" style="margin: 5px; padding: 10px 15px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block; font-size: 14px;">📤 匯入記錄</label>
-            <button onclick="localStorage.removeItem('travelVisitStatus'); location.reload();" style="margin: 5px; padding: 10px 15px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">🗑️ 清除記錄</button>
-        `;
-        
-        // 插入到表格前面
-        const table = document.querySelector('table');
-        if (table) {
-            table.parentNode.insertBefore(controls, table);
-        } else {
-            document.body.insertBefore(controls, document.body.firstChild);
+            
+            .compact-text {
+                max-width: 150px;
+            }
+            
+            .control-btn {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+            }
         }
-    }
-});
-
-// 修復現有checkbox的點擊事件
-document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('visited-checkbox')) {
-        updateVisitStatus(e.target);
-    }
-});
-// 在現有JavaScript後面加入這句來修復HTML結構    
-function fixCheckboxStructure() {
-    document.querySelectorAll('tr').forEach(row => {
-        const label = row.querySelector('label');
-        const checkbox = row.querySelector('.visited-checkbox');
-        const strong = row.querySelector('strong');
         
-        if (label && checkbox && strong && !checkbox.id) {
-            const cityName = strong.textContent.trim();
-            // 重新組織HTML結構
-            label.innerHTML = '';
-            checkbox.remove();
-            label.parentNode.insertBefore(checkbox, label);
-            checkbox.setAttribute('data-city', cityName);
-            checkbox.setAttribute('onchange', 'updateVisitStatus(this)');
-            label.textContent = '未去過?';
+        /* 響應式表格 */
+        @media (max-width: 1024px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
         }
-    });
-}
-    
-// 在HTML中替換所有checkbox結構
-document.body.innerHTML = document.body.innerHTML.replace(
-    /<label><input type="checkbox" class="visited-checkbox" onchange="[^"]*"> 未去過\?<\/label>/g,
-    '<input type="checkbox" class="visited-checkbox" data-city="" onchange="updateVisitStatus(this)"><label>未去過?</label>'
-);    
-</script>
+    </style>
 </head>
 <body>
-    <button class="mode-toggle" onclick="toggleMode()">切換手機版</button>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-road"></i> 環中國自駕遊行程規劃系統</h1>
-            <p>橫琴口岸出發，江門結束，沿G331、G219、G228國道環繞中國一圈的完整自駕指南</p>
-            <div class="stats">
-                <div class="stat-item">
-                    <h3>27,198 公里</h3>
-                    <p>總里程</p>
-                </div>
-                <div class="stat-item">
-                    <h3>75-95 天</h3>
-                    <p>建議天數</p>
-                </div>
-                <div class="stat-item">
-                    <h3>47 個地點</h3>
-                    <p>主要停留點</p>
-                </div>
-            </div>
-        </header>
-        
-        <section class="content-section">
-            <h2><i class="fas fa-map-marked-alt"></i> 路線地圖</h2>
-            <div class="map-container">
-                <img src="環中國自駕遊.jpg" alt="環中國自駕遊路線圖" class="route-map">
-                <p class="map-caption">環中國自駕遊路線圖 - 包含G331、G219、G228三條國道</p>
-            </div>
-            
-            <div class="tabs">
-                <div class="tab active" onclick="openTab('itinerary')">完整行程表</div>
-                <div class="tab" onclick="openTab('segments')">分段路書</div>
-                <div class="tab" onclick="openTab('tips')">自駕建議</div>
-                <div class="tab" onclick="openTab('permit')">邊境證指南</div>
-            </div>
-            
-            <div id="itinerary" class="tab-content active">
-                <h3>環中國自駕遊完整行程表（橫琴口岸 → 江門） - 47個地點</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>順序</th>
-                                <th>地點</th>
-                                <th>天數</th>
-                                <th>交通時間</th>
-                                <th>類型</th>
-                                <th>文化特色</th>
-                                <th>必嘗美食</th>
-                                <th>重要景點</th>
-                                <th>預算估計</th>
-                                <th>氣候情況</th>
-                                <th>注意事項</th>
-                                <th>住宿推薦</th>
-                                <th>最佳季節</th>
-                                <th>邊境證</th>
-                                <th>車輛建議</th>
-                                <th>信號通訊</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+    <!-- 控制面板 -->
+    <div id="travelControls">
+        <h3 style="margin-bottom: 20px; color: #2c3e50;">🗺️ 旅行記錄管理系統</h3>
+        <button class="control-btn export-btn" onclick="exportData()">📥 匯出記錄</button>
+        <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
+        <label for="importFile" class="control-btn import-btn">📤 匯入記錄</label>
+        <button class="control-btn clear-btn" onclick="clearAllData()">🗑️ 清除記錄</button>
+        <button class="control-btn refresh-btn" onclick="refreshSystem()">🔄 重新整理</button>
+        <div style="margin-top: 15px; font-size: 14px; color: #666;">
+            <p>點擊地點旁的按鈕標記「去過」/「未去過」，系統會自動保存您的選擇</p>
+        </div>
+    </div>
+
+    <!-- 表格內容 -->
+    <table>
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>地點</th>
+                <th>天數</th>
+                <th>車程</th>
+                <th>類型</th>
+                <th>特色</th>
+                <th>美食</th>
+                <th>景點</th>
+                <th>預算</th>
+                <th>氣候</th>
+                <th>注意事項</th>
+                <th>住宿</th>
+                <th>最佳季節</th>
+                <th>簽證</th>
+                <th>交通</th>
+                <th>網絡</th>
+            </tr>
+        </thead>
+        <tbody>
                             <!-- 起點 -->
                             <tr class="location-type-start">
     <td>1</td>
-    <td><strong>橫琴口岸</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>橫琴口岸</strong></td>
     <td>-</td>
     <td>-</td>
     <td><span class="tag tag-green">起點</span></td>
@@ -915,7 +235,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>2</td>
-    <td><strong>廣州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>廣州</strong></td>
     <td>2</td>
     <td>2小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -939,7 +259,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>3</td>
-    <td><strong>深圳</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>深圳</strong></td>
     <td>2</td>
     <td>2小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -963,7 +283,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>4</td>
-    <td><strong>廈門</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>廈門</strong></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -987,7 +307,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>5</td>
-    <td><strong>福州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>福州</strong></td>
     <td>2</td>
     <td>4小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1011,7 +331,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>6</td>
-    <td><strong>杭州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>杭州</strong></td>
     <td>2</td>
     <td>5小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1035,7 +355,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>7</td>
-    <td><strong>上海</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>上海</strong></td>
     <td>2</td>
     <td>3小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1059,7 +379,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>8</td>
-    <td><strong>青島</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>青島</strong></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1083,7 +403,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>9</td>
-    <td><strong>大連</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>大連</strong></td>
     <td>2</td>
     <td>5小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1107,7 +427,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>10</td>
-    <td><strong>丹東</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>丹東</strong></td>
     <td>2</td>
     <td>4小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1131,7 +451,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>11</td>
-    <td><strong>撫遠</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>撫遠</strong></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1155,7 +475,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>12</td>
-    <td><strong>漠河</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>漠河</strong></td>
     <td>2</td>
     <td>8小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1179,7 +499,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
     <td>13</td>
-    <td><strong>滿洲里</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+    <td><strong>滿洲里</strong></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1203,7 +523,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
 </tr>
 <tr class="location-type-main">
         <td>14</td>
-        <td><strong>呼倫貝爾</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>呼倫貝爾</strong></td>
         <td>2</td>
         <td>6小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1227,7 +547,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </tr>
     <tr class="location-type-main">
         <td>15</td>
-        <td><strong>海拉爾</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>海拉爾</strong></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1251,7 +571,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </tr>
     <tr class="location-type-main">
         <td>16</td>
-        <td><strong>烏蘭察布</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>烏蘭察布</strong></td>
         <td>2</td>
         <td>5小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1275,7 +595,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </tr>
     <tr class="location-type-main">
         <td>17</td>
-        <td><strong>包頭</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>包頭</strong></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1299,7 +619,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </tr>
     <tr class="location-type-main">
         <td>18</td>
-        <td><strong>呼和浩特</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>呼和浩特</strong></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1323,7 +643,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </tr>
     <tr class="location-type-main">
         <td>19</td>
-        <td><strong>鄂爾多斯</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>鄂爾多斯</strong></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1345,9 +665,9 @@ document.body.innerHTML = document.body.innerHTML.replace(
         <td><span class="tag tag-red">建議四驅</span></td>
         <td><span class="tag tag-green">良好</span></td>
     </tr>
-<tr class="location-type-main">
+    <tr class="location-type-main">
         <td>20</td>
-        <td><strong>銀川</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+        <td><strong>銀川</strong></td>
         <td>2</td>
         <td>5小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1358,20 +678,21 @@ document.body.innerHTML = document.body.innerHTML.replace(
             <div class="budget-item">路費: ¥300</div>
             <div class="budget-item">油費: ¥400</div>
             <div class="budget-item">住宿: ¥600</div>
-            <div class="budget-item">餐飲: ¥500</div>
-            <div class="budget-total">合計: ¥1800</div>
-        </td>
-        <td class="compact-text">溫帶大陸性氣候</td>
-        <td class="compact-text">注意防曬</td>
-        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-        <td><span class="tag tag-green">5-10月</span></td>
-        <td><span class="tag tag-green">不需要</span></td>
-        <td><span class="tag tag-blue">常規轎車</span></td>
-        <td><span class="tag tag-green">良好</span></td>
-    </tr>
+            <td class="compact-text">餐飲: ¥500</td>
+            <td class="compact-text">
+                <div class="budget-total">合計: ¥1800</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">注意防曬</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
         <tr class="location-type-main">
             <td>21</td>
-            <td><strong>蘭州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>蘭州</strong></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1395,7 +716,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>22</td>
-            <td><strong>西寧</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>西寧</strong></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1419,7 +740,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>23</td>
-            <td><strong>張掖</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>張掖</strong></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1443,7 +764,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>24</td>
-            <td><strong>酒泉</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>酒泉</strong></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1467,7 +788,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>25</td>
-            <td><strong>哈密</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>哈密</strong></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1491,7 +812,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>26</td>
-            <td><strong>吐魯番</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>吐魯番</strong></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1515,7 +836,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>27</td>
-            <td><strong>霍爾果斯</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>霍爾果斯</strong></td>
             <td>2</td>
             <td>8小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1539,7 +860,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-stopover">
             <td>28</td>
-            <td>伊寧<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td>伊寧</td>
             <td>1</td>
             <td>4小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1563,7 +884,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>29</td>
-            <td><strong>阿克蘇</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>阿克蘇</strong></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1587,7 +908,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-stopover">
             <td>30</td>
-            <td>喀什<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td>喀什</td>
             <td>1</td>
             <td>8小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1611,7 +932,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-main">
             <td>31</td>
-            <td><strong>日土</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td><strong>日土</strong></td>
             <td>2</td>
             <td>10小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1635,7 +956,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
         </tr>
         <tr class="location-type-stopover">
             <td>32</td>
-            <td>獅泉河<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+            <td>獅泉河</td>
             <td>1</td>
             <td>6小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1658,32 +979,33 @@ document.body.innerHTML = document.body.innerHTML.replace(
             <td><span class="tag tag-red">信號極弱</span></td>
         </tr>
         <tr class="location-type-main">
-        <td>33</td>
-        <td><strong>隆子</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
-        <td>2</td>
-        <td>8小時</td>
-        <td><span class="tag tag-blue">主要城市</span></td>
-        <td class="compact-text">藏南文化、邊境山村</td>
-        <td class="compact-text">藏麵、酥油茶</td>
-        <td class="compact-text">扎日神山<a href="javascript:openMap('longzi_zhari')">地圖</a>、三安曲林寺<a href="javascript:openMap('longzi_sananqu')">地圖</a></td>
-        <td class="compact-text">
-            <div class="budget-item">路費: ¥480</div>
-            <div class="budget-item">油費: ¥640</div>
-            <div class="budget-item">住宿: ¥320</div>
-            <div class="budget-item">餐飲: ¥260</div>
-            <div class="budget-total">合計: ¥1700</div>
-        </td>
-        <td class="compact-text">高山峽谷氣候</td>
-        <td class="compact-text">邊境地區需證件</td>
-        <td><span class="tag tag-green">藏式民宿</span></td>
-        <td><span class="tag tag-green">5-10月</span></td>
-        <td><span class="tag tag-red">需邊防證</span></td>
-        <td><span class="tag tag-red">必須四驅</span></td>
-        <td><span class="tag tag-red">信號弱</span></td>
-    </tr>
+            <td>33</td>
+            <td><strong>隆子</strong></td>
+            <td>2</td>
+            <td>8小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">藏南文化、邊境山村</td>
+            <td class="compact-text">藏麵、酥油茶</td>
+            <td class="compact-text">扎日神山<a href="javascript:openMap('longzi_zhari')">地圖</a>、三安曲林寺<a href="javascript:openMap('longzi_sananqu')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥480</div>
+                <div class="budget-item">油費: ¥640</div>
+                <div class="budget-item">住宿: ¥320</div>
+                <td class="compact-text">餐飲: ¥260</td>
+                <td class="compact-text">
+                    <div class="budget-total">合計: ¥1700</div>
+                </td>
+                <td class="compact-text">高山峽谷氣候</td>
+                <td class="compact-text">邊境地區需證件</td>
+                <td><span class="tag tag-green">藏式民宿</span></td>
+                <td><span class="tag tag-green">5-10月</span></td>
+                <td><span class="tag tag-red">需邊防證</span></td>
+                <td><span class="tag tag-red">必須四驅</span></td>
+                <td><span class="tag tag-red">信號弱</span></td>
+            </tr>
             <tr class="location-type-stopover">
                 <td>34</td>
-                <td>林芝<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td>林芝</td>
                 <td>1</td>
                 <td>6小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1707,7 +1029,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-main">
                 <td>35</td>
-                <td><strong>墨脫</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td><strong>墨脫</strong></td>
                 <td>2</td>
                 <td>6小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1731,7 +1053,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-stopover">
                 <td>36</td>
-                <td>大理<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td>大理</td>
                 <td>1</td>
                 <td>8小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1755,7 +1077,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-main">
                 <td>37</td>
-                <td><strong>麗江</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td><strong>麗江</strong></td>
                 <td>2</td>
                 <td>4小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1779,7 +1101,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-stopover">
                 <td>38</td>
-                <td>芒市<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td>芒市</td>
                 <td>1</td>
                 <td>6小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1803,7 +1125,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-main">
                 <td>39</td>
-                <td><strong>瑞麗</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td><strong>瑞麗</strong></td>
                 <td>2</td>
                 <td>3小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1827,7 +1149,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-main">
                 <td>40</td>
-                <td><strong>騰衝</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td><strong>騰衝</strong></td>
                 <td>2</td>
                 <td>4小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1851,7 +1173,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
             </tr>
             <tr class="location-type-stopover">
                 <td>41</td>
-                <td>保山<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                <td>保山</td>
                 <td>1</td>
                 <td>3小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1874,32 +1196,33 @@ document.body.innerHTML = document.body.innerHTML.replace(
                 <td><span class="tag tag-green">良好</span></td>
             </tr>
             <tr class="location-type-main">
-        <td>42</td>
-        <td><strong>昆明</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
-        <td>2</td>
-        <td>5小時</td>
-        <td><span class="tag tag-blue">主要城市</span></td>
-        <td class="compact-text">春城、多元民族文化</td>
-        <td class="compact-text">過橋米線、汽鍋雞</td>
-        <td class="compact-text">石林<a href="javascript:openMap('kunming_shilin')">地圖</a>、滇池<a href="javascript:openMap('kunming_dianchi')">地圖</a></td>
-        <td class="compact-text">
-            <div class="budget-item">路費: ¥300</div>
-            <div class="budget-item">油費: ¥400</div>
-            <div class="budget-item">住宿: ¥800</div>
-            <div class="budget-item">餐飲: ¥600</div>
-            <div class="budget-total">合計: ¥2100</div>
-        </td>
-        <td class="compact-text">高原季風氣候</td>
-        <td class="compact-text">市區注意限行</td>
-        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
-        <td><span class="tag tag-green">全年</span></td>
-        <td><span class="tag tag-green">不需要</span></td>
-        <td><span class="tag tag-blue">常規轎車</span></td>
-        <td><span class="tag tag-green">極佳</span></td>
-    </tr>
+                <td>42</td>
+                <td><strong>昆明</strong></td>
+                <td>2</td>
+                <td>5小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">春城、多元民族文化</td>
+                <td class="compact-text">過橋米線、汽鍋雞</td>
+                <td class="compact-text">石林<a href="javascript:openMap('kunming_shilin')">地圖</a>、滇池<a href="javascript:openMap('kunming_dianchi')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥300</div>
+                    <div class="budget-item">油費: ¥400</div>
+                    <div class="budget-item">住宿: ¥800</div>
+                    <td class="compact-text">餐飲: ¥600</td>
+                    <td class="compact-text">
+                        <div class="budget-total">合計: ¥2100</div>
+                    </td>
+                    <td class="compact-text">高原季風氣候</td>
+                    <td class="compact-text">市區注意限行</td>
+                    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                    <td><span class="tag tag-green">全年</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">極佳</span></td>
+                </tr>
                 <tr class="location-type-stopover">
                     <td>43</td>
-                    <td>玉溪<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                    <td>玉溪</td>
                     <td>1</td>
                     <td>2小時</td>
                     <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1923,7 +1246,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
                 </tr>
                 <tr class="location-type-main">
                     <td>44</td>
-                    <td><strong>南寧</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                    <td><strong>南寧</strong></td>
                     <td>2</td>
                     <td>6小時</td>
                     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1947,7 +1270,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
                 </tr>
                 <tr class="location-type-main">
                     <td>45</td>
-                    <td><strong>北海</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                    <td><strong>北海</strong></td>
                     <td>2</td>
                     <td>4小時</td>
                     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1971,7 +1294,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
                 </tr>
                 <tr class="location-type-stopover">
                     <td>46</td>
-                    <td>湛江<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                    <td>湛江</td>
                     <td>1</td>
                     <td>4小時</td>
                     <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1995,7 +1318,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
                 </tr>
                 <tr class="location-type-end">
                     <td>47</td>
-                    <td><strong>江門</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
+                    <td><strong>江門</strong></td>
                     <td>-</td>
                     <td>4小時</td>
                     <td><span class="tag tag-red">終點</span></td>
@@ -2018,150 +1341,157 @@ document.body.innerHTML = document.body.innerHTML.replace(
                     <td><span class="tag tag-green">良好</span></td>
                 </tr>
                         </tbody>
-                    </table>
-                </div>
-            </div>
-            
-            <div id="segments" class="tab-content">
-                <h3>分段路書 - 三段路線詳情</h3>
-                <div class="route-section route-1">
-                    <div class="route-title">
-                        <div class="route-icon">1</div>
-                        <h3>G331 - 沿海段（橫琴口岸 → 撫遠，約11,000公里，30天）</h3>
-                    </div>
-                    <p>沿著中國東南、東北沿海，途經繁華都市與海濱城市，體驗海洋文化與現代化城市風貌。路況良好，適合常規轎車，但需注意高峰期交通與邊境檢查。</p>
-                    <ul>
-                        <li><strong>主要地點</strong>: 廣州、深圳、廈門、杭州、上海、青島、大連、丹東、撫遠</li>
-                        <li><strong>特色</strong>: 嶺南文化、閩南風情、海派文化、啤酒節、東北邊境</li>
-                        <li><strong>建議</strong>: 提前規劃沿海景點門票，避開沿海高峰，準備防曬用品。</li>
-                    </ul>
-                </div>
-                <div class="route-section route-2">
-                    <div class="route-title">
-                        <div class="route-icon">2</div>
-                        <h3>G219 - 西部高原段（撫遠 → 墨脫，約10,000公里，35天）</h3>
-                    </div>
-                    <p>穿越東北平原、內蒙草原、新疆沙漠與西藏高原，挑戰高海拔與多變地形，需四驅車與充分準備。</p>
-                    <ul>
-                        <li><strong>主要地點</strong>: 漠河、滿洲里、喀納斯、霍爾果斯、日土、墨脫</li>
-                        <li><strong>特色</strong>: 極光、草原、沙漠、雪山、高原湖泊、藏族文化</li>
-                        <li><strong>建議</strong>: 準備高原反應藥物、備足油料與補給，檢查車輛性能，辦理邊境證。</li>
-                    </ul>
-                </div>
-                <div class="route-section route-3">
-                    <div class="route-title">
-                        <div class="route-icon">3</div>
-                        <h3>G228 - 南部回程段（墨脫 → 江門，約6,198公里，25天）</h3>
-                    </div>
-                    <p>從西藏經雲南、廣西回到廣東，體驗多元民族文化與熱帶風情，路況逐漸改善，適合放鬆旅程。</p>
-                    <ul>
-                        <li><strong>主要地點</strong>: 大理、麗江、瑞麗、昆明、南寧、北海、江門</li>
-                        <li><strong>特色</strong>: 白族、納西族、傣族、壯族文化，海濱度假、僑鄉風情</li>
-                        <li><strong>建議</strong>: 注意熱帶氣候防暑，提前預訂涠洲島船票，享受美食與休閒。</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div id="tips" class="tab-content">
-                <h3>自駕建議 - 安全與舒適的旅程</h3>
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <h4><i class="fas fa-car"></i> 車輛準備</h4>
-                        <p>檢查輪胎、剎車、油路，確保車輛適應高原與沙漠地形。建議攜帶備胎、工具箱與急救包。長途駕駛需備足燃油，特別在新疆、西藏偏遠地區。</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-map"></i> 導航與通訊</h4>
-                        <p>使用高德地圖或百度地圖，離線地圖備份以應對偏遠地區信號弱的情況。攜帶車載充電器與行動電源，確保通訊暢通。</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-umbrella"></i> 氣候適應</h4>
-                        <p>沿海地區注意防曬，高原地區攜帶羽絨服與防寒裝備，沙漠地區備好防沙口罩。隨時關注天氣預報，避開雨季與極端天氣。</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-utensils"></i> 飲食與補給</h4>
-                        <p>沿海城市美食豐富，偏遠地區建議自備乾糧與水。注意飲食衛生，避免生冷食物，特別在高原地區保持水分攝取。</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-passport"></i> 證件準備</h4>
-                        <p>攜帶身份證、駕駛證、行車證，邊境地區需提前辦理邊防證。部分景區需預約，建議提前查詢並準備。</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4><i class="fas fa-hotel"></i> 住宿規劃</h4>
-                        <p>提前預訂熱門景點附近住宿，節假日需提早數週。偏遠地區選擇正規客棧或酒店，確保安全與舒適。</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="permit" class="tab-content">
-                <h3>邊境證指南 - 安全合規通行</h3>
-                <div class="permit-info">
-                    <p>環中國自駕遊涉及新疆、西藏等邊境地區，需辦理邊防證。以下為辦理方式與建議：</p>
-                    <div class="permit-method">
-                        <div class="method-card recommended">
-                            <div class="recommended-badge">推薦</div>
-                            <h4>線下辦理</h4>
-                            <p>前往戶籍所在地或旅遊當地公安局出入境管理處辦理，需提供身份證、駕駛證及行程計劃。辦理時間約3-7天，費用免費。</p>
-                            <ul>
-                                <li><strong>適用地點</strong>: 琿春、喀納斯、霍爾果斯、日土、隆子、墨脫</li>
-                                <li><strong>優勢</strong>: 官方正規，手續簡單</li>
-                                <li><strong>注意</strong>: 提前確認所需材料，部分地區需指定具體邊境地點</li>
-                            </ul>
-                        </div>
-                        <div class="method-card">
-                            <h4>旅行社代辦</h4>
-                            <p>委託專業旅行社代辦邊防證，適合時間緊張的旅客。費用約¥100-300，需提供個人信息與行程。</p>
-                            <ul>
-                                <li><strong>適用地點</strong>: 同上</li>
-                                <li><strong>優勢</strong>: 省時省力，適合初次辦理者</li>
-                                <li><strong>注意</strong>: 選擇正規旅行社，避免詐騙</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <footer>
-            <p>© 2025 環中國自駕遊行程規劃系統 | 提供最全面的自駕指南，祝您旅途愉快！</p>
-        </footer>
-    </div>
+      </table>
 
     <script>
-        function openTab(tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-            event.currentTarget.classList.add("active");
+        // 記憶功能
+        function saveVisitStatus() {
+            const visitStatus = {};
+            document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+                const cityName = checkbox.getAttribute('data-city');
+                if (cityName) {
+                    visitStatus[cityName] = checkbox.checked;
+                }
+            });
+            localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+            console.log('記錄已保存:', visitStatus);
         }
 
-        function toggleMode() {
-            const body = document.body;
-            const toggleButton = document.querySelector('.mode-toggle');
-            if (body.classList.contains('mobile-mode')) {
-                body.classList.remove('mobile-mode');
-                toggleButton.textContent = '切換手機版';
-            } else {
-                body.classList.add('mobile-mode');
-                toggleButton.textContent = '切換桌面版';
+        function loadVisitStatus() {
+            const saved = localStorage.getItem('travelVisitStatus');
+            if (saved) {
+                try {
+                    const visitStatus = JSON.parse(saved);
+                    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+                        const cityName = checkbox.getAttribute('data-city');
+                        if (cityName && visitStatus.hasOwnProperty(cityName)) {
+                            checkbox.checked = visitStatus[cityName];
+                            updateCheckboxLabel(checkbox);
+                        }
+                    });
+                    console.log('記錄已載入');
+                } catch (error) {
+                    console.error('載入記錄失敗:', error);
+                }
             }
         }
+
+        function updateCheckboxLabel(checkbox) {
+            const label = checkbox.nextElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                if (checkbox.checked) {
+                    label.textContent = '去過';
+                } else {
+                    label.textContent = '未去過?';
+                }
+            }
+        }
+
+        function updateVisitStatus(checkbox) {
+            updateCheckboxLabel(checkbox);
+            saveVisitStatus();
+        }
+
+        // 匯出功能
+        function exportData() {
+            const visitStatus = JSON.parse(localStorage.getItem('travelVisitStatus') || '{}');
+            const dataStr = JSON.stringify(visitStatus, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = 'travel_visit_status.json';
+            link.click();
+            
+            alert('記錄已匯出為 travel_visit_status.json');
+        }
+
+        // 匯入功能
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const visitStatus = JSON.parse(e.target.result);
+                    localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+                    loadVisitStatus();
+                    alert('資料匯入成功！');
+                } catch (error) {
+                    alert('檔案格式錯誤！');
+                }
+            };
+            reader.readAsText(file);
+            
+            // 重置input，允許再次選擇相同檔案
+            event.target.value = '';
+        }
+
+        // 清除所有記錄
+        function clearAllData() {
+            if (confirm('確定要清除所有旅行記錄嗎？此操作無法復原。')) {
+                localStorage.removeItem('travelVisitStatus');
+                document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                    updateCheckboxLabel(checkbox);
+                });
+                alert('所有記錄已清除');
+            }
+        }
+
+        // 重新整理系統
+        function refreshSystem() {
+            loadVisitStatus();
+            alert('系統已重新整理');
+        }
+
+        // 初始化系統
+        function initVisitSystem() {
+            console.log('初始化旅行記錄系統...');
+            
+            // 綁定所有checkbox的change事件
+            document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    updateVisitStatus(this);
+                });
+            });
+            
+            // 載入保存的記錄
+            loadVisitStatus();
+            
+            console.log('系統初始化完成');
+        }
+
+        // 頁面載入時初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            initVisitSystem();
+        });
+
+        // 確保HTML結構正確
+        function fixCheckboxStructure() {
+            document.querySelectorAll('tr').forEach(row => {
+                const label = row.querySelector('label');
+                const checkbox = row.querySelector('.visited-checkbox');
+                const strong = row.querySelector('strong');
+                
+                if (label && checkbox && strong) {
+                    // 確保checkbox在label前面
+                    if (checkbox.parentNode === label) {
+                        label.parentNode.insertBefore(checkbox, label);
+                    }
+                    
+                    // 確保有data-city屬性
+                    if (!checkbox.hasAttribute('data-city')) {
+                        const cityName = strong.textContent.trim();
+                        checkbox.setAttribute('data-city', cityName);
+                    }
+                }
+            });
+        }
+
+        // 執行結構修復
+        setTimeout(fixCheckboxStructure, 100);
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
