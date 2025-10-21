@@ -509,22 +509,23 @@
     display: none;
 }
 
-tr td label {
+.visited-checkbox + label {
     padding: 5px 10px;
-    border: 2px solid #1e90ff; /* 天藍色邊框 */
+    border: 2px solid #1e90ff;
     border-radius: 3px;
     cursor: pointer;
-    background-color: #f0f8ff; /* 淺天藍色背景 */
+    background-color: #f0f8ff;
     color: #000;
     font-weight: bold;
     display: inline-block;
     margin-left: 5px;
+    transition: all 0.3s ease;
 }
 
-.visited-checkbox:checked + * {
-    background-color: #98fb98 !important; /* 草綠色背景 */
-    border-color: #32cd32 !important; /* 草綠色邊框 */
-    color: #000 !important;
+.visited-checkbox:checked + label {
+    background-color: #98fb98;
+    border-color: #32cd32;
+    color: #000;
 }
     </style>
 <script>
@@ -663,11 +664,15 @@ tr td label {
     mapContainer.style.height = '400px';
     document.body.appendChild(mapContainer);
 // 記憶功能
+// 修正後的JavaScript
 function saveVisitStatus() {
     const visitStatus = {};
     document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-        const cityName = checkbox.closest('tr').querySelector('strong').textContent;
-        visitStatus[cityName] = checkbox.checked;
+        const cityElement = checkbox.closest('tr').querySelector('strong');
+        if (cityElement) {
+            const cityName = cityElement.textContent.trim();
+            visitStatus[cityName] = checkbox.checked;
+        }
     });
     localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
 }
@@ -675,25 +680,34 @@ function saveVisitStatus() {
 function loadVisitStatus() {
     const saved = localStorage.getItem('travelVisitStatus');
     if (saved) {
-        const visitStatus = JSON.parse(saved);
-        document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-            const cityName = checkbox.closest('tr').querySelector('strong').textContent;
-            if (visitStatus.hasOwnProperty(cityName)) {
-                checkbox.checked = visitStatus[cityName];
-                updateVisitStatus(checkbox);
-            }
-        });
+        try {
+            const visitStatus = JSON.parse(saved);
+            document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+                const cityElement = checkbox.closest('tr').querySelector('strong');
+                if (cityElement) {
+                    const cityName = cityElement.textContent.trim();
+                    if (visitStatus.hasOwnProperty(cityName)) {
+                        checkbox.checked = visitStatus[cityName];
+                        updateVisitStatus(checkbox);
+                    }
+                }
+            });
+        } catch (error) {
+            console.error('載入記錄失敗:', error);
+        }
     }
 }
 
 function updateVisitStatus(checkbox) {
     const label = checkbox.nextElementSibling;
-    if (checkbox.checked) {
-        label.textContent = '去過';
-    } else {
-        label.textContent = '未去過?';
+    if (label && label.tagName === 'LABEL') {
+        if (checkbox.checked) {
+            label.textContent = '去過';
+        } else {
+            label.textContent = '未去過?';
+        }
+        saveVisitStatus();
     }
-    saveVisitStatus();
 }
 
 // 匯出功能
@@ -727,31 +741,23 @@ function importData(event) {
     reader.readAsText(file);
 }
 
-// 自動設定data-city屬性（如果未設定的話）
-function autoSetCityAttributes() {
-    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-        if (!checkbox.hasAttribute('data-city')) {
-            const cityName = checkbox.closest('tr').querySelector('strong').textContent;
-            checkbox.setAttribute('data-city', cityName);
-        }
-    });
-}
-
-// 頁面載入時恢復狀態
+// 頁面載入
 document.addEventListener('DOMContentLoaded', function() {
-    autoSetCityAttributes();
     loadVisitStatus();
     
-    // 添加匯入匯出按鈕
-    const controls = document.createElement('div');
-    controls.style.cssText = 'margin: 20px; text-align: center;';
-    controls.innerHTML = `
-        <button onclick="exportData()" style="margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">匯出記錄</button>
-        <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
-        <label for="importFile" style="margin: 10px; padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block;">匯入記錄</label>
-    `;
-    document.body.insertBefore(controls, document.body.firstChild);
+    // 添加控制按鈕
+    if (!document.getElementById('exportBtn')) {
+        const controls = document.createElement('div');
+        controls.style.cssText = 'margin: 20px; text-align: center;';
+        controls.innerHTML = `
+            <button id="exportBtn" onclick="exportData()" style="margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">匯出記錄</button>
+            <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
+            <label for="importFile" style="margin: 10px; padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block;">匯入記錄</label>
+        `;
+        document.body.insertBefore(controls, document.body.firstChild);
+    }
 });
+    
 // 在HTML中替換所有checkbox結構
 document.body.innerHTML = document.body.innerHTML.replace(
     /<label><input type="checkbox" class="visited-checkbox" onchange="[^"]*"> 未去過\?<\/label>/g,
@@ -2081,6 +2087,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </script>
 </body>
 </html>
+
 
 
 
