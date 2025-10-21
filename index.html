@@ -79,30 +79,42 @@
         
         /* Checkbox 樣式 */
         .visited-checkbox {
-            display: none !important;
-        }
-        
-        .visited-checkbox + label {
-            padding: 6px 12px !important;
-            border: 2px solid #1e90ff !important;
-            border-radius: 4px !important;
-            cursor: pointer !important;
-            background-color: #f0f8ff !important;
-            color: #000 !important;
-            font-weight: bold !important;
-            display: inline-block !important;
-            margin-left: 8px !important;
-            transition: all 0.3s ease !important;
-            font-size: 14px !important;
-            min-width: 70px !important;
-            text-align: center !important;
-        }
-        
-        .visited-checkbox:checked + label {
-            background-color: #98fb98 !important;
-            border-color: #32cd32 !important;
-            color: #000 !important;
-        }
+    display: none !important;
+}
+
+/* 已選中狀態 - 草綠色 */
+label:has(.visited-checkbox:checked) {
+    padding: 6px 12px !important;
+    border: 2px solid #32cd32 !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    background-color: #98fb98 !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+    transition: all 0.3s ease !important;
+    font-size: 14px !important;
+    min-width: 70px !important;
+    text-align: center !important;
+}
+
+/* 未選中狀態 - 天藍色 */
+label:has(.visited-checkbox:not(:checked)) {
+    padding: 6px 12px !important;
+    border: 2px solid #1e90ff !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+    background-color: #f0f8ff !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+    margin-left: 8px !important;
+    transition: all 0.3s ease !important;
+    font-size: 14px !important;
+    min-width: 70px !important;
+    text-align: center !important;
+}
         
         /* 控制面板樣式 */
         #travelControls {
@@ -1345,17 +1357,27 @@
 
     <script>
         // 記憶功能
-        function saveVisitStatus() {
-            const visitStatus = {};
-            document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
-                const cityName = checkbox.getAttribute('data-city');
-                if (cityName) {
-                    visitStatus[cityName] = checkbox.checked;
-                }
-            });
-            localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
-            console.log('記錄已保存:', visitStatus);
+function updateCheckboxText(checkbox) {
+    const label = checkbox.parentElement;
+    if (checkbox.checked) {
+        label.textContent = '去過';
+    } else {
+        label.textContent = '未去過?';
+    }
+    saveVisitStatus(checkbox);
+}
+
+function saveVisitStatus(checkbox) {
+    const visitStatus = {};
+    document.querySelectorAll('.visited-checkbox').forEach(cb => {
+        const cityElement = cb.closest('tr').querySelector('strong');
+        if (cityElement) {
+            const cityName = cityElement.textContent.trim();
+            visitStatus[cityName] = cb.checked;
         }
+    });
+    localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+}
 
         function loadVisitStatus() {
             const saved = localStorage.getItem('travelVisitStatus');
@@ -1375,18 +1397,6 @@
                 }
             }
         }
-
-        function updateCheckboxLabel(checkbox) {
-            const label = checkbox.nextElementSibling;
-            if (label && label.tagName === 'LABEL') {
-                if (checkbox.checked) {
-                    label.textContent = '去過';
-                } else {
-                    label.textContent = '未去過?';
-                }
-            }
-        }
-
         function updateVisitStatus(checkbox) {
             updateCheckboxLabel(checkbox);
             saveVisitStatus();
@@ -1489,9 +1499,17 @@
                 }
             });
         }
-
+// 加到現有JavaScript後面
+function fixAllOnchangeEvents() {
+    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+        checkbox.setAttribute('onchange', 'updateCheckboxText(this)');
+    });
+}
+// 頁面載入時執行
+document.addEventListener('DOMContentLoaded', fixAllOnchangeEvents);
         // 執行結構修復
         setTimeout(fixCheckboxStructure, 100);
     </script>
 </body>
 </html>
+
