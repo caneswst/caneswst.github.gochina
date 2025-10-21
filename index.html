@@ -520,6 +520,7 @@
     display: inline-block;
     margin-left: 5px;
     transition: all 0.3s ease;
+    font-size: 14px;
 }
 
 .visited-checkbox:checked + label {
@@ -527,7 +528,15 @@
     border-color: #32cd32;
     color: #000;
 }
-    </style>
+
+/* 手機版適配 */
+@media (max-width: 768px) {
+    .visited-checkbox + label {
+        padding: 4px 8px;
+        font-size: 12px;
+        margin-left: 3px;
+    }
+}    </style>
 <script>
     function openMap(locationId) {
         const mapLocations = {
@@ -664,7 +673,6 @@
     mapContainer.style.height = '400px';
     document.body.appendChild(mapContainer);
 // 記憶功能
-// 修正後的JavaScript
 function saveVisitStatus() {
     const visitStatus = {};
     document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
@@ -675,6 +683,7 @@ function saveVisitStatus() {
         }
     });
     localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+    console.log('記錄已保存:', visitStatus);
 }
 
 function loadVisitStatus() {
@@ -692,6 +701,7 @@ function loadVisitStatus() {
                     }
                 }
             });
+            console.log('記錄已載入');
         } catch (error) {
             console.error('載入記錄失敗:', error);
         }
@@ -741,22 +751,80 @@ function importData(event) {
     reader.readAsText(file);
 }
 
-// 頁面載入
+// 初始化
 document.addEventListener('DOMContentLoaded', function() {
-    loadVisitStatus();
+    // 修復HTML結構
+    setTimeout(() => {
+        document.querySelectorAll('tr').forEach(row => {
+            const label = row.querySelector('label');
+            const checkbox = row.querySelector('.visited-checkbox');
+            const strong = row.querySelector('strong');
+            
+            if (label && checkbox && strong) {
+                // 確保正確結構：checkbox在前，label在後
+                if (!checkbox.nextElementSibling || checkbox.nextElementSibling !== label) {
+                    checkbox.remove();
+                    label.parentNode.insertBefore(checkbox, label);
+                }
+                
+                // 確保有onchange事件
+                if (!checkbox.getAttribute('onchange')) {
+                    checkbox.setAttribute('onchange', 'updateVisitStatus(this)');
+                }
+            }
+        });
+        
+        // 載入記錄
+        loadVisitStatus();
+    }, 100);
     
     // 添加控制按鈕
     if (!document.getElementById('exportBtn')) {
         const controls = document.createElement('div');
-        controls.style.cssText = 'margin: 20px; text-align: center;';
+        controls.style.cssText = 'margin: 20px; text-align: center; padding: 10px; background: #f5f5f5; border-radius: 8px;';
         controls.innerHTML = `
-            <button id="exportBtn" onclick="exportData()" style="margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">匯出記錄</button>
+            <h3>旅行記錄管理</h3>
+            <button id="exportBtn" onclick="exportData()" style="margin: 5px; padding: 10px 15px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">📥 匯出記錄</button>
             <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
-            <label for="importFile" style="margin: 10px; padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block;">匯入記錄</label>
+            <label for="importFile" style="margin: 5px; padding: 10px 15px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block; font-size: 14px;">📤 匯入記錄</label>
+            <button onclick="localStorage.removeItem('travelVisitStatus'); location.reload();" style="margin: 5px; padding: 10px 15px; background: #ff4444; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">🗑️ 清除記錄</button>
         `;
-        document.body.insertBefore(controls, document.body.firstChild);
+        
+        // 插入到表格前面
+        const table = document.querySelector('table');
+        if (table) {
+            table.parentNode.insertBefore(controls, table);
+        } else {
+            document.body.insertBefore(controls, document.body.firstChild);
+        }
     }
 });
+
+// 修復現有checkbox的點擊事件
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('visited-checkbox')) {
+        updateVisitStatus(e.target);
+    }
+});
+// 在現有JavaScript後面加入這句來修復HTML結構    
+function fixCheckboxStructure() {
+    document.querySelectorAll('tr').forEach(row => {
+        const label = row.querySelector('label');
+        const checkbox = row.querySelector('.visited-checkbox');
+        const strong = row.querySelector('strong');
+        
+        if (label && checkbox && strong && !checkbox.id) {
+            const cityName = strong.textContent.trim();
+            // 重新組織HTML結構
+            label.innerHTML = '';
+            checkbox.remove();
+            label.parentNode.insertBefore(checkbox, label);
+            checkbox.setAttribute('data-city', cityName);
+            checkbox.setAttribute('onchange', 'updateVisitStatus(this)');
+            label.textContent = '未去過?';
+        }
+    });
+}
     
 // 在HTML中替換所有checkbox結構
 document.body.innerHTML = document.body.innerHTML.replace(
@@ -2087,6 +2155,7 @@ document.body.innerHTML = document.body.innerHTML.replace(
     </script>
 </body>
 </html>
+
 
 
 
