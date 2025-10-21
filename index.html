@@ -505,19 +505,22 @@
                 .visited-checkbox {
             display: none;
         }
-        .visited-checkbox + span {
-            padding: 5px 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            cursor: pointer;
-            background-color: #d3d3d3; /* 未去過時為灰色 */
-            color: black;
-        }
-        .visited-checkbox:checked + span {
-            background-color: green;
-            color: white;
-            content: "去過";
-        }
+.visited-checkbox + span {
+    padding: 5px 10px;
+    border: 2px solid #1e90ff; /* 天藍色邊框 */
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #f0f8ff; /* 淺天藍色背景 */
+    color: #000;
+    font-weight: bold;
+}
+
+.visited-checkbox:checked + span {
+    background-color: #98fb98; /* 草綠色背景 */
+    border-color: #32cd32; /* 草綠色邊框 */
+    color: #000;
+    content: "去過";
+}
     </style>
 <script>
     function openMap(locationId) {
@@ -1978,6 +1981,7 @@
     </script>
 </body>
 </html>
+
 
 
 
