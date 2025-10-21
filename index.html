@@ -662,6 +662,101 @@ tr td label {
     mapContainer.style.width = '100%';
     mapContainer.style.height = '400px';
     document.body.appendChild(mapContainer);
+// 記憶功能
+function saveVisitStatus() {
+    const visitStatus = {};
+    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+        const cityName = checkbox.closest('tr').querySelector('strong').textContent;
+        visitStatus[cityName] = checkbox.checked;
+    });
+    localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+}
+
+function loadVisitStatus() {
+    const saved = localStorage.getItem('travelVisitStatus');
+    if (saved) {
+        const visitStatus = JSON.parse(saved);
+        document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+            const cityName = checkbox.closest('tr').querySelector('strong').textContent;
+            if (visitStatus.hasOwnProperty(cityName)) {
+                checkbox.checked = visitStatus[cityName];
+                updateVisitStatus(checkbox);
+            }
+        });
+    }
+}
+
+function updateVisitStatus(checkbox) {
+    const label = checkbox.nextElementSibling;
+    if (checkbox.checked) {
+        label.textContent = '去過';
+    } else {
+        label.textContent = '未去過?';
+    }
+    saveVisitStatus();
+}
+
+// 匯出功能
+function exportData() {
+    const visitStatus = JSON.parse(localStorage.getItem('travelVisitStatus') || '{}');
+    const dataStr = JSON.stringify(visitStatus, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = 'travel_visit_status.json';
+    link.click();
+}
+
+// 匯入功能
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const visitStatus = JSON.parse(e.target.result);
+            localStorage.setItem('travelVisitStatus', JSON.stringify(visitStatus));
+            loadVisitStatus();
+            alert('資料匯入成功！');
+        } catch (error) {
+            alert('檔案格式錯誤！');
+        }
+    };
+    reader.readAsText(file);
+}
+
+// 自動設定data-city屬性（如果未設定的話）
+function autoSetCityAttributes() {
+    document.querySelectorAll('.visited-checkbox').forEach(checkbox => {
+        if (!checkbox.hasAttribute('data-city')) {
+            const cityName = checkbox.closest('tr').querySelector('strong').textContent;
+            checkbox.setAttribute('data-city', cityName);
+        }
+    });
+}
+
+// 頁面載入時恢復狀態
+document.addEventListener('DOMContentLoaded', function() {
+    autoSetCityAttributes();
+    loadVisitStatus();
+    
+    // 添加匯入匯出按鈕
+    const controls = document.createElement('div');
+    controls.style.cssText = 'margin: 20px; text-align: center;';
+    controls.innerHTML = `
+        <button onclick="exportData()" style="margin: 10px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">匯出記錄</button>
+        <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
+        <label for="importFile" style="margin: 10px; padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; display: inline-block;">匯入記錄</label>
+    `;
+    document.body.insertBefore(controls, document.body.firstChild);
+});
+// 在HTML中替換所有checkbox結構
+document.body.innerHTML = document.body.innerHTML.replace(
+    /<label><input type="checkbox" class="visited-checkbox" onchange="[^"]*"> 未去過\?<\/label>/g,
+    '<input type="checkbox" class="visited-checkbox" data-city="" onchange="updateVisitStatus(this)"><label>未去過?</label>'
+);    
 </script>
 </head>
 <body>
@@ -1986,6 +2081,7 @@ tr td label {
     </script>
 </body>
 </html>
+
 
 
 
