@@ -503,6 +503,158 @@
             line-height: 1.3;
         }
     </style>
+    <script src="https://webapi.amap.com/maps?v=2.0&key=您的API_KEY&plugin=AMap.Geocoder"></script>
+<script>
+    function openMap(locationId) {
+        const mapLocations = {
+            'hengqin_xinqu': '横琴新区,珠海市,广东省,China',
+            'hengqin_changlong': '长隆海洋王国,珠海市,广东省,China',
+            'guangzhou_ta': '广州塔,广州市,广东省,China',
+            'guangzhou_chenjia': '陈家祠,广州市,广东省,China',
+            'guangzhou_shamian': '沙面,广州市,广东省,China',
+            'shenzhen_lianhua': '莲花山公园,深圳市,广东省,China',
+            'shenzhen_shijie': '世界之窗,深圳市,广东省,China',
+            'shenzhen_dongmen': '东门老街,深圳市,广东省,China',
+            'xiamen_gulangyu': '鼓浪屿,厦门市,福建省,China',
+            'xiamen_nanputuo': '南普陀寺,厦门市,福建省,China',
+            'xiamen_huandao': '环岛路,厦门市,福建省,China',
+            'fuzhou_sanfangqixiang': '三坊七巷,福州市,福建省,China',
+            'fuzhou_gushan': '鼓山,福州市,福建省,China',
+            'fuzhou_pingtang': '平潭岛,福州市,福建省,China',
+            'hangzhou_xihu': '西湖,杭州市,浙江省,China',
+            'hangzhou_lingyin': '灵隐寺,杭州市,浙江省,China',
+            'hangzhou_duanqiao': '断桥残雪,杭州市,浙江省,China',
+            'shanghai_waitan': '外滩,上海市,China',
+            'shanghai_ta': '上海塔,上海市,China',
+            'shanghai_yuyuan': '豫园,上海市,China',
+            'qingdao_bada': '八大关,青岛市,山东省,China',
+            'qingdao_zhanqiao': '栈桥,青岛市,山东省,China',
+            'qingdao_wusi': '五四广场,青岛市,山东省,China',
+            'dalian_xinghai': '星海广场,大连市,辽宁省,China',
+            'dalian_laohutan': '老虎滩,大连市,辽宁省,China',
+            'dalian_lvshun': '旅顺军港,大连市,辽宁省,China',
+            'dandong_duanqiao': '鸭绿江断桥,丹东市,辽宁省,China',
+            'dandong_hushan': '虎山长城,丹东市,辽宁省,China',
+            'dandong_huangjin': '黄金海岸,丹东市,辽宁省,China',
+            'fuyuan_heixiazi': '黑瞎子岛,抚远市,黑龙江省,China',
+            'fuyuan_wusu': '乌苏镇,抚远市,黑龙江省,China',
+            'fuyuan_dongji': '东极哨所,抚远市,黑龙江省,China',
+            'mohe_beiji': '北极村,漠河市,黑龙江省,China',
+            'mohe_yanzhi': '胭脂沟,漠河市,黑龙江省,China',
+            'mohe_guanyin': '观音山,漠河市,黑龙江省,China',
+            'manzhouli_taowa': '套娃广场,满洲里市,内蒙古自治区,China',
+            'manzhouli_guomen': '国门,满洲里市,内蒙古自治区,China',
+            'manzhouli_hulun': '呼伦湖,满洲里市,内蒙古自治区,China',
+            'hulunbeier_caoyuan': '呼伦贝尔草原,呼伦贝尔市,内蒙古自治区,China',
+            'hulunbeier_erguna': '额尔古纳,呼伦贝尔市,内蒙古自治区,China',
+            'hulunbeier_mordao': '莫尔道嘎,呼伦贝尔市,内蒙古自治区,China',
+            'hailaer_caoyuan': '呼伦贝尔草原,海拉尔区,内蒙古自治区,China',
+            'hailaer_bingxue': '冰雪乐园,海拉尔区,内蒙古自治区,China',
+            'hailaer_chengji': '成吉思汗公园,海拉尔区,内蒙古自治区,China',
+            'wulanchabu_zhaojun': '昭君墓,乌兰察布市,内蒙古自治区,China',
+            'wulanchabu_chahar': '察哈尔草原,乌兰察布市,内蒙古自治区,China',
+            'wulanchabu_damo': '大漠风光,乌兰察布市,内蒙古自治区,China',
+            'baotou_wudang': '五当召,包头市,内蒙古自治区,China',
+            'baotou_xilamuren': '希拉穆仁草原,包头市,内蒙古自治区,China',
+            'baotou_meihua': '梅花鹿园,包头市,内蒙古自治区,China',
+            'huhehaote_dazhao': '大召寺,呼和浩特市,内蒙古自治区,China',
+            'huhehaote_zhaojun': '昭君墓,呼和浩特市,内蒙古自治区,China',
+            'huhehaote_chengji': '成吉思汗陵,呼和浩特市,内蒙古自治区,China',
+            'eerduosi_chengji': '成吉思汗陵,鄂尔多斯市,内蒙古自治区,China',
+            'eerduosi_xiangsha': '响沙湾,鄂尔多斯市,内蒙古自治区,China',
+            'eerduosi_caoyuan': '鄂尔多斯草原,鄂尔多斯市,内蒙古自治区,China',
+            'yinchuan_xixia': '西夏王陵,银川市,宁夏回族自治区,China',
+            'yinchuan_helan': '贺兰山,银川市,宁夏回族自治区,China',
+            'yinchuan_shahu': '沙湖,银川市,宁夏回族自治区,China',
+            'lanzhou_huanghe': '黄河铁桥,兰州市,甘肃省,China',
+            'lanzhou_baita': '白塔山,兰州市,甘肃省,China',
+            'lanzhou_bingling': '炳灵寺,兰州市,甘肃省,China',
+            'xining_taer': '塔尔寺,西宁市,青海省,China',
+            'xining_qinghaihu': '青海湖,西宁市,青海省,China',
+            'xining_mojie': '莫家街,西宁市,青海省,China',
+            'zhangye_danxia': '张掖丹霞,张掖市,甘肃省,China',
+            'zhangye_matisi': '马蹄寺,张掖市,甘肃省,China',
+            'zhangye_dafosi': '大佛寺,张掖市,甘肃省,China',
+            'jiuquan_mogao': '敦煌莫高窟,酒泉市,甘肃省,China',
+            'jiuquan_yumenguan': '玉门关,酒泉市,甘肃省,China',
+            'jiuquan_jiayuguan': '嘉峪关,酒泉市,甘肃省,China',
+            'hami_huiwangfu': '哈密回王府,哈密市,新疆维吾尔自治区,China',
+            'hami_tianshan': '天山大峡谷,哈密市,新疆维吾尔自治区,China',
+            'hami_sandaogou': '三道沟,哈密市,新疆维吾尔自治区,China',
+            'tulufan_huoyan': '火焰山,吐鲁番市,新疆维吾尔自治区,China',
+            'tulufan_putao': '葡萄沟,吐鲁番市,新疆维吾尔自治区,China',
+            'tulufan_kan\'erjing': '坎儿井,吐鲁番市,新疆维吾尔自治区,China',
+            'huoerguosi_kouan': '霍尔果斯口岸,伊犁州,新疆维吾尔自治区,China',
+            'huoerguosi_hezuogu': '中哈合作区,伊犁州,新疆维吾尔自治区,China',
+            'yining_kazhanqi': '喀赞其民俗村,伊宁市,新疆维吾尔自治区,China',
+            'akesu_shenmuyuan': '天山神木园,阿克苏市,新疆维吾尔自治区,China',
+            'akesu_wensu': '温宿大峡谷,阿克苏市,新疆维吾尔自治区,China',
+            'kashi_laocheng': '喀什老城,喀什市,新疆维吾尔自治区,China',
+            'kashi_aitigaer': '艾提尕尔清真寺,喀什市,新疆维吾尔自治区,China',
+            'rituo_bangonghu': '班公湖,日土县,西藏自治区,China',
+            'rituo_yanhua': '日土岩画,日土县,西藏自治区,China',
+            'shiquanhe_zhen': '狮泉河镇,噶尔县,西藏自治区,China',
+            'longzi_zhari': '扎日神山,隆子县,西藏自治区,China',
+            'longzi_sananqu': '三安曲林寺,隆子县,西藏自治区,China',
+            'linzhi_yaluzangbu': '雅鲁藏布大峡谷,林芝市,西藏自治区,China',
+            'motuo_yaluzangbu': '雅鲁藏布大峡谷,墨脱县,西藏自治区,China',
+            'dali_erhai': '洱海,大理市,云南省,China',
+            'dali_chongsheng': '崇圣寺三塔,大理市,云南省,China',
+            'lijiang_gucheng': '丽江古城,丽江市,云南省,China',
+            'lijiang_yulong': '玉龙雪山,丽江市,云南省,China',
+            'mangshi_mengbana': '勐巴娜西珍奇园,芒市,云南省,China',
+            'ruili_yizhaoliangguo': '一寨两国,瑞丽市,云南省,China',
+            'ruili_jiegao': '姐告口岸,瑞丽市,云南省,China',
+            'tengchong_heshun': '和顺古镇,腾冲市,云南省,China',
+            'tengchong_rehai': '热海温泉,腾冲市,云南省,China',
+            'baoshan_taibao': '太保山,保山市,云南省,China',
+            'baoshan_yunyi': '云南驿,保山市,云南省,China',
+            'kunming_shilin': '石林,昆明市,云南省,China',
+            'kunming_dianchi': '滇池,昆明市,云南省,China',
+            'yuxi_fuxianhu': '抚仙湖,玉溪市,云南省,China',
+            'yuxi_yingyue': '映月潭,玉溪市,云南省,China',
+            'nanning_qingxiu': '青秀山,南宁市,广西壮族自治区,China',
+            'nanning_nanhu': '南湖公园,南宁市,广西壮族自治区,China',
+            'beihai_yintan': '银滩,北海市,广西壮族自治区,China',
+            'beihai_weizhou': '涠洲岛,北海市,广西壮族自治区,China',
+            'zhanjiang_qizhou': '硇洲岛,湛江市,广东省,China',
+            'zhanjiang_huguang': '湖光岩,湛江市,广东省,China',
+            'jiangmen_dialou': '开平碉楼,江门市,广东省,China',
+            'jiangmen_chikan': '赤坎古镇,江门市,广东省,China'
+        };
+
+        const location = mapLocations[locationId];
+        if (location && AMap && AMap.Map) {
+            const geocoder = new AMap.Geocoder();
+            geocoder.getLocation(location, (status, result) => {
+                if (status === 'complete' && result.info === 'OK') {
+                    const lnglat = result.geocodes[0].location;
+                    const map = new AMap.Map('mapContainer', {
+                        center: lnglat,
+                        zoom: 14
+                    });
+                    new AMap.Marker({
+                        position: lnglat,
+                        map: map
+                    });
+                    document.getElementById('mapContainer').style.display = 'block';
+                } else {
+                    alert('无法定位该地点，请检查网络或地址信息。');
+                }
+            });
+        } else {
+            alert('未找到该景点的地址信息。');
+        }
+    }
+
+    // 动态创建地图容器
+    const mapContainer = document.createElement('div');
+    mapContainer.id = 'mapContainer';
+    mapContainer.style.display = 'none';
+    mapContainer.style.width = '100%';
+    mapContainer.style.height = '400px';
+    document.body.appendChild(mapContainer);
+</script>
 </head>
 <body>
     <button class="mode-toggle" onclick="toggleMode()">切換手機版</button>
@@ -2594,6 +2746,7 @@
     </script>
 </body>
 </html>
+
 
 
 
