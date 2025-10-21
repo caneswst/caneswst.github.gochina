@@ -502,6 +502,22 @@
             font-size: 0.8rem;
             line-height: 1.3;
         }
+                .visited-checkbox {
+            display: none;
+        }
+        .visited-checkbox + span {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            cursor: pointer;
+            background-color: #d3d3d3; /* 未去過時為灰色 */
+            color: black;
+        }
+        .visited-checkbox:checked + span {
+            background-color: green;
+            color: white;
+            content: "去過";
+        }
     </style>
 <script>
     function openMap(locationId) {
@@ -704,7 +720,7 @@
                             <!-- 起點 -->
                             <tr class="location-type-start">
     <td>1</td>
-    <td><strong>橫琴口岸</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>橫琴口岸</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>-</td>
     <td>-</td>
     <td><span class="tag tag-green">起點</span></td>
@@ -722,7 +738,7 @@
 </tr>
 <tr class="location-type-main">
     <td>2</td>
-    <td><strong>廣州</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>廣州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>2小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -746,7 +762,7 @@
 </tr>
 <tr class="location-type-main">
     <td>3</td>
-    <td><strong>深圳</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>深圳</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>2小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -770,7 +786,7 @@
 </tr>
 <tr class="location-type-main">
     <td>4</td>
-    <td><strong>廈門</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>廈門</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -794,7 +810,7 @@
 </tr>
 <tr class="location-type-main">
     <td>5</td>
-    <td><strong>福州</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>福州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>4小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -818,7 +834,7 @@
 </tr>
 <tr class="location-type-main">
     <td>6</td>
-    <td><strong>杭州</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>杭州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>5小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -842,7 +858,7 @@
 </tr>
 <tr class="location-type-main">
     <td>7</td>
-    <td><strong>上海</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>上海</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>3小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -866,7 +882,7 @@
 </tr>
 <tr class="location-type-main">
     <td>8</td>
-    <td><strong>青島</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>青島</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -890,7 +906,7 @@
 </tr>
 <tr class="location-type-main">
     <td>9</td>
-    <td><strong>大連</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>大連</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>5小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -914,7 +930,7 @@
 </tr>
 <tr class="location-type-main">
     <td>10</td>
-    <td><strong>丹東</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>丹東</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>4小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -938,7 +954,7 @@
 </tr>
 <tr class="location-type-main">
     <td>11</td>
-    <td><strong>撫遠</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>撫遠</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -962,7 +978,7 @@
 </tr>
 <tr class="location-type-main">
     <td>12</td>
-    <td><strong>漠河</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>漠河</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>8小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -986,7 +1002,7 @@
 </tr>
 <tr class="location-type-main">
     <td>13</td>
-    <td><strong>滿洲里</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+    <td><strong>滿洲里</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
     <td>2</td>
     <td>6小時</td>
     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1010,7 +1026,7 @@
 </tr>
 <tr class="location-type-main">
         <td>14</td>
-        <td><strong>呼倫貝爾</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>呼倫貝爾</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>6小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1034,7 +1050,7 @@
     </tr>
     <tr class="location-type-main">
         <td>15</td>
-        <td><strong>海拉爾</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>海拉爾</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1058,7 +1074,7 @@
     </tr>
     <tr class="location-type-main">
         <td>16</td>
-        <td><strong>烏蘭察布</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>烏蘭察布</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>5小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1082,7 +1098,7 @@
     </tr>
     <tr class="location-type-main">
         <td>17</td>
-        <td><strong>包頭</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>包頭</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1106,7 +1122,7 @@
     </tr>
     <tr class="location-type-main">
         <td>18</td>
-        <td><strong>呼和浩特</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>呼和浩特</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1130,7 +1146,7 @@
     </tr>
     <tr class="location-type-main">
         <td>19</td>
-        <td><strong>鄂爾多斯</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>鄂爾多斯</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>4小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1154,7 +1170,7 @@
     </tr>
 <tr class="location-type-main">
         <td>20</td>
-        <td><strong>銀川</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>銀川</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>5小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1178,7 +1194,7 @@
     </tr>
         <tr class="location-type-main">
             <td>21</td>
-            <td><strong>蘭州</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>蘭州</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1202,7 +1218,7 @@
         </tr>
         <tr class="location-type-main">
             <td>22</td>
-            <td><strong>西寧</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>西寧</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1226,7 +1242,7 @@
         </tr>
         <tr class="location-type-main">
             <td>23</td>
-            <td><strong>張掖</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>張掖</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1250,7 +1266,7 @@
         </tr>
         <tr class="location-type-main">
             <td>24</td>
-            <td><strong>酒泉</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>酒泉</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1274,7 +1290,7 @@
         </tr>
         <tr class="location-type-main">
             <td>25</td>
-            <td><strong>哈密</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>哈密</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1298,7 +1314,7 @@
         </tr>
         <tr class="location-type-main">
             <td>26</td>
-            <td><strong>吐魯番</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>吐魯番</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>5小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1322,7 +1338,7 @@
         </tr>
         <tr class="location-type-main">
             <td>27</td>
-            <td><strong>霍爾果斯</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>霍爾果斯</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>8小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1346,7 +1362,7 @@
         </tr>
         <tr class="location-type-stopover">
             <td>28</td>
-            <td>伊寧<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td>伊寧<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>1</td>
             <td>4小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1370,7 +1386,7 @@
         </tr>
         <tr class="location-type-main">
             <td>29</td>
-            <td><strong>阿克蘇</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>阿克蘇</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>6小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1394,7 +1410,7 @@
         </tr>
         <tr class="location-type-stopover">
             <td>30</td>
-            <td>喀什<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td>喀什<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>1</td>
             <td>8小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1418,7 +1434,7 @@
         </tr>
         <tr class="location-type-main">
             <td>31</td>
-            <td><strong>日土</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td><strong>日土</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>2</td>
             <td>10小時</td>
             <td><span class="tag tag-blue">主要城市</span></td>
@@ -1442,7 +1458,7 @@
         </tr>
         <tr class="location-type-stopover">
             <td>32</td>
-            <td>獅泉河<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+            <td>獅泉河<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
             <td>1</td>
             <td>6小時</td>
             <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1466,7 +1482,7 @@
         </tr>
         <tr class="location-type-main">
         <td>33</td>
-        <td><strong>隆子</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>隆子</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>8小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1490,7 +1506,7 @@
     </tr>
             <tr class="location-type-stopover">
                 <td>34</td>
-                <td>林芝<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td>林芝<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>1</td>
                 <td>6小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1514,7 +1530,7 @@
             </tr>
             <tr class="location-type-main">
                 <td>35</td>
-                <td><strong>墨脫</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td><strong>墨脫</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>2</td>
                 <td>6小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1538,7 +1554,7 @@
             </tr>
             <tr class="location-type-stopover">
                 <td>36</td>
-                <td>大理<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td>大理<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>1</td>
                 <td>8小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1562,7 +1578,7 @@
             </tr>
             <tr class="location-type-main">
                 <td>37</td>
-                <td><strong>麗江</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td><strong>麗江</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>2</td>
                 <td>4小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1586,7 +1602,7 @@
             </tr>
             <tr class="location-type-stopover">
                 <td>38</td>
-                <td>芒市<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td>芒市<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>1</td>
                 <td>6小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1610,7 +1626,7 @@
             </tr>
             <tr class="location-type-main">
                 <td>39</td>
-                <td><strong>瑞麗</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td><strong>瑞麗</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>2</td>
                 <td>3小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1634,7 +1650,7 @@
             </tr>
             <tr class="location-type-main">
                 <td>40</td>
-                <td><strong>騰衝</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td><strong>騰衝</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>2</td>
                 <td>4小時</td>
                 <td><span class="tag tag-blue">主要城市</span></td>
@@ -1658,7 +1674,7 @@
             </tr>
             <tr class="location-type-stopover">
                 <td>41</td>
-                <td>保山<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                <td>保山<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                 <td>1</td>
                 <td>3小時</td>
                 <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1682,7 +1698,7 @@
             </tr>
             <tr class="location-type-main">
         <td>42</td>
-        <td><strong>昆明</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+        <td><strong>昆明</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
         <td>2</td>
         <td>5小時</td>
         <td><span class="tag tag-blue">主要城市</span></td>
@@ -1706,7 +1722,7 @@
     </tr>
                 <tr class="location-type-stopover">
                     <td>43</td>
-                    <td>玉溪<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                    <td>玉溪<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                     <td>1</td>
                     <td>2小時</td>
                     <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1730,7 +1746,7 @@
                 </tr>
                 <tr class="location-type-main">
                     <td>44</td>
-                    <td><strong>南寧</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                    <td><strong>南寧</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                     <td>2</td>
                     <td>6小時</td>
                     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1754,7 +1770,7 @@
                 </tr>
                 <tr class="location-type-main">
                     <td>45</td>
-                    <td><strong>北海</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                    <td><strong>北海</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                     <td>2</td>
                     <td>4小時</td>
                     <td><span class="tag tag-blue">主要城市</span></td>
@@ -1778,7 +1794,7 @@
                 </tr>
                 <tr class="location-type-stopover">
                     <td>46</td>
-                    <td>湛江<button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                    <td>湛江<label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                     <td>1</td>
                     <td>4小時</td>
                     <td><span class="tag tag-yellow">中途停留</span></td>
@@ -1802,7 +1818,7 @@
                 </tr>
                 <tr class="location-type-end">
                     <td>47</td>
-                    <td><strong>江門</strong><button onclick="toggleVisited(this, 'hulunbeier')">已去過?</button></td>
+                    <td><strong>江門</strong><label><input type="checkbox" class="visited-checkbox" onchange="this.nextSibling.textContent = this.checked ? '去過' : '未去過?'"> 未去過?</label></td>
                     <td>-</td>
                     <td>4小時</td>
                     <td><span class="tag tag-red">終點</span></td>
@@ -1962,5 +1978,6 @@
     </script>
 </body>
 </html>
+
 
 
