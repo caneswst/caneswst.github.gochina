@@ -503,7 +503,6 @@
             line-height: 1.3;
         }
     </style>
-    <script src="https://webapi.amap.com/maps?v=2.0&key=您的API_KEY&plugin=AMap.Geocoder"></script>
 <script>
     function openMap(locationId) {
         const mapLocations = {
@@ -624,30 +623,15 @@
         };
 
         const location = mapLocations[locationId];
-        if (location && AMap && AMap.Map) {
-            const geocoder = new AMap.Geocoder();
-            geocoder.getLocation(location, (status, result) => {
-                if (status === 'complete' && result.info === 'OK') {
-                    const lnglat = result.geocodes[0].location;
-                    const map = new AMap.Map('mapContainer', {
-                        center: lnglat,
-                        zoom: 14
-                    });
-                    new AMap.Marker({
-                        position: lnglat,
-                        map: map
-                    });
-                    document.getElementById('mapContainer').style.display = 'block';
-                } else {
-                    alert('无法定位该地点，请检查网络或地址信息。');
-                }
-            });
+        if (location) {
+            const url = 'https://ditu.amap.com/search?query=' + encodeURIComponent(location);
+            window.open(url, '_blank');
         } else {
-            alert('未找到该景点的地址信息。');
+            alert('未找到該景點的地址信息。');
         }
     }
 
-    // 动态创建地图容器
+    // 動態創建地圖容器
     const mapContainer = document.createElement('div');
     mapContainer.id = 'mapContainer';
     mapContainer.style.display = 'none';
@@ -1025,1589 +1009,824 @@
     <td><span class="tag tag-green">良好</span></td>
 </tr>
 <tr class="location-type-main">
-    <td>14</td>
-    <td><strong>呼倫貝爾</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">草原風光、蒙古文化</td>
-    <td class="compact-text">手把肉、奶茶</td>
-    <td class="compact-text">呼倫貝爾草原<a href="javascript:openMap('hulunbeier_caoyuan')">地圖</a>、額爾古納<a href="javascript:openMap('hulunbeier_erguna')">地圖</a>、莫爾道嘎<a href="javascript:openMap('hulunbeier_mordao')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">寒溫帶季風氣候</td>
-    <td class="compact-text">注意草原安全</td>
-    <td><span class="tag tag-blue">草原營地</span><span class="tag tag-green">蒙古包</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>15</td>
-    <td><strong>海拉爾</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">草原之都、冬季冰雪</td>
-    <td class="compact-text">烤羊肉、奶酒</td>
-    <td class="compact-text">呼倫貝爾草原<a href="javascript:openMap('hailaer_caoyuan')">地圖</a>、冰雪樂園<a href="javascript:openMap('hailaer_bingxue')">地圖</a>、成吉思汗公園<a href="javascript:openMap('hailaer_chengji')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1540</div>
-    </td>
-    <td class="compact-text">寒溫帶季風氣候</td>
-    <td class="compact-text">冬季注意保暖</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>16</td>
-    <td><strong>烏蘭察布</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">草原牧場、內蒙文化</td>
-    <td class="compact-text">手扒肉、涮羊肉</td>
-    <td class="compact-text">昭君墓<a href="javascript:openMap('wulanchabu_zhaojun')">地圖</a>、察哈爾草原<a href="javascript:openMap('wulanchabu_chahar')">地圖</a>、大漠風光<a href="javascript:openMap('wulanchabu_damo')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1740</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">注意草原天氣</td>
-    <td><span class="tag tag-blue">草原酒店</span><span class="tag tag-green">蒙古包</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>17</td>
-    <td><strong>包頭</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">草原鋼城、內蒙重鎮</td>
-    <td class="compact-text">涮羊肉、奶豆腐</td>
-    <td class="compact-text">五當召<a href="javascript:openMap('baotou_wudang')">地圖</a>、希拉穆仁草原<a href="javascript:openMap('baotou_xilamuren')">地圖</a>、梅花鹿園<a href="javascript:openMap('baotou_meihua')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">注意沙塵天氣</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>18</td>
-    <td><strong>呼和浩特</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">內蒙首府、草原文化</td>
-    <td class="compact-text">涮羊肉、烤全羊</td>
-    <td class="compact-text">大召寺<a href="javascript:openMap('huhehaote_dazhao')">地圖</a>、昭君墓<a href="javascript:openMap('huhehaote_zhaojun')">地圖</a>、成吉思汗陵<a href="javascript:openMap('huhehaote_chengji')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥700</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥1740</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">注意夏季降雨</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">極佳</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>19</td>
-    <td><strong>鄂爾多斯</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">沙漠草原、成吉思汗故里</td>
-    <td class="compact-text">羊肉粉、奶茶</td>
-    <td class="compact-text">成吉思汗陵<a href="javascript:openMap('eerduosi_chengji')">地圖</a>、響沙灣<a href="javascript:openMap('eerduosi_xiangsha')">地圖</a>、鄂爾多斯草原<a href="javascript:openMap('eerduosi_caoyuan')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">注意沙塵暴</td>
-    <td><span class="tag tag-blue">沙漠酒店</span><span class="tag tag-green">蒙古包</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>20</td>
-    <td><strong>銀川</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">西夏文化、黃河風情</td>
-    <td class="compact-text">羊肉泡饃、餃子</td>
-    <td class="compact-text">西夏王陵<a href="javascript:openMap('yinchuan_xixia')">地圖</a>、賀蘭山<a href="javascript:openMap('yinchuan_helan')">地圖</a>、沙湖<a href="javascript:openMap('yinchuan_shahu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1840</div>
-    </td>
-    <td class="compact-text">大陸性乾旱氣候</td>
-    <td class="compact-text">注意防曬補水</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>21</td>
-    <td><strong>蘭州</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">絲路重鎮、黃河文化</td>
-    <td class="compact-text">牛肉麵、灌湯包</td>
-    <td class="compact-text">黃河鐵橋<a href="javascript:openMap('lanzhou_huanghe')">地圖</a>、白塔山<a href="javascript:openMap('lanzhou_baita')">地圖</a>、炳靈寺<a href="javascript:openMap('lanzhou_bingling')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">大陸性乾旱氣候</td>
-    <td class="compact-text">注意空氣質量</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>22</td>
-    <td><strong>西寧</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">青藏高原、藏傳佛教</td>
-    <td class="compact-text">牛肉麵、辣子雞</td>
-    <td class="compact-text">塔爾寺<a href="javascript:openMap('xining_taer')">地圖</a>、青海湖<a href="javascript:openMap('xining_qinghaihu')">地圖</a>、莫家街<a href="javascript:openMap('xining_mojie')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1840</div>
-    </td>
-    <td class="compact-text">高原大陸性氣候</td>
-    <td class="compact-text">注意高原反應</td>
-    <td><span class="tag tag-blue">高原酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>23</td>
-    <td><strong>張掖</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">絲路名城、丹霞地貌</td>
-    <td class="compact-text">張掖羊肉粉、涼粉</td>
-    <td class="compact-text">張掖丹霞<a href="javascript:openMap('zhangye_danxia')">地圖</a>、馬蹄寺<a href="javascript:openMap('zhangye_matisi')">地圖</a>、大佛寺<a href="javascript:openMap('zhangye_dafosi')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1600</div>
-    </td>
-    <td class="compact-text">大陸性乾旱氣候</td>
-    <td class="compact-text">注意防曬補水</td>
-    <td><span class="tag tag-blue">沙漠酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>24</td>
-    <td><strong>酒泉</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">絲路重鎮、航天基地</td>
-    <td class="compact-text">酒泉羊羔肉、涼粉</td>
-    <td class="compact-text">敦煌莫高窟<a href="javascript:openMap('jiuquan_mogao')">地圖</a>、玉門關<a href="javascript:openMap('jiuquan_yumenguan')">地圖</a>、嘉峪關<a href="javascript:openMap('jiuquan_jiayuguan')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1540</div>
-    </td>
-    <td class="compact-text">大陸性乾旱氣候</td>
-    <td class="compact-text">注意防沙</td>
-    <td><span class="tag tag-blue">沙漠酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>25</td>
-    <td><strong>哈密</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">絲路要塞、瓜果之鄉</td>
-    <td class="compact-text">哈密瓜、烤羊肉</td>
-    <td class="compact-text">哈密回王府<a href="javascript:openMap('hami_huiwangfu')">地圖</a>、天山大峽谷<a href="javascript:openMap('hami_tianshan')">地圖</a>、三道溝<a href="javascript:openMap('hami_sandaogou')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1740</div>
-    </td>
-    <td class="compact-text">大陸性乾旱氣候</td>
-    <td class="compact-text">注意防曬補水</td>
-    <td><span class="tag tag-blue">沙漠酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>26</td>
-    <td><strong>吐魯番</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">火焰山、維吾爾文化</td>
-    <td class="compact-text">手抓飯、烤羊肉串</td>
-    <td class="compact-text">火焰山<a href="javascript:openMap('tulufan_huoyan')">地圖</a>、葡萄溝<a href="javascript:openMap('tulufan_putao')">地圖</a>、坎兒井<a href="javascript:openMap('tulufan_kan'erjing')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1600</div>
-    </td>
-    <td class="compact-text">溫帶沙漠氣候</td>
-    <td class="compact-text">注意防暑</td>
-    <td><span class="tag tag-blue">沙漠酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>27</td>
-    <td><strong>霍爾果斯</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中哈口岸、絲路文化</td>
-    <td class="compact-text">大盤雞、手抓飯</td>
-    <td class="compact-text">霍爾果斯口岸<a href="javascript:openMap('huoerguosi_kouan')">地圖</a>、中哈合作區<a href="javascript:openMap('huoerguosi_hezuogu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥2220</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">需辦理邊境通行證</td>
-    <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青旅</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-red">需邊境證</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>28</td>
-    <td>伊寧</td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">塞外江南、多民族聚居</td>
-    <td class="compact-text">烤包子、抓飯</td>
-    <td class="compact-text">喀贊其民俗村<a href="javascript:openMap('yining_kazhanqi')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥180</div>
-        <div class="budget-total">合計: ¥970</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">尊重少數民族習俗</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>29</td>
-    <td><strong>阿克蘇</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">維吾爾文化、絲路古城</td>
-    <td class="compact-text">阿克蘇蘋果、烤包子</td>
-    <td class="compact-text">天山神木園<a href="javascript:openMap('akesu_shenmuyuan')">地圖</a>、溫宿大峽谷<a href="javascript:openMap('akesu_wensu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥560</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1800</div>
-    </td>
-    <td class="compact-text">沙漠綠洲氣候</td>
-    <td class="compact-text">注意補水防曬</td>
-    <td><span class="tag tag-green">綠洲民宿</span><span class="tag tag-blue">商務旅館</span></td>
-    <td><span class="tag tag-green">4-10月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>30</td>
-    <td>喀什</td>
-    <td>1</td>
-    <td>8小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">維族文化、絲路重鎮</td>
-    <td class="compact-text">烤全羊、饢</td>
-    <td class="compact-text">喀什老城<a href="javascript:openMap('kashi_laocheng')">地圖</a>、艾提尕爾清真寺<a href="javascript:openMap('kashi_aitigaer')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1620</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">尊重伊斯蘭習俗</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>31</td>
-    <td><strong>日土</strong></td>
-    <td>2</td>
-    <td>10小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">西藏阿里、高原湖泊</td>
-    <td class="compact-text">糌粑、酥油茶</td>
-    <td class="compact-text">班公湖<a href="javascript:openMap('rituo_bangonghu')">地圖</a>、日土岩畫<a href="javascript:openMap('rituo_yanhua')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥600</div>
-        <div class="budget-item">油費: ¥800</div>
-        <div class="budget-item">住宿: ¥360</div>
-        <div class="budget-item">餐飲: ¥240</div>
-        <div class="budget-total">合計: ¥2000</div>
-    </td>
-    <td class="compact-text">高原寒漠氣候</td>
-    <td class="compact-text">注意高原反應</td>
-    <td><span class="tag tag-green">簡易客棧</span><span class="tag tag-red">露營</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號極弱</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>32</td>
-    <td>獅泉河</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">阿里重鎮、高原補給</td>
-    <td class="compact-text">藏麵、酥油茶</td>
-    <td class="compact-text">獅泉河鎮<a href="javascript:openMap('shiquanhe_zhen')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥120</div>
-        <div class="budget-total">合計: ¥1160</div>
-    </td>
-    <td class="compact-text">高原寒漠氣候</td>
-    <td class="compact-text">高原適應重要</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式客棧</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號極弱</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>33</td>
-    <td><strong>隆子</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">藏南文化、邊境山村</td>
-    <td class="compact-text">藏麵、酥油茶</td>
-    <td class="compact-text">扎日神山<a href="javascript:openMap('longzi_zhari')">地圖</a>、三安曲林寺<a href="javascript:openMap('longzi_sananqu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥320</div>
-        <div class="budget-item">餐飲: ¥260</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">高山峽谷氣候</td>
-    <td class="compact-text">邊境地區需證件</td>
-    <td><span class="tag tag-green">藏式民宿</span></td>
-    <td><span class="tag tag-green">5-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號弱</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>34</td>
-    <td>林芝</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">西藏江南、桃花勝地</td>
-    <td class="compact-text">石鍋雞、藏香豬</td>
-    <td class="compact-text">雅魯藏布大峽谷<a href="javascript:openMap('linzhi_yaluzangbu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1340</div>
-    </td>
-    <td class="compact-text">高原溫帶氣候</td>
-    <td class="compact-text">注意高原反應</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式民宿</span></td>
-    <td><span class="tag tag-green">3-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">建議四驅</span></td>
-    <td><span class="tag tag-yellow">信號一般</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>35</td>
-    <td><strong>墨脫</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">雅魯藏布江峽谷</td>
-    <td class="compact-text">石鍋雞、野生靈芝</td>
-    <td class="compact-text">雅魯藏布大峽谷<a href="javascript:openMap('motuo_yaluzangbu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥440</div>
-        <div class="budget-item">餐飲: ¥360</div>
-        <div class="budget-total">合計: ¥1640</div>
-    </td>
-    <td class="compact-text">熱帶雨林氣候</td>
-    <td class="compact-text">路況複雜</td>
-    <td><span class="tag tag-green">雨林客棧</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">4-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號不穩定</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>36</td>
-    <td>大理</td>
-    <td>1</td>
-    <td>8小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">白族文化、風花雪月</td>
-    <td class="compact-text">乳扇、餌塊</td>
-    <td class="compact-text">洱海<a href="javascript:openMap('dali_erhai')">地圖</a>、崇聖寺三塔<a href="javascript:openMap('dali_chongsheng')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1620</div>
-    </td>
-    <td class="compact-text">高原季風氣候</td>
-    <td class="compact-text">洱海環湖注意安全</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
-    <td><span class="tag tag-green">3-10月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>37</td>
-    <td><strong>麗江</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">納西文化、古城風情</td>
-    <td class="compact-text">臘排骨火鍋、雞豆涼粉</td>
-    <td class="compact-text">麗江古城<a href="javascript:openMap('lijiang_gucheng')">地圖</a>、玉龍雪山<a href="javascript:openMap('lijiang_yulong')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥800</div>
-        <div class="budget-item">餐飲: ¥600</div>
-        <div class="budget-total">合計: ¥1940</div>
-    </td>
-    <td class="compact-text">高原季風氣候</td>
-    <td class="compact-text">古城夜間較擁擠</td>
-    <td><span class="tag tag-green">納西客棧</span><span class="tag tag-blue">精品酒店</span></td>
-    <td><span class="tag tag-green">4-10月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>38</td>
-    <td>芒市</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">傣族文化、邊境風情</td>
-    <td class="compact-text">傣味燒烤、菠蘿飯</td>
-    <td class="compact-text">勐巴娜西珍奇園<a href="javascript:openMap('mangshi_mengbana')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥180</div>
-        <div class="budget-total">合計: ¥1278</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">尊重傣族習俗</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">傣族民宿</span></td>
-    <td><span class="tag tag-green">11-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>39</td>
-    <td><strong>瑞麗</strong></td>
-    <td>2</td>
-    <td>3小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中緬邊境、玉石文化</td>
-    <td class="compact-text">傣族手抓飯、過橋米線</td>
-    <td class="compact-text">一寨兩國<a href="javascript:openMap('ruili_yizhaoliangguo')">地圖</a>、姐告口岸<a href="javascript:openMap('ruili_jiegao')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥180</div>
-        <div class="budget-item">油費: ¥220</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥1500</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">邊境勿隨意拍照</td>
-    <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">傣族民宿</span></td>
-    <td><span class="tag tag-green">11-4月</span></td>
-    <td><span class="tag tag-red">需邊境證</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>40</td>
-    <td><strong>騰衝</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">僑鄉文化、溫泉地質</td>
-    <td class="compact-text">土鍋子、大救駕</td>
-    <td class="compact-text">和順古鎮<a href="javascript:openMap('tengchong_heshun')">地圖</a>、熱海溫泉<a href="javascript:openMap('tengchong_rehai')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥700</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥1740</div>
-    </td>
-    <td class="compact-text">亞熱帶高原氣候</td>
-    <td class="compact-text">溫泉注意安全</td>
-    <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">古鎮客棧</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-                            <tr class="location-type-stopover">
-    <td>41</td>
-    <td>保山</td>
-    <td>1</td>
-    <td>3小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">歷史文化、玉石交易</td>
-    <td class="compact-text">過手米線、燒豆腐</td>
-    <td class="compact-text">太保山<a href="javascript:openMap('baoshan_taibao')">地圖</a>、雲南驛<a href="javascript:openMap('baoshan_yunyi')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥180</div>
-        <div class="budget-item">油費: ¥220</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥150</div>
-        <div class="budget-total">合計: ¥750</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">注意交通安全</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>42</td>
-    <td><strong>昆明</strong></td>
-    <td>2</td>
-    <td>5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">春城、多元民族文化</td>
-    <td class="compact-text">過橋米線、汽鍋雞</td>
-    <td class="compact-text">石林<a href="javascript:openMap('kunming_shilin')">地圖</a>、滇池<a href="javascript:openMap('kunming_dianchi')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥400</div>
-        <div class="budget-item">住宿: ¥800</div>
-        <div class="budget-item">餐飲: ¥600</div>
-        <div class="budget-total">合計: ¥2100</div>
-    </td>
-    <td class="compact-text">高原季風氣候</td>
-    <td class="compact-text">市區注意限行</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
-    <td><span class="tag tag-green">全年</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">極佳</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>43</td>
-    <td>玉溪</td>
-    <td>1</td>
-    <td>2小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">花燈文化、煙草之鄉</td>
-    <td class="compact-text">銅鍋魚、涼米線</td>
-    <td class="compact-text">撫仙湖<a href="javascript:openMap('yuxi_fuxianhu')">地圖</a>、映月潭<a href="javascript:openMap('yuxi_yingyue')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥120</div>
-        <div class="budget-item">油費: ¥150</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥150</div>
-        <div class="budget-total">合計: ¥620</div>
-    </td>
-    <td class="compact-text">高原季風氣候</td>
-    <td class="compact-text">湖邊注意安全</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
-    <td><span class="tag tag-green">全年</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>44</td>
-    <td><strong>南寧</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">壯族文化、綠城</td>
-    <td class="compact-text">老友粉、燒鴨</td>
-    <td class="compact-text">青秀山<a href="javascript:openMap('nanning_qingxiu')">地圖</a>、南湖公園<a href="javascript:openMap('nanning_nanhu')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥700</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥2040</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">夏季注意防暑</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">極佳</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>45</td>
-    <td><strong>北海</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">海濱風情、疍家文化</td>
-    <td class="compact-text">海鮮大餐、沙蟲粥</td>
-    <td class="compact-text">銀灘<a href="javascript:openMap('beihai_yintan')">地圖</a>、涠洲島<a href="javascript:openMap('beihai_weizhou')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥800</div>
-        <div class="budget-item">餐飲: ¥600</div>
-        <div class="budget-total">合計: ¥1940</div>
-    </td>
-    <td class="compact-text">海洋性季風氣候</td>
-    <td class="compact-text">涠洲島需提前訂船票</td>
-    <td><span class="tag tag-blue">海景酒店</span><span class="tag tag-green">島上民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>46</td>
-    <td>湛江</td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">雷州文化、海鮮美食</td>
-    <td class="compact-text">白切雞、海鮮粥</td>
-    <td class="compact-text">硇洲島<a href="javascript:openMap('zhanjiang_qizhou')">地圖</a>、湖光岩<a href="javascript:openMap('zhanjiang_huguang')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥990</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">海邊注意防曬</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">海邊民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-end">
-    <td>47</td>
-    <td><strong>江門</strong></td>
-    <td>-</td>
-    <td>4小時</td>
-    <td><span class="tag tag-red">終點</span></td>
-    <td class="compact-text">僑鄉文化、美食之都</td>
-    <td class="compact-text">陳皮雞、台山黃鱔飯</td>
-    <td class="compact-text">開平碉樓<a href="javascript:openMap('jiangmen_dialou')">地圖</a>、赤坎古鎮<a href="javascript:openMap('jiangmen_chikan')">地圖</a></td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1040</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">結束行程，檢查車輛</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">僑鄉民宿</span></td>
-    <td><span class="tag tag-green">全年</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-                            <tr class="location-type-main">
-    <td>16</td>
-    <td><strong>琿春</strong></td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中俄朝三國交界</td>
-    <td class="compact-text">俄羅斯海鮮、朝鮮族烤肉</td>
-    <td class="compact-text">防川風景區、土字碑</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥120</div>
-        <div class="budget-item">油費: ¥150</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥150</div>
-        <div class="budget-total">合計: ¥620</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">邊境檢查嚴格</td>
-    <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青旅</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-red">需邊境證</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-yellow">邊境信號弱</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>17</td>
-    <td><strong>撫遠</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中國東極、赫哲族文化</td>
-    <td class="compact-text">大馬哈魚、鱘鰉魚</td>
-    <td class="compact-text">黑瞎子島、東極廣場</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥360</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">寒溫帶氣候</td>
-    <td class="compact-text">早晚溫差大</td>
-    <td><span class="tag tag-green">特色民宿</span><span class="tag tag-purple">漁家樂</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-red">建議四驅</span></td>
-    <td><span class="tag tag-yellow">偏遠信號弱</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>18</td>
-    <td>哈爾濱</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">俄式風情、冰城文化</td>
-    <td class="compact-text">俄式西餐、紅腸</td>
-    <td class="compact-text">中央大街、聖索菲亞教堂</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥300</div>
-        <div class="budget-item">油費: ¥360</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1160</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">冬季注意車輛防凍</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>19</td>
-    <td><strong>漠河</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">北極村、極光文化</td>
-    <td class="compact-text">野生蘑菇、冷水魚</td>
-    <td class="compact-text">北極村、聖誕村</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥560</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1800</div>
-    </td>
-    <td class="compact-text">寒溫帶氣候</td>
-    <td class="compact-text">冬季極寒，車輛需防凍</td>
-    <td><span class="tag tag-green">極光民宿</span><span class="tag tag-purple">木屋</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-red">必須四驅/防凍</span></td>
-    <td><span class="tag tag-yellow">偏遠信號不穩</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>20</td>
-    <td><strong>滿洲里</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中俄蒙文化交融</td>
-    <td class="compact-text">俄羅斯烤肉、奶茶</td>
-    <td class="compact-text">國門景區、套娃廣場</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥2220</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">注意防風防沙</td>
-    <td><span class="tag tag-purple">俄式木屋</span><span class="tag tag-blue">商務旅館</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>21</td>
-    <td>海拉爾</td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">草原門戶、蒙族文化</td>
-    <td class="compact-text">手把肉、奶茶</td>
-    <td class="compact-text">成吉思汗廣場</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥180</div>
-        <div class="budget-total">合計: ¥970</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">草原地區注意防曬</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-purple">蒙古包</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>22</td>
-    <td><strong>阿爾山</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">火山地貌、溫泉療養</td>
-    <td class="compact-text">山野菜、羊肉火鍋</td>
-    <td class="compact-text">阿爾山國家森林公園</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥640</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1880</div>
-    </td>
-    <td class="compact-text">寒溫帶濕潤氣候</td>
-    <td class="compact-text">景區內道路崎嶇</td>
-    <td><span class="tag tag-blue">溫泉度假村</span><span class="tag tag-red">露營</span></td>
-    <td><span class="tag tag-green">7-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-red">建議SUV</span></td>
-    <td><span class="tag tag-yellow">山區信號弱</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>23</td>
-    <td><strong>二連浩特</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">恐龍化石、中蒙邊境</td>
-    <td class="compact-text">手把肉、奶茶</td>
-    <td class="compact-text">二連浩特國門、恐龍地質公園</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥360</div>
-        <div class="budget-total">合計: ¥1980</div>
-    </td>
-    <td class="compact-text">溫帶荒漠氣候</td>
-    <td class="compact-text">風沙大，建議戴口罩</td>
-    <td><span class="tag tag-blue">經濟型酒店</span><span class="tag tag-purple">蒙古包</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-yellow">信號一般</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>24</td>
-    <td>烏蘭察布</td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">草原城市、避暑勝地</td>
-    <td class="compact-text">羊肉、奶製品</td>
-    <td class="compact-text">格根塔拉草原</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥150</div>
-        <div class="budget-total">合計: ¥890</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">草原地區注意防曬</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-purple">蒙古包</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>25</td>
-    <td><strong>額濟納旗</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">胡楊林、沙漠文化</td>
-    <td class="compact-text">駱駝肉、奶皮子</td>
-    <td class="compact-text">胡楊林景區、居延海</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥440</div>
-        <div class="budget-total">合計: ¥1880</div>
-    </td>
-    <td class="compact-text">極端大陸性氣候</td>
-    <td class="compact-text">注意防曬防沙</td>
-    <td><span class="tag tag-red">沙漠帳篷</span><span class="tag tag-green">客棧</span></td>
-    <td><span class="tag tag-green">9-10月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-red">建議四驅</span></td>
-    <td><span class="tag tag-yellow">偏遠信號弱</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>26</td>
-    <td><strong>喀納斯</strong></td>
-    <td>3</td>
-    <td>10小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">圖瓦人村落、湖光山色</td>
-    <td class="compact-text">手抓飯、烤全羊</td>
-    <td class="compact-text">喀納斯湖、觀魚台</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥600</div>
-        <div class="budget-item">油費: ¥800</div>
-        <div class="budget-item">住宿: ¥900</div>
-        <div class="budget-item">餐飲: ¥675</div>
-        <div class="budget-total">合計: ¥2975</div>
-    </td>
-    <td class="compact-text">高山湖泊氣候</td>
-    <td class="compact-text">山區天氣多變</td>
-    <td><span class="tag tag-green">圖瓦木屋</span><span class="tag tag-blue">景區酒店</span></td>
-    <td><span class="tag tag-green">6-9月</span></td>
-    <td><span class="tag tag-red">需邊境證</span></td>
-    <td><span class="tag tag-red">建議四驅</span></td>
-    <td><span class="tag tag-yellow">山區信號不穩</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>27</td>
-    <td><strong>霍爾果斯</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中哈口岸、絲路文化</td>
-    <td class="compact-text">大盤雞、手抓飯</td>
-    <td class="compact-text">霍爾果斯口岸、中哈合作區</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥2220</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">需辦理邊境通行證</td>
-    <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青旅</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-red">需邊境證</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>28</td>
-    <td>伊寧</td>
-    <td>1</td>
-    <td>4小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">塞外江南、多民族聚居</td>
-    <td class="compact-text">烤包子、抓飯</td>
-    <td class="compact-text">喀贊其民俗村</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥180</div>
-        <div class="budget-total">合計: ¥970</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">尊重少數民族習俗</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>29</td>
-    <td><strong>阿克蘇</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">維吾爾文化、絲路古城</td>
-    <td class="compact-text">阿克蘇蘋果、烤包子</td>
-    <td class="compact-text">天山神木園、溫宿大峽谷</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥560</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥1800</div>
-    </td>
-    <td class="compact-text">沙漠綠洲氣候</td>
-    <td class="compact-text">注意補水防曬</td>
-    <td><span class="tag tag-green">綠洲民宿</span><span class="tag tag-blue">商務旅館</span></td>
-    <td><span class="tag tag-green">4-10月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>30</td>
-    <td>喀什</td>
-    <td>1</td>
-    <td>8小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">維族文化、絲路重鎮</td>
-    <td class="compact-text">烤全羊、饢</td>
-    <td class="compact-text">喀什老城、艾提尕爾清真寺</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1620</div>
-    </td>
-    <td class="compact-text">溫帶大陸性氣候</td>
-    <td class="compact-text">尊重伊斯蘭習俗</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>31</td>
-    <td><strong>日土</strong></td>
-    <td>2</td>
-    <td>10小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">西藏阿里、高原湖泊</td>
-    <td class="compact-text">糌粑、酥油茶</td>
-    <td class="compact-text">班公湖、日土岩畫</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥600</div>
-        <div class="budget-item">油費: ¥800</div>
-        <div class="budget-item">住宿: ¥360</div>
-        <div class="budget-item">餐飲: ¥240</div>
-        <div class="budget-total">合計: ¥2000</div>
-    </td>
-    <td class="compact-text">高原寒漠氣候</td>
-    <td class="compact-text">注意高原反應</td>
-    <td><span class="tag tag-green">簡易客棧</span><span class="tag tag-red">露營</span></td>
-    <td><span class="tag tag-green">5-9月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號極弱</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>32</td>
-    <td>獅泉河</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">阿里重鎮、高原補給</td>
-    <td class="compact-text">藏麵、酥油茶</td>
-    <td class="compact-text">獅泉河鎮</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥120</div>
-        <div class="budget-total">合計: ¥1160</div>
-    </td>
-    <td class="compact-text">高原寒漠氣候</td>
-    <td class="compact-text">高原適應重要</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式客棧</span></td>
-    <td><span class="tag tag-green">6-8月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號極弱</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>33</td>
-    <td><strong>隆子</strong></td>
-    <td>2</td>
-    <td>8小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">藏南文化、邊境山村</td>
-    <td class="compact-text">藏麵、酥油茶</td>
-    <td class="compact-text">扎日神山、三安曲林寺</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥320</div>
-        <div class="budget-item">餐飲: ¥260</div>
-        <div class="budget-total">合計: ¥1700</div>
-    </td>
-    <td class="compact-text">高山峽谷氣候</td>
-    <td class="compact-text">邊境地區需證件</td>
-    <td><span class="tag tag-green">藏式民宿</span></td>
-    <td><span class="tag tag-green">5-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號弱</span></td>
-</tr>
-<tr class="location-type-stopover">
-    <td>34</td>
-    <td>林芝</td>
-    <td>1</td>
-    <td>6小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">西藏江南、桃花勝地</td>
-    <td class="compact-text">石鍋雞、藏香豬</td>
-    <td class="compact-text">雅魯藏布大峽谷</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1340</div>
-    </td>
-    <td class="compact-text">高原溫帶氣候</td>
-    <td class="compact-text">注意高原反應</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式民宿</span></td>
-    <td><span class="tag tag-green">3-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">建議四驅</span></td>
-    <td><span class="tag tag-yellow">信號一般</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>35</td>
-    <td><strong>墨脫</strong></td>
-    <td>2</td>
-    <td>6小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">雅魯藏布江峽谷</td>
-    <td class="compact-text">石鍋雞、野生靈芝</td>
-    <td class="compact-text">雅魯藏布大峽谷</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥360</div>
-        <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥440</div>
-        <div class="budget-item">餐飲: ¥360</div>
-        <div class="budget-total">合計: ¥1640</div>
-    </td>
-    <td class="compact-text">熱帶雨林氣候</td>
-    <td class="compact-text">路況複雜</td>
-    <td><span class="tag tag-green">雨林客棧</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">4-10月</span></td>
-    <td><span class="tag tag-red">需邊防證</span></td>
-    <td><span class="tag tag-red">必須四驅</span></td>
-    <td><span class="tag tag-red">信號不穩定</span></td>
-</tr>
-<tr class="location-type-main">
-                                <td>36</td>
-                                <td>大理</td>
-                                <td>1</td>
-                                <td>8小時</td>
-                                <td><span class="tag tag-yellow">中途停留</span></td>
-                                <td class="compact-text">白族文化、風花雪月</td>
-                                <td class="compact-text">乳扇、餌塊</td>
-                                <td class="compact-text">洱海、崇聖寺三塔</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥480</div>
-                                    <div class="budget-item">油費: ¥640</div>
-                                    <div class="budget-item">住宿: ¥300</div>
-                                    <div class="budget-item">餐飲: ¥200</div>
-                                    <div class="budget-total">合計: ¥1620</div>
-                                </td>
-                                <td class="compact-text">高原季風氣候</td>
-                                <td class="compact-text">洱海環湖注意安全</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
-                                <td><span class="tag tag-green">3-10月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>37</td>
-                                <td><strong>麗江</strong></td>
-                                <td>2</td>
-                                <td>4小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">納西文化、古城風情</td>
-                                <td class="compact-text">臘排骨火鍋、雞豆涼粉</td>
-                                <td class="compact-text">麗江古城、玉龍雪山</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥240</div>
-                                    <div class="budget-item">油費: ¥300</div>
-                                    <div class="budget-item">住宿: ¥800</div>
-                                    <div class="budget-item">餐飲: ¥600</div>
-                                    <div class="budget-total">合計: ¥1940</div>
-                                </td>
-                                <td class="compact-text">高原季風氣候</td>
-                                <td class="compact-text">古城夜間較擁擠</td>
-                                <td><span class="tag tag-green">納西客棧</span><span class="tag tag-blue">精品酒店</span></td>
-                                <td><span class="tag tag-green">4-10月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-stopover">
-                                <td>38</td>
-                                <td>芒市</td>
-                                <td>1</td>
-                                <td>6小時</td>
-                                <td><span class="tag tag-yellow">中途停留</span></td>
-                                <td class="compact-text">傣族文化、邊境風情</td>
-                                <td class="compact-text">傣味燒烤、菠蘿飯</td>
-                                <td class="compact-text">勐巴娜西珍奇園</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥360</div>
-                                    <div class="budget-item">油費: ¥480</div>
-                                    <div class="budget-item">住宿: ¥250</div>
-                                    <div class="budget-item">餐飲: ¥180</div>
-                                    <div class="budget-total">合計: ¥1278</div>
-                                </td>
-                                <td class="compact-text">亞熱帶季風氣候</td>
-                                <td class="compact-text">尊重傣族習俗</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">傣族民宿</span></td>
-                                <td><span class="tag tag-green">11-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>39</td>
-                                <td><strong>瑞麗</strong></td>
-                                <td>2</td>
-                                <td>3小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">中緬邊境、玉石文化</td>
-                                <td class="compact-text">傣族手抓飯、過橋米線</td>
-                                <td class="compact-text">一寨兩國、姐告口岸</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥180</div>
-                                    <div class="budget-item">油費: ¥220</div>
-                                    <div class="budget-item">住宿: ¥600</div>
-                                    <td class="budget-item">餐飲: ¥500</div>
-                                    <div class="budget-total">合計: ¥1500</div>
-                                </td>
-                                <td class="compact-text">亞熱帶季風氣候</td>
-                                <td class="compact-text">邊境勿隨意拍照</td>
-                                <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">傣族民宿</span></td>
-                                <td><span class="tag tag-green">11-4月</span></td>
-                                <td><span class="tag tag-red">需邊境證</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>40</td>
-                                <td><strong>騰衝</strong></td>
-                                <td>2</td>
-                                <td>4小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">僑鄉文化、溫泉地質</td>
-                                <td class="compact-text">土鍋子、大救駕</td>
-                                <td class="compact-text">和順古鎮、熱海溫泉</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥240</div>
-                                    <div class="budget-item">油費: ¥300</div>
-                                    <div class="budget-item">住宿: ¥700</div>
-                                    <div class="budget-item">餐飲: ¥500</div>
-                                    <div class="budget-total">合計: ¥1740</div>
-                                </td>
-                                <td class="compact-text">亞熱帶高原氣候</td>
-                                <td class="compact-text">溫泉注意安全</td>
-                                <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">古鎮客棧</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-stopover">
-                                <td>41</td>
-                                <td>保山</td>
-                                <td>1</td>
-                                <td>3小時</td>
-                                <td><span class="tag tag-yellow">中途停留</span></td>
-                                <td class="compact-text">歷史文化、玉石交易</td>
-                                <td class="compact-text">過手米線、燒豆腐</td>
-                                <td class="compact-text">太保山、雲南驛</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥180</div>
-                                    <div class="budget-item">油費: ¥220</div>
-                                    <div class="budget-item">住宿: ¥200</div>
-                                    <div class="budget-item">餐飲: ¥150</div>
-                                    <div class="budget-total">合計: ¥750</div>
-                                </td>
-                                <td class="compact-text">亞熱帶季風氣候</td>
-                                <td class="compact-text">注意交通安全</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">民宿</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>42</td>
-                                <td><strong>昆明</strong></td>
-                                <td>2</td>
-                                <td>5小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">春城、多元民族文化</td>
-                                <td class="compact-text">過橋米線、汽鍋雞</td>
-                                <td class="compact-text">石林、滇池</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥300</div>
-                                    <div class="budget-item">油費: ¥400</div>
-                                    <div class="budget-item">住宿: ¥800</div>
-                                    <div class="budget-item">餐飲: ¥600</div>
-                                    <div class="budget-total">合計: ¥2100</div>
-                                </td>
-                                <td class="compact-text">高原季風氣候</td>
-                                <td class="compact-text">市區注意限行</td>
-                                <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
-                                <td><span class="tag tag-green">全年</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">極佳</span></td>
-                            </tr>
-                            <tr class="location-type-stopover">
-                                <td>43</td>
-                                <td>玉溪</td>
-                                <td>1</td>
-                                <td>2小時</td>
-                                <td><span class="tag tag-yellow">中途停留</span></td>
-                                <td class="compact-text">花燈文化、煙草之鄉</td>
-                                <td class="compact-text">銅鍋魚、涼米線</td>
-                                <td class="compact-text">撫仙湖、映月潭</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥120</div>
-                                    <div class="budget-item">油費: ¥150</div>
-                                    <div class="budget-item">住宿: ¥200</div>
-                                    <div class="budget-item">餐飲: ¥150</div>
-                                    <div class="budget-total">合計: ¥620</div>
-                                </td>
-                                <td class="compact-text">高原季風氣候</td>
-                                <td class="compact-text">湖邊注意安全</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
-                                <td><span class="tag tag-green">全年</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>44</td>
-                                <td><strong>南寧</strong></td>
-                                <td>2</td>
-                                <td>6小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">壯族文化、綠城</td>
-                                <td class="compact-text">老友粉、燒鴨</td>
-                                <td class="compact-text">青秀山、南湖公園</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥360</div>
-                                    <div class="budget-item">油費: ¥480</div>
-                                    <div class="budget-item">住宿: ¥700</div>
-                                    <div class="budget-item">餐飲: ¥500</div>
-                                    <div class="budget-total">合計: ¥2040</div>
-                                </td>
-                                <td class="compact-text">亞熱帶季風氣候</td>
-                                <td class="compact-text">夏季注意防暑</td>
-                                <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">極佳</span></td>
-                            </tr>
-                            <tr class="location-type-main">
-                                <td>45</td>
-                                <td><strong>北海</strong></td>
-                                <td>2</td>
-                                <td>4小時</td>
-                                <td><span class="tag tag-blue">主要城市</span></td>
-                                <td class="compact-text">海濱風情、疍家文化</td>
-                                <td class="compact-text">海鮮大餐、沙蟲粥</td>
-                                <td class="compact-text">銀灘、涠洲島</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥240</div>
-                                    <div class="budget-item">油費: ¥300</div>
-                                    <div class="budget-item">住宿: ¥800</div>
-                                    <div class="budget-item">餐飲: ¥600</div>
-                                    <div class="budget-total">合計: ¥1940</div>
-                                </td>
-                                <td class="compact-text">海洋性季風氣候</td>
-                                <td class="compact-text">涠洲島需提前訂船票</td>
-                                <td><span class="tag tag-blue">海景酒店</span><span class="tag tag-green">島上民宿</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-stopover">
-                                <td>46</td>
-                                <td>湛江</td>
-                                <td>1</td>
-                                <td>4小時</td>
-                                <td><span class="tag tag-yellow">中途停留</span></td>
-                                <td class="compact-text">雷州文化、海鮮美食</td>
-                                <td class="compact-text">白切雞、海鮮粥</td>
-                                <td class="compact-text">硇洲島、湖光岩</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥240</div>
-                                    <div class="budget-item">油費: ¥300</div>
-                                    <div class="budget-item">住宿: ¥250</div>
-                                    <div class="budget-item">餐飲: ¥200</div>
-                                    <div class="budget-total">合計: ¥990</div>
-                                </td>
-                                <td class="compact-text">亞熱帶海洋氣候</td>
-                                <td class="compact-text">海邊注意防曬</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">海邊民宿</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
-                            <tr class="location-type-end">
-                                <td>47</td>
-                                <td><strong>江門</strong></td>
-                                <td>-</td>
-                                <td>4小時</td>
-                                <td><span class="tag tag-red">終點</span></td>
-                                <td class="compact-text">僑鄉文化、美食之都</td>
-                                <td class="compact-text">陳皮雞、台山黃鱔飯</td>
-                                <td class="compact-text">開平碉樓、赤坎古鎮</td>
-                                <td class="compact-text">
-                                    <div class="budget-item">路費: ¥240</div>
-                                    <div class="budget-item">油費: ¥300</div>
-                                    <div class="budget-item">住宿: ¥300</div>
-                                    <div class="budget-item">餐飲: ¥200</div>
-                                    <div class="budget-total">合計: ¥1040</div>
-                                </td>
-                                <td class="compact-text">亞熱帶海洋氣候</td>
-                                <td class="compact-text">結束行程，檢查車輛</td>
-                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">僑鄉民宿</span></td>
-                                <td><span class="tag tag-green">全年</span></td>
-                                <td><span class="tag tag-green">不需要</span></td>
-                                <td><span class="tag tag-blue">常規轎車</span></td>
-                                <td><span class="tag tag-green">良好</span></td>
-                            </tr>
+        <td>14</td>
+        <td><strong>呼倫貝爾</strong></td>
+        <td>2</td>
+        <td>6小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">草原文化、遊牧民族</td>
+        <td class="compact-text">手把肉、奶茶</td>
+        <td class="compact-text">呼倫貝爾草原<a href="javascript:openMap('hulunbeier_caoyuan')">地圖</a>、額爾古納<a href="javascript:openMap('hulunbeier_erguna')">地圖</a>、莫爾道嘎<a href="javascript:openMap('hulunbeier_mordao')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥360</div>
+            <div class="budget-item">油費: ¥480</div>
+            <div class="budget-item">住宿: ¥600</div>
+            <div class="budget-item">餐飲: ¥500</div>
+            <div class="budget-total">合計: ¥1940</div>
+        </td>
+        <td class="compact-text">溫帶大陸性氣候</td>
+        <td class="compact-text">注意草原夜間溫差</td>
+        <td><span class="tag tag-blue">草原酒店</span><span class="tag tag-green">蒙古包</span></td>
+        <td><span class="tag tag-green">6-8月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-red">建議四驅</span></td>
+        <td><span class="tag tag-yellow">信號一般</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>15</td>
+        <td><strong>海拉爾</strong></td>
+        <td>2</td>
+        <td>4小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">草原文化、蒙族風情</td>
+        <td class="compact-text">烤全羊、奶製品</td>
+        <td class="compact-text">呼倫貝爾草原<a href="javascript:openMap('hailaer_caoyuan')">地圖</a>、冰雪樂園<a href="javascript:openMap('hailaer_bingxue')">地圖</a>、成吉思汗公園<a href="javascript:openMap('hailaer_chengji')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥240</div>
+            <div class="budget-item">油費: ¥300</div>
+            <div class="budget-item">住宿: ¥600</div>
+            <div class="budget-item">餐飲: ¥500</div>
+            <div class="budget-total">合計: ¥1640</div>
+        </td>
+        <td class="compact-text">寒溫帶季風氣候</td>
+        <td class="compact-text">冬季注意保暖</td>
+        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">蒙古包</span></td>
+        <td><span class="tag tag-green">6-8月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-blue">常規轎車</span></td>
+        <td><span class="tag tag-green">良好</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>16</td>
+        <td><strong>烏蘭察布</strong></td>
+        <td>2</td>
+        <td>5小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">草原文化、歷史遺跡</td>
+        <td class="compact-text">莜麵、羊肉串</td>
+        <td class="compact-text">昭君墓<a href="javascript:openMap('wulanchabu_zhaojun')">地圖</a>、察哈爾草原<a href="javascript:openMap('wulanchabu_chahar')">地圖</a>、大漠風光<a href="javascript:openMap('wulanchabu_damo')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥300</div>
+            <div class="budget-item">油費: ¥400</div>
+            <div class="budget-item">住宿: ¥500</div>
+            <div class="budget-item">餐飲: ¥400</div>
+            <div class="budget-total">合計: ¥1600</div>
+        </td>
+        <td class="compact-text">溫帶大陸性氣候</td>
+        <td class="compact-text">注意防風沙</td>
+        <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">草原民宿</span></td>
+        <td><span class="tag tag-green">6-9月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-blue">常規轎車</span></td>
+        <td><span class="tag tag-green">良好</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>17</td>
+        <td><strong>包頭</strong></td>
+        <td>2</td>
+        <td>4小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">草原與工業並存</td>
+        <td class="compact-text">涮羊肉、奶茶</td>
+        <td class="compact-text">五當召<a href="javascript:openMap('baotou_wudang')">地圖</a>、希拉穆仁草原<a href="javascript:openMap('baotou_xilamuren')">地圖</a>、梅花鹿園<a href="javascript:openMap('baotou_meihua')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥240</div>
+            <div class="budget-item">油費: ¥300</div>
+            <div class="budget-item">住宿: ¥600</div>
+            <div class="budget-item">餐飲: ¥500</div>
+            <div class="budget-total">合計: ¥1640</div>
+        </td>
+        <td class="compact-text">溫帶大陸性氣候</td>
+        <td class="compact-text">注意草原蚊蟲</td>
+        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">草原民宿</span></td>
+        <td><span class="tag tag-green">6-9月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-blue">常規轎車</span></td>
+        <td><span class="tag tag-green">良好</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>18</td>
+        <td><strong>呼和浩特</strong></td>
+        <td>2</td>
+        <td>4小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">蒙古文化、歷史名城</td>
+        <td class="compact-text">烤羊腿、手把肉</td>
+        <td class="compact-text">大召寺<a href="javascript:openMap('huhehaote_dazhao')">地圖</a>、昭君墓<a href="javascript:openMap('huhehaote_zhaojun')">地圖</a>、成吉思汗陵<a href="javascript:openMap('huhehaote_chengji')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥240</div>
+            <div class="budget-item">油費: ¥300</div>
+            <div class="budget-item">住宿: ¥700</div>
+            <div class="budget-item">餐飲: ¥500</div>
+            <div class="budget-total">合計: ¥1740</div>
+        </td>
+        <td class="compact-text">溫帶大陸性氣候</td>
+        <td class="compact-text">注意市區交通</td>
+        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">蒙古民宿</span></td>
+        <td><span class="tag tag-green">6-9月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-blue">常規轎車</span></td>
+        <td><span class="tag tag-green">極佳</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>19</td>
+        <td><strong>鄂爾多斯</strong></td>
+        <td>2</td>
+        <td>4小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">蒙古文化、沙漠景觀</td>
+        <td class="compact-text">羊肉湯、奶製品</td>
+        <td class="compact-text">成吉思汗陵<a href="javascript:openMap('eerduosi_chengji')">地圖</a>、響沙灣<a href="javascript:openMap('eerduosi_xiangsha')">地圖</a>、鄂爾多斯草原<a href="javascript:openMap('eerduosi_caoyuan')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥240</div>
+            <div class="budget-item">油費: ¥300</div>
+            <div class="budget-item">住宿: ¥600</div>
+            <div class="budget-item">餐飲: ¥500</div>
+            <div class="budget-total">合計: ¥1640</div>
+        </td>
+        <td class="compact-text">溫帶大陸性氣候</td>
+        <td class="compact-text">注意防沙</td>
+        <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">草原民宿</span></td>
+        <td><span class="tag tag-green">6-9月</span></td>
+        <td><span class="tag tag-green">不需要</span></td>
+        <td><span class="tag tag-red">建議四驅</span></td>
+        <td><span class="tag tag-green">良好</span></td>
+    </tr>
+    <tr class="location-type-main">
+        <td>20</td>
+        <td><strong>銀川</strong></td>
+        <td>2</td>
+        <td>5小時</td>
+        <td><span class="tag tag-blue">主要城市</span></td>
+        <td class="compact-text">回族文化、塞上江南</td>
+        <td class="compact-text">手抓羊肉、羊雜碎</td>
+        <td class="compact-text">西夏王陵<a href="javascript:openMap('yinchuan_xixia')">地圖</a>、賀蘭山<a href="javascript:openMap('yinchuan_helan')">地圖</a>、沙湖<a href="javascript:openMap('yinchuan_shahu')">地圖</a></td>
+        <td class="compact-text">
+            <div class="budget-item">路費: ¥300</div>
+            <div class="budget-item">油費: ¥400</div>
+            <div class="budget-item">住宿: ¥600</div>
+            <td class="compact-text">餐飲: ¥500</td>
+            <td class="compact-text">
+                <div class="budget-total">合計: ¥1800</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">注意防曬</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>21</td>
+            <td><strong>蘭州</strong></td>
+            <td>2</td>
+            <td>5小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">黃河文化、絲路重鎮</td>
+            <td class="compact-text">蘭州拉麵、羊肉串</td>
+            <td class="compact-text">黃河鐵橋<a href="javascript:openMap('lanzhou_huanghe')">地圖</a>、白塔山<a href="javascript:openMap('lanzhou_baita')">地圖</a>、炳靈寺<a href="javascript:openMap('lanzhou_bingling')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥300</div>
+                <div class="budget-item">油費: ¥400</div>
+                <div class="budget-item">住宿: ¥700</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1900</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">注意市區交通</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">極佳</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>22</td>
+            <td><strong>西寧</strong></td>
+            <td>2</td>
+            <td>5小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">藏傳佛教、高原風光</td>
+            <td class="compact-text">酸奶、藏式糌粑</td>
+            <td class="compact-text">塔爾寺<a href="javascript:openMap('xining_taer')">地圖</a>、青海湖<a href="javascript:openMap('xining_qinghaihu')">地圖</a>、莫家街<a href="javascript:openMap('xining_mojie')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥300</div>
+                <div class="budget-item">油費: ¥400</div>
+                <div class="budget-item">住宿: ¥700</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1900</div>
+            </td>
+            <td class="compact-text">高原大陸性氣候</td>
+            <td class="compact-text">注意高原反應</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">藏式民宿</span></td>
+            <td><span class="tag tag-green">6-9月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>23</td>
+            <td><strong>張掖</strong></td>
+            <td>2</td>
+            <td>6小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">丹霞地貌、絲路文化</td>
+            <td class="compact-text">搓魚麵、炒炮</td>
+            <td class="compact-text">張掖丹霞<a href="javascript:openMap('zhangye_danxia')">地圖</a>、馬蹄寺<a href="javascript:openMap('zhangye_matisi')">地圖</a>、大佛寺<a href="javascript:openMap('zhangye_dafosi')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥360</div>
+                <div class="budget-item">油費: ¥480</div>
+                <div class="budget-item">住宿: ¥600</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1940</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">注意防曬</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>24</td>
+            <td><strong>酒泉</strong></td>
+            <td>2</td>
+            <td>5小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">絲路文化、航天之城</td>
+            <td class="compact-text">燴麵片、羊肉湯</td>
+            <td class="compact-text">敦煌莫高窟<a href="javascript:openMap('jiuquan_mogao')">地圖</a>、玉門關<a href="javascript:openMap('jiuquan_yumenguan')">地圖</a>、嘉峪關<a href="javascript:openMap('jiuquan_jiayuguan')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥300</div>
+                <div class="budget-item">油費: ¥400</div>
+                <div class="budget-item">住宿: ¥700</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1900</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">莫高窟需提前預約</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>25</td>
+            <td><strong>哈密</strong></td>
+            <td>2</td>
+            <td>6小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">絲路重鎮、哈密瓜故鄉</td>
+            <td class="compact-text">烤羊肉、哈密瓜</td>
+            <td class="compact-text">哈密回王府<a href="javascript:openMap('hami_huiwangfu')">地圖</a>、天山大峽谷<a href="javascript:openMap('hami_tianshan')">地圖</a>、三道溝<a href="javascript:openMap('hami_sandaogou')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥360</div>
+                <div class="budget-item">油費: ¥480</div>
+                <div class="budget-item">住宿: ¥600</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1940</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">注意防曬</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>26</td>
+            <td><strong>吐魯番</strong></td>
+            <td>2</td>
+            <td>5小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">維吾爾文化、沙漠綠洲</td>
+            <td class="compact-text">烤全羊、抓飯</td>
+            <td class="compact-text">火焰山<a href="javascript:openMap('tulufan_huoyan')">地圖</a>、葡萄溝<a href="javascript:openMap('tulufan_putao')">地圖</a>、坎兒井<a href="javascript:openMap('tulufan_kan\'erjing')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥300</div>
+                <div class="budget-item">油費: ¥400</div>
+                <div class="budget-item">住宿: ¥600</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥1800</div>
+            </td>
+            <td class="compact-text">極端大陸性氣候</td>
+            <td class="compact-text">注意防暑降溫</td>
+            <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">民宿</span></td>
+            <td><span class="tag tag-green">5-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>27</td>
+            <td><strong>霍爾果斯</strong></td>
+            <td>2</td>
+            <td>8小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">中哈口岸、絲路文化</td>
+            <td class="compact-text">大盤雞、手抓飯</td>
+            <td class="compact-text">霍爾果斯口岸<a href="javascript:openMap('huoerguosi_kouan')">地圖</a>、中哈合作區<a href="javascript:openMap('huoerguosi_hezuogu')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥480</div>
+                <div class="budget-item">油費: ¥640</div>
+                <div class="budget-item">住宿: ¥600</div>
+                <div class="budget-item">餐飲: ¥500</div>
+                <div class="budget-total">合計: ¥2220</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">需辦理邊境通行證</td>
+            <td><span class="tag tag-blue">口岸酒店</span><span class="tag tag-yellow">青旅</span></td>
+            <td><span class="tag tag-green">5-9月</span></td>
+            <td><span class="tag tag-red">需邊境證</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-stopover">
+            <td>28</td>
+            <td>伊寧</td>
+            <td>1</td>
+            <td>4小時</td>
+            <td><span class="tag tag-yellow">中途停留</span></td>
+            <td class="compact-text">塞外江南、多民族聚居</td>
+            <td class="compact-text">烤包子、抓飯</td>
+            <td class="compact-text">喀贊其民俗村<a href="javascript:openMap('yining_kazhanqi')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥240</div>
+                <div class="budget-item">油費: ¥300</div>
+                <div class="budget-item">住宿: ¥250</div>
+                <div class="budget-item">餐飲: ¥180</div>
+                <div class="budget-total">合計: ¥970</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">尊重少數民族習俗</td>
+            <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
+            <td><span class="tag tag-green">5-9月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>29</td>
+            <td><strong>阿克蘇</strong></td>
+            <td>2</td>
+            <td>6小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">維吾爾文化、絲路古城</td>
+            <td class="compact-text">阿克蘇蘋果、烤包子</td>
+            <td class="compact-text">天山神木園<a href="javascript:openMap('akesu_shenmuyuan')">地圖</a>、溫宿大峽谷<a href="javascript:openMap('akesu_wensu')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥360</div>
+                <div class="budget-item">油費: ¥480</div>
+                <div class="budget-item">住宿: ¥560</div>
+                <div class="budget-item">餐飲: ¥400</div>
+                <div class="budget-total">合計: ¥1800</div>
+            </td>
+            <td class="compact-text">沙漠綠洲氣候</td>
+            <td class="compact-text">注意補水防曬</td>
+            <td><span class="tag tag-green">綠洲民宿</span><span class="tag tag-blue">商務旅館</span></td>
+            <td><span class="tag tag-green">4-10月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-stopover">
+            <td>30</td>
+            <td>喀什</td>
+            <td>1</td>
+            <td>8小時</td>
+            <td><span class="tag tag-yellow">中途停留</span></td>
+            <td class="compact-text">維族文化、絲路重鎮</td>
+            <td class="compact-text">烤全羊、饢</td>
+            <td class="compact-text">喀什老城<a href="javascript:openMap('kashi_laocheng')">地圖</a>、艾提尕爾清真寺<a href="javascript:openMap('kashi_aitigaer')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥480</div>
+                <div class="budget-item">油費: ¥640</div>
+                <div class="budget-item">住宿: ¥300</div>
+                <div class="budget-item">餐飲: ¥200</div>
+                <div class="budget-total">合計: ¥1620</div>
+            </td>
+            <td class="compact-text">溫帶大陸性氣候</td>
+            <td class="compact-text">尊重伊斯蘭習俗</td>
+            <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">特色民宿</span></td>
+            <td><span class="tag tag-green">5-9月</span></td>
+            <td><span class="tag tag-green">不需要</span></td>
+            <td><span class="tag tag-blue">常規轎車</span></td>
+            <td><span class="tag tag-green">良好</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>31</td>
+            <td><strong>日土</strong></td>
+            <td>2</td>
+            <td>10小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">西藏阿里、高原湖泊</td>
+            <td class="compact-text">糌粑、酥油茶</td>
+            <td class="compact-text">班公湖<a href="javascript:openMap('rituo_bangonghu')">地圖</a>、日土岩畫<a href="javascript:openMap('rituo_yanhua')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥600</div>
+                <div class="budget-item">油費: ¥800</div>
+                <div class="budget-item">住宿: ¥360</div>
+                <div class="budget-item">餐飲: ¥240</div>
+                <div class="budget-total">合計: ¥2000</div>
+            </td>
+            <td class="compact-text">高原寒漠氣候</td>
+            <td class="compact-text">注意高原反應</td>
+            <td><span class="tag tag-green">簡易客棧</span><span class="tag tag-red">露營</span></td>
+            <td><span class="tag tag-green">5-9月</span></td>
+            <td><span class="tag tag-red">需邊防證</span></td>
+            <td><span class="tag tag-red">必須四驅</span></td>
+            <td><span class="tag tag-red">信號極弱</span></td>
+        </tr>
+        <tr class="location-type-stopover">
+            <td>32</td>
+            <td>獅泉河</td>
+            <td>1</td>
+            <td>6小時</td>
+            <td><span class="tag tag-yellow">中途停留</span></td>
+            <td class="compact-text">阿里重鎮、高原補給</td>
+            <td class="compact-text">藏麵、酥油茶</td>
+            <td class="compact-text">獅泉河鎮<a href="javascript:openMap('shiquanhe_zhen')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥360</div>
+                <div class="budget-item">油費: ¥480</div>
+                <div class="budget-item">住宿: ¥200</div>
+                <div class="budget-item">餐飲: ¥120</div>
+                <div class="budget-total">合計: ¥1160</div>
+            </td>
+            <td class="compact-text">高原寒漠氣候</td>
+            <td class="compact-text">高原適應重要</td>
+            <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式客棧</span></td>
+            <td><span class="tag tag-green">6-8月</span></td>
+            <td><span class="tag tag-red">需邊防證</span></td>
+            <td><span class="tag tag-red">必須四驅</span></td>
+            <td><span class="tag tag-red">信號極弱</span></td>
+        </tr>
+        <tr class="location-type-main">
+            <td>33</td>
+            <td><strong>隆子</strong></td>
+            <td>2</td>
+            <td>8小時</td>
+            <td><span class="tag tag-blue">主要城市</span></td>
+            <td class="compact-text">藏南文化、邊境山村</td>
+            <td class="compact-text">藏麵、酥油茶</td>
+            <td class="compact-text">扎日神山<a href="javascript:openMap('longzi_zhari')">地圖</a>、三安曲林寺<a href="javascript:openMap('longzi_sananqu')">地圖</a></td>
+            <td class="compact-text">
+                <div class="budget-item">路費: ¥480</div>
+                <div class="budget-item">油費: ¥640</div>
+                <div class="budget-item">住宿: ¥320</div>
+                <td class="compact-text">餐飲: ¥260</td>
+                <td class="compact-text">
+                    <div class="budget-total">合計: ¥1700</div>
+                </td>
+                <td class="compact-text">高山峽谷氣候</td>
+                <td class="compact-text">邊境地區需證件</td>
+                <td><span class="tag tag-green">藏式民宿</span></td>
+                <td><span class="tag tag-green">5-10月</span></td>
+                <td><span class="tag tag-red">需邊防證</span></td>
+                <td><span class="tag tag-red">必須四驅</span></td>
+                <td><span class="tag tag-red">信號弱</span></td>
+            </tr>
+            <tr class="location-type-stopover">
+                <td>34</td>
+                <td>林芝</td>
+                <td>1</td>
+                <td>6小時</td>
+                <td><span class="tag tag-yellow">中途停留</span></td>
+                <td class="compact-text">西藏江南、桃花勝地</td>
+                <td class="compact-text">石鍋雞、藏香豬</td>
+                <td class="compact-text">雅魯藏布大峽谷<a href="javascript:openMap('linzhi_yaluzangbu')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥360</div>
+                    <div class="budget-item">油費: ¥480</div>
+                    <div class="budget-item">住宿: ¥300</div>
+                    <div class="budget-item">餐飲: ¥200</div>
+                    <div class="budget-total">合計: ¥1340</div>
+                </td>
+                <td class="compact-text">高原溫帶氣候</td>
+                <td class="compact-text">注意高原反應</td>
+                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">藏式民宿</span></td>
+                <td><span class="tag tag-green">3-10月</span></td>
+                <td><span class="tag tag-red">需邊防證</span></td>
+                <td><span class="tag tag-red">建議四驅</span></td>
+                <td><span class="tag tag-yellow">信號一般</span></td>
+            </tr>
+            <tr class="location-type-main">
+                <td>35</td>
+                <td><strong>墨脫</strong></td>
+                <td>2</td>
+                <td>6小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">雅魯藏布江峽谷</td>
+                <td class="compact-text">石鍋雞、野生靈芝</td>
+                <td class="compact-text">雅魯藏布大峽谷<a href="javascript:openMap('motuo_yaluzangbu')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥360</div>
+                    <div class="budget-item">油費: ¥480</div>
+                    <div class="budget-item">住宿: ¥440</div>
+                    <div class="budget-item">餐飲: ¥360</div>
+                    <div class="budget-total">合計: ¥1640</div>
+                </td>
+                <td class="compact-text">熱帶雨林氣候</td>
+                <td class="compact-text">路況複雜</td>
+                <td><span class="tag tag-green">雨林客棧</span><span class="tag tag-green">民宿</span></td>
+                <td><span class="tag tag-green">4-10月</span></td>
+                <td><span class="tag tag-red">需邊防證</span></td>
+                <td><span class="tag tag-red">必須四驅</span></td>
+                <td><span class="tag tag-red">信號不穩定</span></td>
+            </tr>
+            <tr class="location-type-stopover">
+                <td>36</td>
+                <td>大理</td>
+                <td>1</td>
+                <td>8小時</td>
+                <td><span class="tag tag-yellow">中途停留</span></td>
+                <td class="compact-text">白族文化、風花雪月</td>
+                <td class="compact-text">乳扇、餌塊</td>
+                <td class="compact-text">洱海<a href="javascript:openMap('dali_erhai')">地圖</a>、崇聖寺三塔<a href="javascript:openMap('dali_chongsheng')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥480</div>
+                    <div class="budget-item">油費: ¥640</div>
+                    <div class="budget-item">住宿: ¥300</div>
+                    <div class="budget-item">餐飲: ¥200</div>
+                    <div class="budget-total">合計: ¥1620</div>
+                </td>
+                <td class="compact-text">高原季風氣候</td>
+                <td class="compact-text">洱海環湖注意安全</td>
+                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                <td><span class="tag tag-green">3-10月</span></td>
+                <td><span class="tag tag-green">不需要</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-main">
+                <td>37</td>
+                <td><strong>麗江</strong></td>
+                <td>2</td>
+                <td>4小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">納西文化、古城風情</td>
+                <td class="compact-text">臘排骨火鍋、雞豆涼粉</td>
+                <td class="compact-text">麗江古城<a href="javascript:openMap('lijiang_gucheng')">地圖</a>、玉龍雪山<a href="javascript:openMap('lijiang_yulong')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥240</div>
+                    <div class="budget-item">油費: ¥300</div>
+                    <div class="budget-item">住宿: ¥800</div>
+                    <div class="budget-item">餐飲: ¥600</div>
+                    <div class="budget-total">合計: ¥1940</div>
+                </td>
+                <td class="compact-text">高原季風氣候</td>
+                <td class="compact-text">古城夜間較擁擠</td>
+                <td><span class="tag tag-green">納西客棧</span><span class="tag tag-blue">精品酒店</span></td>
+                <td><span class="tag tag-green">4-10月</span></td>
+                <td><span class="tag tag-green">不需要</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-stopover">
+                <td>38</td>
+                <td>芒市</td>
+                <td>1</td>
+                <td>6小時</td>
+                <td><span class="tag tag-yellow">中途停留</span></td>
+                <td class="compact-text">傣族文化、邊境風情</td>
+                <td class="compact-text">傣味燒烤、菠蘿飯</td>
+                <td class="compact-text">勐巴娜西珍奇園<a href="javascript:openMap('mangshi_mengbana')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥360</div>
+                    <div class="budget-item">油費: ¥480</div>
+                    <div class="budget-item">住宿: ¥250</div>
+                    <div class="budget-item">餐飲: ¥180</div>
+                    <div class="budget-total">合計: ¥1270</div>
+                </td>
+                <td class="compact-text">亞熱帶季風氣候</td>
+                <td class="compact-text">尊重傣族習俗</td>
+                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">傣族民宿</span></td>
+                <td><span class="tag tag-green">11-4月</span></td>
+                <td><span class="tag tag-green">不需要</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-main">
+                <td>39</td>
+                <td><strong>瑞麗</strong></td>
+                <td>2</td>
+                <td>3小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">中緬邊境、玉石文化</td>
+                <td class="compact-text">傣族手抓飯、過橋米線</td>
+                <td class="compact-text">一寨兩國<a href="javascript:openMap('ruili_yizhaoliangguo')">地圖</a>、姐告口岸<a href="javascript:openMap('ruili_jiegao')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥180</div>
+                    <div class="budget-item">油費: ¥220</div>
+                    <div class="budget-item">住宿: ¥600</div>
+                    <div class="budget-item">餐飲: ¥500</div>
+                    <div class="budget-total">合計: ¥1500</div>
+                </td>
+                <td class="compact-text">亞熱帶季風氣候</td>
+                <td class="compact-text">邊境勿隨意拍照</td>
+                <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">傣族民宿</span></td>
+                <td><span class="tag tag-green">11-4月</span></td>
+                <td><span class="tag tag-red">需邊境證</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-main">
+                <td>40</td>
+                <td><strong>騰衝</strong></td>
+                <td>2</td>
+                <td>4小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">僑鄉文化、溫泉地質</td>
+                <td class="compact-text">土鍋子、大救駕</td>
+                <td class="compact-text">和順古鎮<a href="javascript:openMap('tengchong_heshun')">地圖</a>、熱海溫泉<a href="javascript:openMap('tengchong_rehai')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥240</div>
+                    <div class="budget-item">油費: ¥300</div>
+                    <div class="budget-item">住宿: ¥700</div>
+                    <div class="budget-item">餐飲: ¥500</div>
+                    <div class="budget-total">合計: ¥1740</div>
+                </td>
+                <td class="compact-text">亞熱帶高原氣候</td>
+                <td class="compact-text">溫泉注意安全</td>
+                <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">古鎮客棧</span></td>
+                <td><span class="tag tag-green">10-4月</span></td>
+                <td><span class="tag tag-green">不需要</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-stopover">
+                <td>41</td>
+                <td>保山</td>
+                <td>1</td>
+                <td>3小時</td>
+                <td><span class="tag tag-yellow">中途停留</span></td>
+                <td class="compact-text">歷史文化、玉石交易</td>
+                <td class="compact-text">過手米線、燒豆腐</td>
+                <td class="compact-text">太保山<a href="javascript:openMap('baoshan_taibao')">地圖</a>、雲南驛<a href="javascript:openMap('baoshan_yunyi')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥180</div>
+                    <div class="budget-item">油費: ¥220</div>
+                    <div class="budget-item">住宿: ¥200</div>
+                    <div class="budget-item">餐飲: ¥150</div>
+                    <div class="budget-total">合計: ¥750</div>
+                </td>
+                <td class="compact-text">亞熱帶季風氣候</td>
+                <td class="compact-text">注意交通安全</td>
+                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">民宿</span></td>
+                <td><span class="tag tag-green">10-4月</span></td>
+                <td><span class="tag tag-green">不需要</span></td>
+                <td><span class="tag tag-blue">常規轎車</span></td>
+                <td><span class="tag tag-green">良好</span></td>
+            </tr>
+            <tr class="location-type-main">
+                <td>42</td>
+                <td><strong>昆明</strong></td>
+                <td>2</td>
+                <td>5小時</td>
+                <td><span class="tag tag-blue">主要城市</span></td>
+                <td class="compact-text">春城、多元民族文化</td>
+                <td class="compact-text">過橋米線、汽鍋雞</td>
+                <td class="compact-text">石林<a href="javascript:openMap('kunming_shilin')">地圖</a>、滇池<a href="javascript:openMap('kunming_dianchi')">地圖</a></td>
+                <td class="compact-text">
+                    <div class="budget-item">路費: ¥300</div>
+                    <div class="budget-item">油費: ¥400</div>
+                    <div class="budget-item">住宿: ¥800</div>
+                    <td class="compact-text">餐飲: ¥600</td>
+                    <td class="compact-text">
+                        <div class="budget-total">合計: ¥2100</div>
+                    </td>
+                    <td class="compact-text">高原季風氣候</td>
+                    <td class="compact-text">市區注意限行</td>
+                    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                    <td><span class="tag tag-green">全年</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">極佳</span></td>
+                </tr>
+                <tr class="location-type-stopover">
+                    <td>43</td>
+                    <td>玉溪</td>
+                    <td>1</td>
+                    <td>2小時</td>
+                    <td><span class="tag tag-yellow">中途停留</span></td>
+                    <td class="compact-text">花燈文化、煙草之鄉</td>
+                    <td class="compact-text">銅鍋魚、涼米線</td>
+                    <td class="compact-text">撫仙湖<a href="javascript:openMap('yuxi_fuxianhu')">地圖</a>、映月潭<a href="javascript:openMap('yuxi_yingyue')">地圖</a></td>
+                    <td class="compact-text">
+                        <div class="budget-item">路費: ¥120</div>
+                        <div class="budget-item">油費: ¥150</div>
+                        <div class="budget-item">住宿: ¥200</div>
+                        <div class="budget-item">餐飲: ¥150</div>
+                        <div class="budget-total">合計: ¥620</div>
+                    </td>
+                    <td class="compact-text">高原季風氣候</td>
+                    <td class="compact-text">湖邊注意安全</td>
+                    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                    <td><span class="tag tag-green">全年</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">良好</span></td>
+                </tr>
+                <tr class="location-type-main">
+                    <td>44</td>
+                    <td><strong>南寧</strong></td>
+                    <td>2</td>
+                    <td>6小時</td>
+                    <td><span class="tag tag-blue">主要城市</span></td>
+                    <td class="compact-text">壯族文化、綠城</td>
+                    <td class="compact-text">老友粉、燒鴨</td>
+                    <td class="compact-text">青秀山<a href="javascript:openMap('nanning_qingxiu')">地圖</a>、南湖公園<a href="javascript:openMap('nanning_nanhu')">地圖</a></td>
+                    <td class="compact-text">
+                        <div class="budget-item">路費: ¥360</div>
+                        <div class="budget-item">油費: ¥480</div>
+                        <div class="budget-item">住宿: ¥700</div>
+                        <div class="budget-item">餐飲: ¥500</div>
+                        <div class="budget-total">合計: ¥2040</div>
+                    </td>
+                    <td class="compact-text">亞熱帶季風氣候</td>
+                    <td class="compact-text">夏季注意防暑</td>
+                    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
+                    <td><span class="tag tag-green">10-4月</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">極佳</span></td>
+                </tr>
+                <tr class="location-type-main">
+                    <td>45</td>
+                    <td><strong>北海</strong></td>
+                    <td>2</td>
+                    <td>4小時</td>
+                    <td><span class="tag tag-blue">主要城市</span></td>
+                    <td class="compact-text">海濱風情、疍家文化</td>
+                    <td class="compact-text">海鮮大餐、沙蟲粥</td>
+                    <td class="compact-text">銀灘<a href="javascript:openMap('beihai_yintan')">地圖</a>、涠洲島<a href="javascript:openMap('beihai_weizhou')">地圖</a></td>
+                    <td class="compact-text">
+                        <div class="budget-item">路費: ¥240</div>
+                        <div class="budget-item">油費: ¥300</div>
+                        <div class="budget-item">住宿: ¥800</div>
+                        <div class="budget-item">餐飲: ¥600</div>
+                        <div class="budget-total">合計: ¥1940</div>
+                    </td>
+                    <td class="compact-text">海洋性季風氣候</td>
+                    <td class="compact-text">涠洲島需提前訂船票</td>
+                    <td><span class="tag tag-blue">海景酒店</span><span class="tag tag-green">島上民宿</span></td>
+                    <td><span class="tag tag-green">10-4月</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">良好</span></td>
+                </tr>
+                <tr class="location-type-stopover">
+                    <td>46</td>
+                    <td>湛江</td>
+                    <td>1</td>
+                    <td>4小時</td>
+                    <td><span class="tag tag-yellow">中途停留</span></td>
+                    <td class="compact-text">雷州文化、海鮮美食</td>
+                    <td class="compact-text">白切雞、海鮮粥</td>
+                    <td class="compact-text">硇洲島<a href="javascript:openMap('zhanjiang_qizhou')">地圖</a>、湖光岩<a href="javascript:openMap('zhanjiang_huguang')">地圖</a></td>
+                    <td class="compact-text">
+                        <div class="budget-item">路費: ¥240</div>
+                        <div class="budget-item">油費: ¥300</div>
+                        <div class="budget-item">住宿: ¥250</div>
+                        <div class="budget-item">餐飲: ¥200</div>
+                        <div class="budget-total">合計: ¥990</div>
+                    </td>
+                    <td class="compact-text">亞熱帶海洋氣候</td>
+                    <td class="compact-text">海邊注意防曬</td>
+                    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">海邊民宿</span></td>
+                    <td><span class="tag tag-green">10-4月</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">良好</span></td>
+                </tr>
+                <tr class="location-type-end">
+                    <td>47</td>
+                    <td><strong>江門</strong></td>
+                    <td>-</td>
+                    <td>4小時</td>
+                    <td><span class="tag tag-red">終點</span></td>
+                    <td class="compact-text">僑鄉文化、美食之都</td>
+                    <td class="compact-text">陳皮雞、台山黃鱔飯</td>
+                    <td class="compact-text">開平碉樓<a href="javascript:openMap('jiangmen_dialou')">地圖</a>、赤坎古鎮<a href="javascript:openMap('jiangmen_chikan')">地圖</a></td>
+                    <td class="compact-text">
+                        <div class="budget-item">路費: ¥240</div>
+                        <div class="budget-item">油費: ¥300</div>
+                        <div class="budget-item">住宿: ¥300</div>
+                        <div class="budget-item">餐飲: ¥200</div>
+                        <div class="budget-total">合計: ¥1040</div>
+                    </td>
+                    <td class="compact-text">亞熱帶海洋氣候</td>
+                    <td class="compact-text">結束行程，檢查車輛</td>
+                    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">僑鄉民宿</span></td>
+                    <td><span class="tag tag-green">全年</span></td>
+                    <td><span class="tag tag-green">不需要</span></td>
+                    <td><span class="tag tag-blue">常規轎車</span></td>
+                    <td><span class="tag tag-green">良好</span></td>
+                </tr>
                         </tbody>
                     </table>
                 </div>
@@ -2624,7 +1843,7 @@
                     <ul>
                         <li><strong>主要地點</strong>: 廣州、深圳、廈門、杭州、上海、青島、大連、丹東、撫遠</li>
                         <li><strong>特色</strong>: 嶺南文化、閩南風情、海派文化、啤酒節、東北邊境</li>
-                        <li><strong>建議</strong>: 提前規劃沿海景點門票，避開暑期高峰，準備防曬用品。</li>
+                        <li><strong>建議</strong>: 提前規劃沿海景點門票，避開沿海高峰，準備防曬用品。</li>
                     </ul>
                 </div>
                 <div class="route-section route-2">
@@ -2746,7 +1965,3 @@
     </script>
 </body>
 </html>
-
-
-
-
