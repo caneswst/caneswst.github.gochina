@@ -341,7 +341,120 @@
             border-left: 3px solid #dc3545;
             background-color: #fff5f5;
         }
+
+        .mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1a6dba;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+            font-size: 1rem;
+            border: none;
+        }
         
+        .mode-toggle:hover {
+            background: #0d4d8c;
+        }
+
+        /* Mobile-specific styles */
+        body.mobile-mode {
+            font-size: 1.1rem;
+        }
+
+        body.mobile-mode .container {
+            padding: 10px;
+        }
+
+        body.mobile-mode header {
+            padding: 20px 10px;
+        }
+
+        body.mobile-mode header h1 {
+            font-size: 1.8rem;
+        }
+
+        body.mobile-mode header p {
+            font-size: 1rem;
+            padding: 0 10px;
+        }
+
+        body.mobile-mode .stats {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        body.mobile-mode .stat-item {
+            padding: 10px;
+            text-align: center;
+        }
+
+        body.mobile-mode .tabs {
+            flex-direction: column;
+        }
+
+        body.mobile-mode .tab {
+            padding: 15px;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-right: 0;
+            border-radius: 5px;
+        }
+
+        body.mobile-mode .table-container {
+            max-height: none;
+        }
+
+        body.mobile-mode table {
+            font-size: 0.9rem;
+        }
+
+        body.mobile-mode th, body.mobile-mode td {
+            padding: 10px;
+        }
+
+        /* Hide less critical columns in mobile mode */
+        body.mobile-mode th:nth-child(n+6),
+        body.mobile-mode td:nth-child(n+6) {
+            display: none;
+        }
+
+        body.mobile-mode th:nth-child(1),
+        body.mobile-mode td:nth-child(1),
+        body.mobile-mode th:nth-child(2),
+        body.mobile-mode td:nth-child(2),
+        body.mobile-mode th:nth-child(3),
+        body.mobile-mode td:nth-child(3),
+        body.mobile-mode th:nth-child(5),
+        body.mobile-mode td:nth-child(5) {
+            display: table-cell;
+        }
+
+        body.mobile-mode .tips-grid {
+            grid-template-columns: 1fr;
+        }
+
+        body.mobile-mode .tip-card {
+            padding: 15px;
+        }
+
+        body.mobile-mode .permit-method {
+            flex-direction: column;
+        }
+
+        body.mobile-mode .method-card {
+            padding: 15px;
+        }
+
+        body.mobile-mode .mode-toggle {
+            padding: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Existing media query for smaller screens */
         @media (max-width: 768px) {
             .stats {
                 flex-direction: column;
@@ -376,7 +489,7 @@
                 padding: 6px 8px;
             }
         }
-        
+
         .table-container {
             overflow-x: auto;
             max-height: 70vh;
@@ -392,6 +505,7 @@
     </style>
 </head>
 <body>
+    <button class="mode-toggle" onclick="toggleMode()">切換手機版</button>
     <div class="container">
         <header>
             <h1><i class="fas fa-road"></i> 環中國自駕遊行程規劃系統</h1>
@@ -470,8 +584,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
-                            <!-- G228 國道段 - 東部沿海 -->
                             <tr class="location-type-main">
                                 <td>2</td>
                                 <td><strong>廣州</strong></td>
@@ -496,7 +608,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>3</td>
                                 <td><strong>深圳</strong></td>
@@ -521,7 +632,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">極佳</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>4</td>
                                 <td><strong>廈門</strong></td>
@@ -546,7 +656,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>5</td>
                                 <td><strong>福州</strong></td>
@@ -571,7 +680,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>6</td>
                                 <td><strong>溫州</strong></td>
@@ -596,7 +704,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>7</td>
                                 <td><strong>杭州</strong></td>
@@ -621,7 +728,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">極佳</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>8</td>
                                 <td><strong>上海</strong></td>
@@ -646,7 +752,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">極佳</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>9</td>
                                 <td><strong>連雲港</strong></td>
@@ -671,8 +776,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
-                            <!-- 中途停留點：日照 -->
                             <tr class="location-type-stopover">
                                 <td>10</td>
                                 <td>日照</td>
@@ -697,7 +800,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>11</td>
                                 <td><strong>青島</strong></td>
@@ -722,7 +824,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
                             <tr class="location-type-main">
                                 <td>12</td>
                                 <td><strong>大連</strong></td>
@@ -747,8 +848,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
-                            <!-- 中途停留點：營口 -->
                             <tr class="location-type-stopover">
                                 <td>13</td>
                                 <td>營口</td>
@@ -773,8 +872,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
-                            <!-- G331 國道段 - 北部邊境 -->
                             <tr class="location-type-main">
                                 <td>14</td>
                                 <td><strong>丹東</strong></td>
@@ -799,10 +896,6 @@
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
                             </tr>
-
-                            <!-- 繼續添加所有47個地點... -->
-                            <!-- 由於篇幅限制，這裡只顯示部分，實際需要完整列出47個地點 -->
-
                             <tr class="location-type-main">
                                 <td>15</td>
                                 <td><strong>長白</strong></td>
@@ -827,7 +920,6 @@
                                 <td><span class="tag tag-red">建議SUV</span></td>
                                 <td><span class="tag tag-yellow">山區信號弱</span></td>
                             </tr>
-
                             <tr class="location-type-main">
     <td>16</td>
     <td><strong>琿春</strong></td>
@@ -852,7 +944,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-yellow">邊境信號弱</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>17</td>
     <td><strong>撫遠</strong></td>
@@ -877,8 +968,6 @@
     <td><span class="tag tag-red">建議四驅</span></td>
     <td><span class="tag tag-yellow">偏遠信號弱</span></td>
 </tr>
-
-<!-- 中途停留點：哈爾濱 -->
 <tr class="location-type-stopover">
     <td>18</td>
     <td>哈爾濱</td>
@@ -903,7 +992,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>19</td>
     <td><strong>漠河</strong></td>
@@ -928,7 +1016,6 @@
     <td><span class="tag tag-red">必須四驅/防凍</span></td>
     <td><span class="tag tag-yellow">偏遠信號不穩</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>20</td>
     <td><strong>滿洲里</strong></td>
@@ -953,8 +1040,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
-<!-- 中途停留點：海拉爾 -->
 <tr class="location-type-stopover">
     <td>21</td>
     <td>海拉爾</td>
@@ -979,7 +1064,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>22</td>
     <td><strong>阿爾山</strong></td>
@@ -1004,7 +1088,6 @@
     <td><span class="tag tag-red">建議SUV</span></td>
     <td><span class="tag tag-yellow">山區信號弱</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>23</td>
     <td><strong>二連浩特</strong></td>
@@ -1029,8 +1112,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-yellow">信號一般</span></td>
 </tr>
-
-<!-- 中途停留點：烏蘭察布 -->
 <tr class="location-type-stopover">
     <td>24</td>
     <td>烏蘭察布</td>
@@ -1055,7 +1136,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>25</td>
     <td><strong>額濟納旗</strong></td>
@@ -1080,8 +1160,6 @@
     <td><span class="tag tag-red">建議四驅</span></td>
     <td><span class="tag tag-yellow">偏遠信號弱</span></td>
 </tr>
-
-<!-- G219 國道段 - 西部高原 -->
 <tr class="location-type-main">
     <td>26</td>
     <td><strong>喀納斯</strong></td>
@@ -1106,7 +1184,6 @@
     <td><span class="tag tag-red">建議四驅</span></td>
     <td><span class="tag tag-yellow">山區信號不穩</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>27</td>
     <td><strong>霍爾果斯</strong></td>
@@ -1119,9 +1196,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥480</div>
         <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥500</div>
-        <div class="budget-total">合計: ¥2220</div>
+        <td class="budget-item">住宿: ¥600</div>
+        <td class="budget-item">餐飲: ¥500</div>
+        <td class="budget-total">合計: ¥2220</div>
     </td>
     <td class="compact-text">溫帶大陸性氣候</td>
     <td class="compact-text">需辦理邊境通行證</td>
@@ -1131,8 +1208,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
-<!-- 中途停留點：伊寧 -->
 <tr class="location-type-stopover">
     <td>28</td>
     <td>伊寧</td>
@@ -1145,9 +1220,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥240</div>
         <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥180</div>
-        <div class="budget-total">合計: ¥970</div>
+        <td class="budget-item">住宿: ¥250</div>
+        <td class="budget-item">餐飲: ¥180</div>
+        <td class="budget-total">合計: ¥970</div>
     </td>
     <td class="compact-text">溫帶大陸性氣候</td>
     <td class="compact-text">尊重少數民族習俗</td>
@@ -1157,7 +1232,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>29</td>
     <td><strong>阿克蘇</strong></td>
@@ -1182,8 +1256,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
-<!-- 中途停留點：喀什 -->
 <tr class="location-type-stopover">
     <td>30</td>
     <td>喀什</td>
@@ -1196,9 +1268,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥480</div>
         <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1620</div>
+        <td class="budget-item">住宿: ¥300</div>
+        <td class="budget-item">餐飲: ¥200</div>
+        <td class="budget-total">合計: ¥1620</div>
     </td>
     <td class="compact-text">溫帶大陸性氣候</td>
     <td class="compact-text">尊重伊斯蘭習俗</td>
@@ -1208,7 +1280,6 @@
     <td><span class="tag tag-blue">常規轎車</span></td>
     <td><span class="tag tag-green">良好</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>31</td>
     <td><strong>日土</strong></td>
@@ -1223,7 +1294,7 @@
         <div class="budget-item">油費: ¥800</div>
         <div class="budget-item">住宿: ¥360</div>
         <div class="budget-item">餐飲: ¥240</div>
-        <div class="budget-total">合計: ¥2000</div>
+        <td class="budget-total">合計: ¥2000</div>
     </td>
     <td class="compact-text">高原寒漠氣候</td>
     <td class="compact-text">注意高原反應</td>
@@ -1233,8 +1304,6 @@
     <td><span class="tag tag-red">必須四驅</span></td>
     <td><span class="tag tag-red">信號極弱</span></td>
 </tr>
-
-<!-- 中途停留點：獅泉河 -->
 <tr class="location-type-stopover">
     <td>32</td>
     <td>獅泉河</td>
@@ -1247,9 +1316,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥360</div>
         <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥200</div>
-        <div class="budget-item">餐飲: ¥120</div>
-        <div class="budget-total">合計: ¥1160</div>
+        <td class="budget-item">住宿: ¥200</div>
+        <td class="budget-item">餐飲: ¥120</div>
+        <td class="budget-total">合計: ¥1160</div>
     </td>
     <td class="compact-text">高原寒漠氣候</td>
     <td class="compact-text">高原適應重要</td>
@@ -1259,7 +1328,6 @@
     <td><span class="tag tag-red">必須四驅</span></td>
     <td><span class="tag tag-red">信號極弱</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>33</td>
     <td><strong>隆子</strong></td>
@@ -1272,9 +1340,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥480</div>
         <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥320</div>
-        <div class="budget-item">餐飲: ¥260</div>
-        <div class="budget-total">合計: ¥1700</div>
+        <td class="budget-item">住宿: ¥320</div>
+        <td class="budget-item">餐飲: ¥260</div>
+        <td class="budget-total">合計: ¥1700</div>
     </td>
     <td class="compact-text">高山峽谷氣候</td>
     <td class="compact-text">邊境地區需證件</td>
@@ -1284,8 +1352,6 @@
     <td><span class="tag tag-red">必須四驅</span></td>
     <td><span class="tag tag-red">信號弱</span></td>
 </tr>
-
-<!-- 中途停留點：林芝 -->
 <tr class="location-type-stopover">
     <td>34</td>
     <td>林芝</td>
@@ -1298,9 +1364,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥360</div>
         <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1340</div>
+        <td class="budget-item">住宿: ¥300</div>
+        <td class="budget-item">餐飲: ¥200</div>
+        <td class="budget-total">合計: ¥1340</div>
     </td>
     <td class="compact-text">高原溫帶氣候</td>
     <td class="compact-text">注意高原反應</td>
@@ -1310,7 +1376,6 @@
     <td><span class="tag tag-red">建議四驅</span></td>
     <td><span class="tag tag-yellow">信號一般</span></td>
 </tr>
-
 <tr class="location-type-main">
     <td>35</td>
     <td><strong>墨脫</strong></td>
@@ -1323,9 +1388,9 @@
     <td class="compact-text">
         <div class="budget-item">路費: ¥360</div>
         <div class="budget-item">油費: ¥480</div>
-        <div class="budget-item">住宿: ¥440</div>
-        <div class="budget-item">餐飲: ¥360</div>
-        <div class="budget-total">合計: ¥1640</div>
+        <td class="budget-item">住宿: ¥440</div>
+        <td class="budget-item">餐飲: ¥360</div>
+        <td class="budget-total">合計: ¥1640</div>
     </td>
     <td class="compact-text">熱帶雨林氣候</td>
     <td class="compact-text">路況複雜</td>
@@ -1334,303 +1399,290 @@
     <td><span class="tag tag-red">需邊防證</span></td>
     <td><span class="tag tag-red">必須四驅</span></td>
     <td><span class="tag tag-red">信號不穩定</span></td>
-</tr>
 
-<!-- 中途停留點：大理 -->
-<tr class="location-type-stopover">
-    <td>36</td>
-    <td>大理</td>
-    <td>1</td>
-    <td>8小時</td>
-    <td><span class="tag tag-yellow">中途停留</span></td>
-    <td class="compact-text">白族文化、風花雪月</td>
-    <td class="compact-text">乳扇、餌塊</td>
-    <td class="compact-text">洱海、崇聖寺三塔</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥480</div>
-        <div class="budget-item">油費: ¥640</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥1620</div>
-    </td>
-    <td class="compact-text">高原季風氣候</td>
-    <td class="compact-text">注意防曬</td>
-    <td><span class="tag tag-green">洱海民宿</span><span class="tag tag-blue">古城酒店</span></td>
-    <td><span class="tag tag-green">3-5月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>37</td>
-    <td><strong>憑祥</strong></td>
-    <td>2</td>
-    <td>10小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中越邊境、南國風情</td>
-    <td class="compact-text">越南春捲、椰子雞</td>
-    <td class="compact-text">友誼關、浦寨邊貿市場</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥600</div>
-        <div class="budget-item">油費: ¥800</div>
-        <div class="budget-item">住宿: ¥500</div>
-        <div class="budget-item">餐飲: ¥400</div>
-        <div class="budget-total">合計: ¥2300</div>
-    </td>
-    <td class="compact-text">亞熱帶濕潤氣候</td>
-    <td class="compact-text">邊境貿易區注意安全</td>
-    <td><span class="tag tag-green">邊境客棧</span><span class="tag tag-yellow">青旅</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-<tr class="location-type-main">
-    <td>38</td>
-    <td><strong>東興</strong></td>
-    <td>2</td>
-    <td>4小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">中越邊境、京族文化</td>
-    <td class="compact-text">海鮮粉、越南卷粉</td>
-    <td class="compact-text">竹山景區、金灘</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥240</div>
-        <div class="budget-item">油費: ¥300</div>
-        <div class="budget-item">住宿: ¥400</div>
-        <div class="budget-item">餐飲: ¥320</div>
-        <div class="budget-total">合計: ¥1260</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">邊境貿易區注意安全</td>
-    <td><span class="tag tag-green">邊境客棧</span><span class="tag tag-blue">海景酒店</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>39</td>
-    <td><strong>防城港</strong></td>
-    <td>1</td>
-    <td>2小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">海港城市、海灣風光</td>
-    <td class="compact-text">海鮮大餐、螺螄粉</td>
-    <td class="compact-text">白浪灘、怪石灘</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥120</div>
-        <div class="budget-item">油費: ¥150</div>
-        <div class="budget-item">住宿: ¥300</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥770</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">海邊注意防曬</td>
-    <td><span class="tag tag-blue">海景公寓</span><span class="tag tag-green">漁村民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>40</td>
-    <td><strong>南寧</strong></td>
-    <td>2</td>
-    <td>3小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">壯族文化、綠城</td>
-    <td class="compact-text">老友粉、檸檬鴨</td>
-    <td class="compact-text">青秀山、南湖公園</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥180</div>
-        <div class="budget-item">油費: ¥220</div>
-        <div class="budget-item">住宿: ¥600</div>
-        <div class="budget-item">餐飲: ¥480</div>
-        <div class="budget-total">合計: ¥1480</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">市區交通繁忙</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>41</td>
-    <td><strong>玉林</strong></td>
-    <td>1</td>
-    <td>2.5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">僑鄉文化、藥材之都</td>
-    <td class="compact-text">牛腩粉、玉林肉丸</td>
-    <td class="compact-text">真武閣、大容山</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥150</div>
-        <div class="budget-item">油費: ¥180</div>
-        <div class="budget-item">住宿: ¥250</div>
-        <div class="budget-item">餐飲: ¥200</div>
-        <div class="budget-total">合計: ¥780</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">注意藥材市場交易</td>
-    <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">溫泉度假</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>42</td>
-    <td><strong>茂名</strong></td>
-    <td>1</td>
-    <td>2小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">海濱城市、水果之鄉</td>
-    <td class="compact-text">海鮮、荔枝</td>
-    <td class="compact-text">放雞島、中國第一灘</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥120</div>
-        <div class="budget-item">油費: ¥150</div>
-        <div class="budget-item">住宿: ¥280</div>
-        <div class="budget-item">餐飲: ¥220</div>
-        <div class="budget-total">合計: ¥770</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">夏季注意颱風</td>
-    <td><span class="tag tag-blue">海濱酒店</span><span class="tag tag-green">漁家樂</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>43</td>
-    <td><strong>陽江</strong></td>
-    <td>1</td>
-    <td>1.5小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">海陵島、漁港風情</td>
-    <td class="compact-text">海鮮、豬腸碌</td>
-    <td class="compact-text">海陵島、十里銀灘</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥90</div>
-        <div class="budget-item">油費: ¥120</div>
-        <div class="budget-item">住宿: ¥350</div>
-        <div class="budget-item">餐飲: ¥250</div>
-        <div class="budget-total">合計: ¥810</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">海邊活動注意安全</td>
-    <td><span class="tag tag-blue">海景度假村</span><span class="tag tag-green">民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>44</td>
-    <td><strong>珠海</strong></td>
-    <td>2</td>
-    <td>2小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">海濱花園城市</td>
-    <td class="compact-text">海鮮、珠海膏蟹</td>
-    <td class="compact-text">情侶路、長隆海洋王國</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥120</div>
-        <div class="budget-item">油費: ¥150</div>
-        <div class="budget-item">住宿: ¥800</div>
-        <div class="budget-item">餐飲: ¥600</div>
-        <div class="budget-total">合計: ¥1670</div>
-    </td>
-    <td class="compact-text">亞熱帶海洋氣候</td>
-    <td class="compact-text">節假日遊客眾多</td>
-    <td><span class="tag tag-blue">海景酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>45</td>
-    <td><strong>中山</strong></td>
-    <td>1</td>
-    <td>1小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">偉人故里、僑鄉</td>
-    <td class="compact-text">石岐乳鴿、杏仁餅</td>
-    <td class="compact-text">孫中山故居、詹園</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥60</div>
-        <div class="budget-item">油費: ¥80</div>
-        <div class="budget-item">住宿: ¥400</div>
-        <div class="budget-item">餐飲: ¥300</div>
-        <div class="budget-total">合計: ¥840</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">參觀故居注意禮儀</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">文化客棧</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-
-<tr class="location-type-main">
-    <td>46</td>
-    <td><strong>佛山</strong></td>
-    <td>1</td>
-    <td>1小時</td>
-    <td><span class="tag tag-blue">主要城市</span></td>
-    <td class="compact-text">武術之鄉、陶瓷之都</td>
-    <td class="compact-text">雙皮奶、盲公餅</td>
-    <td class="compact-text">祖廟、西樵山</td>
-    <td class="compact-text">
-        <div class="budget-item">路費: ¥60</div>
-        <div class="budget-item">油費: ¥80</div>
-        <div class="budget-item">住宿: ¥350</div>
-        <div class="budget-item">餐飲: ¥280</div>
-        <div class="budget-total">合計: ¥770</div>
-    </td>
-    <td class="compact-text">亞熱帶季風氣候</td>
-    <td class="compact-text">陶瓷市場購物注意</td>
-    <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
-    <td><span class="tag tag-green">10-4月</span></td>
-    <td><span class="tag tag-green">不需要</span></td>
-    <td><span class="tag tag-blue">常規轎車</span></td>
-    <td><span class="tag tag-green">良好</span></td>
-</tr>
-                            <!-- 終點 -->
+                                <td>36</td>
+                                <td>大理</td>
+                                <td>1</td>
+                                <td>8小時</td>
+                                <td><span class="tag tag-yellow">中途停留</span></td>
+                                <td class="compact-text">白族文化、風花雪月</td>
+                                <td class="compact-text">乳扇、餌塊</td>
+                                <td class="compact-text">洱海、崇聖寺三塔</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥480</div>
+                                    <div class="budget-item">油費: ¥640</div>
+                                    <div class="budget-item">住宿: ¥300</div>
+                                    <div class="budget-item">餐飲: ¥200</div>
+                                    <div class="budget-total">合計: ¥1620</div>
+                                </td>
+                                <td class="compact-text">高原季風氣候</td>
+                                <td class="compact-text">洱海環湖注意安全</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                                <td><span class="tag tag-green">3-10月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>37</td>
+                                <td><strong>麗江</strong></td>
+                                <td>2</td>
+                                <td>4小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">納西文化、古城風情</td>
+                                <td class="compact-text">臘排骨火鍋、雞豆涼粉</td>
+                                <td class="compact-text">麗江古城、玉龍雪山</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥240</div>
+                                    <div class="budget-item">油費: ¥300</div>
+                                    <div class="budget-item">住宿: ¥800</div>
+                                    <div class="budget-item">餐飲: ¥600</div>
+                                    <div class="budget-total">合計: ¥1940</div>
+                                </td>
+                                <td class="compact-text">高原季風氣候</td>
+                                <td class="compact-text">古城夜間較擁擠</td>
+                                <td><span class="tag tag-green">納西客棧</span><span class="tag tag-blue">精品酒店</span></td>
+                                <td><span class="tag tag-green">4-10月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-stopover">
+                                <td>38</td>
+                                <td>芒市</td>
+                                <td>1</td>
+                                <td>6小時</td>
+                                <td><span class="tag tag-yellow">中途停留</span></td>
+                                <td class="compact-text">傣族文化、邊境風情</td>
+                                <td class="compact-text">傣味燒烤、菠蘿飯</td>
+                                <td class="compact-text">勐巴娜西珍奇園</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥360</div>
+                                    <div class="budget-item">油費: ¥480</div>
+                                    <div class="budget-item">住宿: ¥250</div>
+                                    <div class="budget-item">餐飲: ¥180</div>
+                                    <div class="budget-total">合計: ¥1278</div>
+                                </td>
+                                <td class="compact-text">亞熱帶季風氣候</td>
+                                <td class="compact-text">尊重傣族習俗</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">傣族民宿</span></td>
+                                <td><span class="tag tag-green">11-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>39</td>
+                                <td><strong>瑞麗</strong></td>
+                                <td>2</td>
+                                <td>3小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">中緬邊境、玉石文化</td>
+                                <td class="compact-text">傣族手抓飯、過橋米線</td>
+                                <td class="compact-text">一寨兩國、姐告口岸</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥180</div>
+                                    <div class="budget-item">油費: ¥220</div>
+                                    <div class="budget-item">住宿: ¥600</div>
+                                    <td class="budget-item">餐飲: ¥500</div>
+                                    <div class="budget-total">合計: ¥1500</div>
+                                </td>
+                                <td class="compact-text">亞熱帶季風氣候</td>
+                                <td class="compact-text">邊境勿隨意拍照</td>
+                                <td><span class="tag tag-blue">邊境酒店</span><span class="tag tag-green">傣族民宿</span></td>
+                                <td><span class="tag tag-green">11-4月</span></td>
+                                <td><span class="tag tag-red">需邊境證</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>40</td>
+                                <td><strong>騰衝</strong></td>
+                                <td>2</td>
+                                <td>4小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">僑鄉文化、溫泉地質</td>
+                                <td class="compact-text">土鍋子、大救駕</td>
+                                <td class="compact-text">和順古鎮、熱海溫泉</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥240</div>
+                                    <div class="budget-item">油費: ¥300</div>
+                                    <div class="budget-item">住宿: ¥700</div>
+                                    <div class="budget-item">餐飲: ¥500</div>
+                                    <div class="budget-total">合計: ¥1740</div>
+                                </td>
+                                <td class="compact-text">亞熱帶高原氣候</td>
+                                <td class="compact-text">溫泉注意安全</td>
+                                <td><span class="tag tag-blue">溫泉酒店</span><span class="tag tag-green">古鎮客棧</span></td>
+                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-stopover">
+                                <td>41</td>
+                                <td>保山</td>
+                                <td>1</td>
+                                <td>3小時</td>
+                                <td><span class="tag tag-yellow">中途停留</span></td>
+                                <td class="compact-text">歷史文化、玉石交易</td>
+                                <td class="compact-text">過手米線、燒豆腐</td>
+                                <td class="compact-text">太保山、雲南驛</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥180</div>
+                                    <div class="budget-item">油費: ¥220</div>
+                                    <div class="budget-item">住宿: ¥200</div>
+                                    <div class="budget-item">餐飲: ¥150</div>
+                                    <div class="budget-total">合計: ¥750</div>
+                                </td>
+                                <td class="compact-text">亞熱帶季風氣候</td>
+                                <td class="compact-text">注意交通安全</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">民宿</span></td>
+                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>42</td>
+                                <td><strong>昆明</strong></td>
+                                <td>2</td>
+                                <td>5小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">春城、多元民族文化</td>
+                                <td class="compact-text">過橋米線、汽鍋雞</td>
+                                <td class="compact-text">石林、滇池</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥300</div>
+                                    <div class="budget-item">油費: ¥400</div>
+                                    <div class="budget-item">住宿: ¥800</div>
+                                    <div class="budget-item">餐飲: ¥600</div>
+                                    <div class="budget-total">合計: ¥2100</div>
+                                </td>
+                                <td class="compact-text">高原季風氣候</td>
+                                <td class="compact-text">市區注意限行</td>
+                                <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                                <td><span class="tag tag-green">全年</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">極佳</span></td>
+                            </tr>
+                            <tr class="location-type-stopover">
+                                <td>43</td>
+                                <td>玉溪</td>
+                                <td>1</td>
+                                <td>2小時</td>
+                                <td><span class="tag tag-yellow">中途停留</span></td>
+                                <td class="compact-text">花燈文化、煙草之鄉</td>
+                                <td class="compact-text">銅鍋魚、涼米線</td>
+                                <td class="compact-text">撫仙湖、映月潭</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥120</div>
+                                    <div class="budget-item">油費: ¥150</div>
+                                    <div class="budget-item">住宿: ¥200</div>
+                                    <div class="budget-item">餐飲: ¥150</div>
+                                    <div class="budget-total">合計: ¥620</div>
+                                </td>
+                                <td class="compact-text">高原季風氣候</td>
+                                <td class="compact-text">湖邊注意安全</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">湖景民宿</span></td>
+                                <td><span class="tag tag-green">全年</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>44</td>
+                                <td><strong>南寧</strong></td>
+                                <td>2</td>
+                                <td>6小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">壯族文化、綠城</td>
+                                <td class="compact-text">老友粉、燒鴨</td>
+                                <td class="compact-text">青秀山、南湖公園</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥360</div>
+                                    <div class="budget-item">油費: ¥480</div>
+                                    <div class="budget-item">住宿: ¥700</div>
+                                    <div class="budget-item">餐飲: ¥500</div>
+                                    <div class="budget-total">合計: ¥2040</div>
+                                </td>
+                                <td class="compact-text">亞熱帶季風氣候</td>
+                                <td class="compact-text">夏季注意防暑</td>
+                                <td><span class="tag tag-blue">商務酒店</span><span class="tag tag-green">特色民宿</span></td>
+                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">極佳</span></td>
+                            </tr>
+                            <tr class="location-type-main">
+                                <td>45</td>
+                                <td><strong>北海</strong></td>
+                                <td>2</td>
+                                <td>4小時</td>
+                                <td><span class="tag tag-blue">主要城市</span></td>
+                                <td class="compact-text">海濱風情、疍家文化</td>
+                                <td class="compact-text">海鮮大餐、沙蟲粥</td>
+                                <td class="compact-text">銀灘、涠洲島</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥240</div>
+                                    <div class="budget-item">油費: ¥300</div>
+                                    <div class="budget-item">住宿: ¥800</div>
+                                    <div class="budget-item">餐飲: ¥600</div>
+                                    <div class="budget-total">合計: ¥1940</div>
+                                </td>
+                                <td class="compact-text">海洋性季風氣候</td>
+                                <td class="compact-text">涠洲島需提前訂船票</td>
+                                <td><span class="tag tag-blue">海景酒店</span><span class="tag tag-green">島上民宿</span></td>
+                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
+                            <tr class="location-type-stopover">
+                                <td>46</td>
+                                <td>湛江</td>
+                                <td>1</td>
+                                <td>4小時</td>
+                                <td><span class="tag tag-yellow">中途停留</span></td>
+                                <td class="compact-text">雷州文化、海鮮美食</td>
+                                <td class="compact-text">白切雞、海鮮粥</td>
+                                <td class="compact-text">硇洲島、湖光岩</td>
+                                <td class="compact-text">
+                                    <div class="budget-item">路費: ¥240</div>
+                                    <div class="budget-item">油費: ¥300</div>
+                                    <div class="budget-item">住宿: ¥250</div>
+                                    <div class="budget-item">餐飲: ¥200</div>
+                                    <div class="budget-total">合計: ¥990</div>
+                                </td>
+                                <td class="compact-text">亞熱帶海洋氣候</td>
+                                <td class="compact-text">海邊注意防曬</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">海邊民宿</span></td>
+                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td><span class="tag tag-green">不需要</span></td>
+                                <td><span class="tag tag-blue">常規轎車</span></td>
+                                <td><span class="tag tag-green">良好</span></td>
+                            </tr>
                             <tr class="location-type-end">
                                 <td>47</td>
                                 <td><strong>江門</strong></td>
-                                <td>1</td>
-                                <td>2小時</td>
+                                <td>-</td>
+                                <td>4小時</td>
                                 <td><span class="tag tag-red">終點</span></td>
-                                <td class="compact-text">僑鄉文化、碉樓</td>
-                                <td class="compact-text">黃鱔飯、陳皮鴨</td>
-                                <td class="compact-text">開平碉樓、上下川島</td>
+                                <td class="compact-text">僑鄉文化、美食之都</td>
+                                <td class="compact-text">陳皮雞、台山黃鱔飯</td>
+                                <td class="compact-text">開平碉樓、赤坎古鎮</td>
                                 <td class="compact-text">
-                                    <div class="budget-item">路費: ¥100</div>
-                                    <div class="budget-item">油費: ¥120</div>
+                                    <div class="budget-item">路費: ¥240</div>
+                                    <div class="budget-item">油費: ¥300</div>
                                     <div class="budget-item">住宿: ¥300</div>
                                     <div class="budget-item">餐飲: ¥200</div>
-                                    <div class="budget-total">合計: ¥720</div>
+                                    <div class="budget-total">合計: ¥1040</div>
                                 </td>
-                                <td class="compact-text">亞熱帶氣候</td>
-                                <td class="compact-text">碉樓景區分散</td>
-                                <td><span class="tag tag-green">碉樓民宿</span><span class="tag tag-blue">海邊酒店</span></td>
-                                <td><span class="tag tag-green">10-4月</span></td>
+                                <td class="compact-text">亞熱帶海洋氣候</td>
+                                <td class="compact-text">結束行程，檢查車輛</td>
+                                <td><span class="tag tag-blue">經濟酒店</span><span class="tag tag-green">僑鄉民宿</span></td>
+                                <td><span class="tag tag-green">全年</span></td>
                                 <td><span class="tag tag-green">不需要</span></td>
                                 <td><span class="tag tag-blue">常規轎車</span></td>
                                 <td><span class="tag tag-green">良好</span></td>
@@ -1638,144 +1690,137 @@
                         </tbody>
                     </table>
                 </div>
-                
-                <div style="margin-top: 20px; padding: 15px; background: #e9f2fa; border-radius: 8px;">
-                    <h4><i class="fas fa-info-circle"></i> 完整行程說明</h4>
-                    <p><strong>總計47個地點</strong>：包含29個主要城市和18個中途停留點</p>
-                    <p><strong>預算細分</strong>：每個地點都包含詳細的路費、油費、住宿、餐飲預算</p>
-                    <p><strong>總體預算建議</strong>：¥55,000 - ¥85,000 (兩人，75-95天)</p>
-                    <p><strong>路線優化</strong>：所有長途路段都已拆分，確保每日駕駛不超過6小時</p>
-                </div>
             </div>
             
-            <!-- 其他標籤頁內容保持不變 -->
             <div id="segments" class="tab-content">
-                <h3>分段路書（行程節奏與駕駛安排）</h3>
-                
+                <h3>分段路書 - 三段路線詳情</h3>
                 <div class="route-section route-1">
                     <div class="route-title">
-                        <div class="route-icon">G331</div>
-                        <h3>G331國道 - 北部邊境段 (9333公里)</h3>
+                        <div class="route-icon">1</div>
+                        <h3>G331 - 沿海段（橫琴口岸 → 撫遠，約11,000公里，30天）</h3>
                     </div>
-                    <p><strong>主要途徑：</strong> 丹東 → 長白 → 琿春 → 撫遠 → 哈爾濱 → 漠河 → 滿洲里 → 海拉爾 → 新巴爾虎左旗 → 阿爾山 → 二連浩特 → 烏蘭察布 → 巴彥淖爾 → 額濟納旗 → 哈密 → 烏魯木齊 → 喀納斯 → 霍爾果斯</p>
-                    <p><strong>預計天數：</strong> 30-40天 | <strong>預算估算：</strong> ¥20,000 - ¥28,000</p>
-                    <p><strong>路況與駕駛貼士：</strong> 邊境公路多，部分路段維修。林區路段注意野生動物。信號不穩定，提前下載離線地圖。</p>
-                    <p><strong>推薦休整點：</strong> 撫遠、哈爾濱、阿爾山、額濟納旗</p>
+                    <p>沿著中國東南、東北沿海，途經繁華都市與海濱城市，體驗海洋文化與現代化城市風貌。路況良好，適合常規轎車，但需注意高峰期交通與邊境檢查。</p>
+                    <ul>
+                        <li><strong>主要地點</strong>: 廣州、深圳、廈門、杭州、上海、青島、大連、丹東、撫遠</li>
+                        <li><strong>特色</strong>: 嶺南文化、閩南風情、海派文化、啤酒節、東北邊境</li>
+                        <li><strong>建議</strong>: 提前規劃沿海景點門票，避開暑期高峰，準備防曬用品。</li>
+                    </ul>
                 </div>
-                
                 <div class="route-section route-2">
                     <div class="route-title">
-                        <div class="route-icon">G219</div>
-                        <h3>G219國道 - 西部高原段 (10065公里)</h3>
+                        <div class="route-icon">2</div>
+                        <h3>G219 - 西部高原段（撫遠 → 墨脫，約10,000公里，35天）</h3>
                     </div>
-                    <p><strong>主要途徑：</strong> 霍爾果斯 → 伊寧 → 庫爾勒 → 阿克蘇 → 喀什 → 葉城 → 日土 → 獅泉河 → 普蘭 → 隆子 → 林芝 → 波密 → 墨脫 → 大理 → 昆明 → 憑祥 → 南寧 → 防城港 → 東興</p>
-                    <p><strong>預計天數：</strong> 25-35天 | <strong>預算估算：</strong> ¥18,000 - ¥25,000</p>
-                    <p><strong>路況與駕駛貼士：</strong> 最艱苦路段。新藏線（G219）海拔高，阿里地區荒涼。滇藏、桂西山區路況複雜，謹慎駕駛。</p>
-                    <p><strong>推薦休整點：</strong> 阿克蘇、日土、墨脫</p>
+                    <p>穿越東北平原、內蒙草原、新疆沙漠與西藏高原，挑戰高海拔與多變地形，需四驅車與充分準備。</p>
+                    <ul>
+                        <li><strong>主要地點</strong>: 漠河、滿洲里、喀納斯、霍爾果斯、日土、墨脫</li>
+                        <li><strong>特色</strong>: 極光、草原、沙漠、雪山、高原湖泊、藏族文化</li>
+                        <li><strong>建議</strong>: 準備高原反應藥物、備足油料與補給，檢查車輛性能，辦理邊境證。</li>
+                    </ul>
                 </div>
-                
                 <div class="route-section route-3">
                     <div class="route-title">
-                        <div class="route-icon">G228</div>
-                        <h3>G228國道 - 東部沿海段 (7800公里)</h3>
+                        <div class="route-icon">3</div>
+                        <h3>G228 - 南部回程段（墨脫 → 江門，約6,198公里，25天）</h3>
                     </div>
-                    <p><strong>主要途徑：</strong> 東興 → 廣州 → 深圳 → 廈門 → 福州 → 溫州 → 杭州 → 上海 → 連雲港 → 日照 → 青島 → 大連 → 營口 → 丹東</p>
-                    <p><strong>預計天數：</strong> 20-30天 | <strong>預算估算：</strong> ¥15,000 - ¥22,000</p>
-                    <p><strong>路況與駕駛貼士：</strong> 路況極佳，車流大。注意市區限行，避開節假日。沿海公路風景優美。</p>
-                    <p><strong>推薦休整點：</strong> 廣州、杭州、青島</p>
+                    <p>從西藏經雲南、廣西回到廣東，體驗多元民族文化與熱帶風情，路況逐漸改善，適合放鬆旅程。</p>
+                    <ul>
+                        <li><strong>主要地點</strong>: 大理、麗江、瑞麗、昆明、南寧、北海、江門</li>
+                        <li><strong>特色</strong>: 白族、納西族、傣族、壯族文化，海濱度假、僑鄉風情</li>
+                        <li><strong>建議</strong>: 注意熱帶氣候防暑，提前預訂涠洲島船票，享受美食與休閒。</li>
+                    </ul>
                 </div>
             </div>
             
             <div id="tips" class="tab-content">
-                <h3>自駕建議與注意事項</h3>
-                
+                <h3>自駕建議 - 安全與舒適的旅程</h3>
                 <div class="tips-grid">
                     <div class="tip-card">
                         <h4><i class="fas fa-car"></i> 車輛準備</h4>
-                        <p>東部沿海常規轎車即可，西部、高原、邊境建議<strong>四驅SUV</strong>，漠河、阿爾山、西藏等地需特別注意防凍與高原適應。</p>
+                        <p>檢查輪胎、剎車、油路，確保車輛適應高原與沙漠地形。建議攜帶備胎、工具箱與急救包。長途駕駛需備足燃油，特別在新疆、西藏偏遠地區。</p>
                     </div>
-                    
                     <div class="tip-card">
-                        <h4><i class="fas fa-id-card"></i> 證件準備</h4>
-                        <p>邊境地區如<strong>霍爾果斯、琿春、西藏全境、墨脫</strong>等需提前辦理<strong>邊防證/許可證</strong>。</p>
+                        <h4><i class="fas fa-map"></i> 導航與通訊</h4>
+                        <p>使用高德地圖或百度地圖，離線地圖備份以應對偏遠地區信號弱的情況。攜帶車載充電器與行動電源，確保通訊暢通。</p>
                     </div>
-                    
                     <div class="tip-card">
-                        <h4><i class="fas fa-map"></i> 通訊與導航</h4>
-                        <p>西部與山區信號不穩，建議下載<strong>離線地圖</strong>，攜帶衛星電話（如進入阿里、墨脫）。</p>
+                        <h4><i class="fas fa-umbrella"></i> 氣候適應</h4>
+                        <p>沿海地區注意防曬，高原地區攜帶羽絨服與防寒裝備，沙漠地區備好防沙口罩。隨時關注天氣預報，避開雨季與極端天氣。</p>
                     </div>
-                    
                     <div class="tip-card">
-                        <h4><i class="fas fa-leaf"></i> 環保意識</h4>
-                        <p>中國自然保護區與邊境生態脆弱，請做到<strong>"無痕旅行"</strong>，垃圾隨車帶走。</p>
+                        <h4><i class="fas fa-utensils"></i> 飲食與補給</h4>
+                        <p>沿海城市美食豐富，偏遠地區建議自備乾糧與水。注意飲食衛生，避免生冷食物，特別在高原地區保持水分攝取。</p>
                     </div>
-                    
                     <div class="tip-card">
-                        <h4><i class="fas fa-calendar-alt"></i> 季節選擇</h4>
-                        <p>整體建議<strong>春秋季</strong>出發，避開極端氣候；西藏、新疆最佳為<strong>5–9月</strong>，東北與漠河夏季宜人、冬季可體驗極寒。</p>
+                        <h4><i class="fas fa-passport"></i> 證件準備</h4>
+                        <p>攜帶身份證、駕駛證、行車證，邊境地區需提前辦理邊防證。部分景區需預約，建議提前查詢並準備。</p>
                     </div>
-                    
                     <div class="tip-card">
-                        <h4><i class="fas fa-gas-pump"></i> 加油策略</h4>
-                        <p>在偏遠地區如內蒙、新疆、西藏，<strong>遇加油站即加滿油</strong>，避免因加油站間隔遠而陷入困境。</p>
+                        <h4><i class="fas fa-hotel"></i> 住宿規劃</h4>
+                        <p>提前預訂熱門景點附近住宿，節假日需提早數週。偏遠地區選擇正規客棧或酒店，確保安全與舒適。</p>
                     </div>
                 </div>
             </div>
             
             <div id="permit" class="tab-content">
-                <h3>邊境證辦理指南</h3>
-                
+                <h3>邊境證指南 - 安全合規通行</h3>
                 <div class="permit-info">
-                    <h3>需要邊防證的地區清單</h3>
-                    <ul>
-                        <li><strong>西藏全境</strong>（尤其是<strong>阿里地區、日土、隆子、墨脫</strong>等）</li>
-                        <li><strong>新疆部分邊境地區</strong>（如<strong>霍爾果斯口岸、喀納斯景區附近</strong>的白哈巴村）</li>
-                        <li><strong>雲南/廣西部分邊境口岸</strong>（如<strong>憑祥、東興</strong>，一般憑身份證在口岸辦理一次性通行證明，但長線行程建議提前備好）</li>
-                    </ul>
-                </div>
-                
-                <h3 style="margin-top: 30px;">辦理方式</h3>
-                
-                <div class="permit-method">
-                    <div class="method-card recommended">
-                        <div class="recommended-badge">推薦</div>
-                        <h4>出發前在戶籍地辦理</h4>
-                        <p><strong>地點：</strong> 戶籍所在地的<strong>市公安局/分局出入境管理大廳</strong>或<strong>行政服務大廳</strong>。</p>
-                        <p><strong>材料：</strong> 身份證、戶口本原件、1-2張一寸照片，現場填寫《邊境管理區通行證申請表》。</p>
-                        <p><strong>優勢：</strong> 免費、快捷（通常立等可取）、有效期長（通常可辦理1-3個月）。</p>
-                        <p><strong>填寫技巧：</strong> 在"前往地點"一欄，務必填寫"<strong>西藏自治區 全境</strong>"、"<strong>新疆維吾爾自治區 全境</strong>"，或直接列出所有可能經過的邊境地區名稱。</p>
-                    </div>
-                    
-                    <div class="method-card">
-                        <h4>在旅行目的地辦理</h4>
-                        <p><strong>西藏：</strong> 可在<strong>拉薩</strong>的「西藏邊境管理總隊辦證大廳」憑身份證代辦。但節假日排隊人多，且不保證能辦理前往所有地區的證件（如阿里）。</p>
-                        <p><strong>新疆：</strong> 部分邊境口岸（如霍爾果斯）可憑身份證現場辦理一次性通行證，但耗時且活動範圍受限。</p>
-                        <p><strong>劣勢：</strong> 不確定性高，可能排長隊，耽誤行程，費用可能更高。</p>
+                    <p>環中國自駕遊涉及新疆、西藏等邊境地區，需辦理邊防證。以下為辦理方式與建議：</p>
+                    <div class="permit-method">
+                        <div class="method-card recommended">
+                            <div class="recommended-badge">推薦</div>
+                            <h4>線下辦理</h4>
+                            <p>前往戶籍所在地或旅遊當地公安局出入境管理處辦理，需提供身份證、駕駛證及行程計劃。辦理時間約3-7天，費用免費。</p>
+                            <ul>
+                                <li><strong>適用地點</strong>: 琿春、喀納斯、霍爾果斯、日土、隆子、墨脫</li>
+                                <li><strong>優勢</strong>: 官方正規，手續簡單</li>
+                                <li><strong>注意</strong>: 提前確認所需材料，部分地區需指定具體邊境地點</li>
+                            </ul>
+                        </div>
+                        <div class="method-card">
+                            <h4>旅行社代辦</h4>
+                            <p>委託專業旅行社代辦邊防證，適合時間緊張的旅客。費用約¥100-300，需提供個人信息與行程。</p>
+                            <ul>
+                                <li><strong>適用地點</strong>: 同上</li>
+                                <li><strong>優勢</strong>: 省時省力，適合初次辦理者</li>
+                                <li><strong>注意</strong>: 選擇正規旅行社，避免詐騙</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         
         <footer>
-            <p>環中國自駕遊行程規劃系統 &copy; 2023 | 資料僅供參考，實際行程請根據當地情況調整</p>
+            <p>© 2025 環中國自駕遊行程規劃系統 | 提供最全面的自駕指南，祝您旅途愉快！</p>
         </footer>
     </div>
 
     <script>
-        // 切換標籤功能
         function openTab(tabName) {
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
             }
-            
-            const tabs = document.getElementsByClassName("tab");
-            for (let i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove("active");
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
             }
-            
             document.getElementById(tabName).classList.add("active");
             event.currentTarget.classList.add("active");
+        }
+
+        function toggleMode() {
+            const body = document.body;
+            const toggleButton = document.querySelector('.mode-toggle');
+            if (body.classList.contains('mobile-mode')) {
+                body.classList.remove('mobile-mode');
+                toggleButton.textContent = '切換手機版';
+            } else {
+                body.classList.add('mobile-mode');
+                toggleButton.textContent = '切換桌面版';
+            }
         }
     </script>
 </body>
